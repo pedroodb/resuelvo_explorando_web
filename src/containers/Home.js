@@ -2,25 +2,17 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 import logo from '../assets/resuelvo_explorando_logo.png'
-import '../App.css'
+import '../styles/Home.css'
 
 class HomeContainer extends Component {
     render() {
       return (
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
+        <div id="HomeContainer">
+          <header className="header">
+            <img src={logo} className="logo" alt="logo" />
             <p>
               Edit <code>src/App.js</code> and save toooo reload.
             </p>
-            <a
-              className="App-link"
-              href="https://reactjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn React
-            </a>
             <Link to="/activityCreation/activitySetUp">Crear actividad</Link>
           </header>
         </div>
