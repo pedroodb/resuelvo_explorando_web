@@ -22,7 +22,7 @@ class HomeContainer extends Component {
             </a>
           </header>
         </div>
-      );
+      )
     }
   }
   

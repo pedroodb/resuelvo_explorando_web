@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 
-import { Home } from './containers'
+import { BrowserRouter } from "react-router-dom"
+import AppRoutes from './routes/AppRoutes'
 
 class App extends Component {
   render() {
     return (
-      <Home />
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
     );
   }
 }
