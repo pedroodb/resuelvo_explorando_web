@@ -21,7 +21,7 @@ class HomeContainer extends Component {
             >
               Learn React
             </a>
-            <Link to="/activitySetUp">Crear actividad</Link>
+            <Link to="/activityCreation/activitySetUp">Crear actividad</Link>
           </header>
         </div>
       )
