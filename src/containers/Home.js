@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 import logo from '../assets/resuelvo_explorando_logo.png'
 import '../App.css'
@@ -20,6 +21,7 @@ class HomeContainer extends Component {
             >
               Learn React
             </a>
+            <Link to="/activitySetUp">Crear actividad</Link>
           </header>
         </div>
       )
