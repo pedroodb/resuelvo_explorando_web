@@ -7,8 +7,6 @@ import { setTitle, setDescription } from '../actions/currentActivityActions'
 class ActivitySetUpContainer extends Component {
 
   render() {
-
-    console.log(this.props)
       
     const {
       title,
