@@ -26,5 +26,7 @@ class HomeContainer extends Component {
     )
   }
 }
-  
+
+/*La funcion withRouter importada de react-router-dom es una funcion de alto orden de componentes
+que te devuelve el componente con las props del router (entre ellas history)*/
 export default withRouter(HomeContainer)
