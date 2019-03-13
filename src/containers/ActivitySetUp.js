@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { Button, Form } from 'semantic-ui-react'
 
 import { setTitle, setDescription } from '../actions/currentActivityActions'
 
@@ -17,7 +18,17 @@ class ActivitySetUpContainer extends Component {
       <div>
         <header> Creando actividad {title}
         </header>
-        <input type="text" onChange={(event) => {this.props.actions.setTitle(event.target.value)}}></input>
+        <Form>
+          <Form.Field>
+            <label>Titulo</label>
+            <input placeholder='Titulo' onChange={(event) => {this.props.actions.setTitle(event.target.value)}} />
+          </Form.Field>
+          <Form.Field>
+            <label>Descripcion</label>
+            <input placeholder='Descripcion' onChange={(event) => {this.props.actions.setDescription(event.target.value)}}/>
+          </Form.Field>
+          <Button>Agregar tarea</Button>
+        </Form>
       </div>
     )
   }
