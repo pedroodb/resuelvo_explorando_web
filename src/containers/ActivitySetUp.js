@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Button, Form } from 'semantic-ui-react'
@@ -10,13 +11,16 @@ class ActivitySetUpContainer extends Component {
   render() {
       
     const {
-      title,
-      description,
-    } = this.props.currentActivity
+      history,
+      currentActivity: {
+        title,
+        description,
+      }
+    } = this.props
 
     return (
       <div>
-        <header> Creando actividad {title}
+        <header> Creando actividad {title} : {description}
         </header>
         <Form>
           <Form.Field>
@@ -27,7 +31,7 @@ class ActivitySetUpContainer extends Component {
             <label>Descripcion</label>
             <input placeholder='Descripcion' onChange={(event) => {this.props.actions.setDescription(event.target.value)}}/>
           </Form.Field>
-          <Button>Agregar tarea</Button>
+          <Button onClick={() => history.push("/taskSetUp")}>Agregar tarea</Button>
         </Form>
       </div>
     )
@@ -51,4 +55,4 @@ function mapStateToProps({currentActivityReducer}) {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(ActivitySetUpContainer)
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(ActivitySetUpContainer))
