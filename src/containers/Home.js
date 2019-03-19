@@ -18,7 +18,7 @@ class HomeContainer extends Component {
         <header className="header">
           <img src={logo} className="logo" alt="logo" />
           <p>
-            Edit src/App.js and save to reload.
+            Bienvenido a la herramienta de configuración de Resuelvo Explorando.
           </p>
           <Button onClick={() => history.push("/activityCreation/activitySetUp")}>Crear actividad</Button>
         </header>

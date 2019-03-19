@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 
 import { ActivitySetUp, TaskSetUp } from '../containers'
 
+//Rutas correspondientes a la creación de una tarea
 class AppRoutes extends Component {
     render() {
       return (
