@@ -1,4 +1,4 @@
-import { TITLE_SET, DESCRIPTION_SET } from '../constants'
+import { TITLE_SET, DESCRIPTION_SET, TASK_ADD } from '../constants'
 
 export function setTitle(name) {
   return {
@@ -11,5 +11,12 @@ export function setDescription(description) {
   return {
     type:DESCRIPTION_SET,
     payload:description,
+  }
+}
+
+export function addTask(task) {
+  return {
+    type:TASK_ADD,
+    payload:task
   }
 }

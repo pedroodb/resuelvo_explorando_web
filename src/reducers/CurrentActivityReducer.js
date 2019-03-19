@@ -1,4 +1,4 @@
-import { TITLE_SET, DESCRIPTION_SET } from '../constants'
+import { TITLE_SET, DESCRIPTION_SET, TASK_ADD } from '../constants'
 
 const initialState = {
   title:'',
@@ -17,6 +17,13 @@ const activityReducer = (state = initialState, action) => {
       return {
         ...state,
         description:action.payload,
+      }
+    case TASK_ADD:
+      const tasks = state.tasks
+      tasks.push(action.payload)
+      return {
+        ...state,
+        tasks:tasks,
       }
     default:
       return state 
