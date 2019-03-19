@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-class ActivitySetUpContainer extends Component {
+class TaskSetUpContainer extends Component {
 
   render() {
 
@@ -25,10 +25,10 @@ function mapDispatchToProps(dispatch) {
 }
 
 //Funcion que mapea el estado de la APLICACION (redux) con las props del componente
-function mapStateToProps({currentActivityReducer}) {
+function mapStateToProps({currentTaskReducer}) {
   return {
-    currentActivity:currentActivityReducer
+    currentTask:currentTaskReducer
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(ActivitySetUpContainer)
+export default connect(mapStateToProps,mapDispatchToProps)(TaskSetUpContainer)

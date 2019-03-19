@@ -18,7 +18,6 @@ const activityReducer = (state = initialState, action) => {
         ...state,
         description:action.payload,
       }
-    
     default:
       return state 
   }
