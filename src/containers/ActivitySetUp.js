@@ -15,22 +15,25 @@ class ActivitySetUpContainer extends Component {
       currentActivity: {
         title,
         description,
-      }
+        tasks,
+      },
+      actions: {
+        setTitle,
+        setDescription,
+      },
     } = this.props
 
     return (
       <div>
-        <header> Creando actividad {title} : {description}
-        </header>
+        <header>Creando actividad {title} : {description}</header>
         <Form>
-          <Form.Field>
-            <label>Titulo</label>
-            <input placeholder='Titulo' onChange={(event) => {this.props.actions.setTitle(event.target.value)}} />
-          </Form.Field>
-          <Form.Field>
-            <label>Descripcion</label>
-            <input placeholder='Descripcion' onChange={(event) => {this.props.actions.setDescription(event.target.value)}}/>
-          </Form.Field>
+          <Form.Input name='title' label='Titulo' value={title} placeholder='Titulo'
+            onChange={(event, {value}) => {setTitle(value)}} />
+          <Form.Input name='description' label='Descripcion' value={description} placeholder='Descripcion' 
+            onChange={(event, {value}) => {setDescription(value)}} />
+          <ul>
+            {tasks.map((task) => <li key={task.code}>{task.title}</li>)}
+          </ul>
           <Button onClick={() => history.push("/taskSetUp")}>Agregar tarea</Button>
         </Form>
       </div>
