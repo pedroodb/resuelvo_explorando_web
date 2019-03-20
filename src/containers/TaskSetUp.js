@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Button, Form } from 'semantic-ui-react'
+import { Form } from 'semantic-ui-react'
+
+import { MULTIPLE_CHOICE, FREE_ANSWER } from '../constants'
+import { addTask } from '../actions/currentActivityActions'
 
 class TaskSetUpContainer extends Component {
 
@@ -11,36 +15,40 @@ class TaskSetUpContainer extends Component {
     this.handleFormChange = this.handleFormChange.bind(this)
 
     this.state = {
-      ...this.props.task
+      task:this.props.task,
     }
   }
 
-  handleFormChange(event) {
-    let newState = {}
-    newState[event.target.name] = event.target.value
-    this.setState(() => ({...newState}))
+  handleFormChange = (event, { name, value }) => this.setState(({task}) => ({ task:{...task,[name]:value} }))
+
+  handleFormSubmit = () => {
+    this.props.actions.addTask(this.state.task)
+    this.props.history.push("/activitySetup")
   }
 
   render() {
 
     const {
-      history
-    } = this.props
+      task,
+    } = this.state
 
     return (
       <div>
         <header> Creando tarea
         </header>
-        <Form>
-          <Form.Field>
-            <label>Titulo</label>
-            <Form.Input name='title' placeholder='Titulo' onChange={this.handleFormChange} />
-          </Form.Field>
-          <Form.Field>
-            <label>Descripcion</label>
-            <input name='description' placeholder='Descripcion' onChange={this.handleFormChange} />
-          </Form.Field>
-          <Button onClick={() => history.push("/taskSetUp")}>Agregar tarea</Button>
+        <Form onSubmit={this.handleFormSubmit}>
+          <Form.Input name='title' label='Titulo' value={task.title} placeholder='Titulo' onChange={this.handleFormChange} />
+          <Form.Input name='description' label='Descripcion' value={task.description} placeholder='Descripcion' onChange={this.handleFormChange} />
+          <Form.Select name='type' 
+            value={task.type} 
+            placeholder='Elija el tipo de tarea' 
+            onChange={this.handleFormChange}
+            options={[
+              { text:'Multiple Choice', value:MULTIPLE_CHOICE },
+              { text:'Respuesta libre', value:FREE_ANSWER },
+            ]}
+          />
+          <Form.Button content='Agregar tarea' />
         </Form>
       </div>
     )
@@ -51,7 +59,7 @@ class TaskSetUpContainer extends Component {
 function mapDispatchToProps(dispatch) {
   return {
     actions : bindActionCreators({
-
+      addTask
     }, dispatch)
   }
 }
@@ -63,4 +71,4 @@ function mapStateToProps({currentTaskReducer}) {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(TaskSetUpContainer)
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(TaskSetUpContainer))
