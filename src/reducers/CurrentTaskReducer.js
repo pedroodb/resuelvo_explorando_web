@@ -3,7 +3,6 @@ import { TASK_SET, TASK_CLEAR } from '../constants'
 const initialState = {
   title:'',
   description:'',
-  type:'0',
   code:'',
   payload:null,
 }

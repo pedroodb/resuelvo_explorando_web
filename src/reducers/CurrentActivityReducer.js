@@ -26,7 +26,7 @@ const activityReducer = (state = initialState, action) => {
     case TASK_REMOVE:
       return {
         ...state,
-        tasks:state.tasks.filter((task) => task.code !== action.payload.code)
+        tasks:state.tasks.filter((task) => task.code !== action.payload.code).map((task, index) => ({...task, code:index}))
       }
     default:
       return state 
