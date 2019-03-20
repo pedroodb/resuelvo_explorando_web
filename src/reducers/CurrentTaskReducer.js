@@ -1,4 +1,4 @@
-import { TASK_SET } from '../constants'
+import { TASK_SET, TASK_CLEAR } from '../constants'
 
 const initialState = {
   title:'',
@@ -14,6 +14,10 @@ const taskReducer = (state = initialState, action) => {
       return {
         ...state,
         ...(action.payload),
+      }
+    case TASK_CLEAR:
+      return {
+        ...initialState
       }
     default:
       return state 

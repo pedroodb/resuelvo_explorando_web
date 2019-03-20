@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Button, Form } from 'semantic-ui-react'
 
-import { setTitle, setDescription } from '../actions/currentActivityActions'
+import { setTitle, setDescription, removeTask } from '../actions/currentActivityActions'
+import { setTask } from '../actions/currentTaskActions'
 
 class ActivitySetUpContainer extends Component {
 
@@ -20,6 +21,8 @@ class ActivitySetUpContainer extends Component {
       actions: {
         setTitle,
         setDescription,
+        setTask,
+        removeTask,
       },
     } = this.props
 
@@ -31,9 +34,13 @@ class ActivitySetUpContainer extends Component {
             onChange={(event, {value}) => {setTitle(value)}} />
           <Form.Input name='description' label='Descripción' value={description} placeholder='Descripción' 
             onChange={(event, {value}) => {setDescription(value)}} />
-          <ul>
-            {tasks.map((task) => <li key={task.code}>{task.title}</li>)}
-          </ul>
+          {tasks.map((task) => 
+            <Button key={task.code} onClick={() => {
+              removeTask(task)
+              setTask(task)
+              history.push("/taskSetUp")
+            }}>{task.title}
+            </Button>)}
           <Button onClick={() => history.push("/taskSetUp")}>Agregar tarea</Button>
         </Form>
       </div>
@@ -47,6 +54,8 @@ function mapDispatchToProps(dispatch) {
     actions : bindActionCreators({
       setTitle,
       setDescription,
+      setTask,
+      removeTask,
     }, dispatch)
   }
 }

@@ -1,4 +1,4 @@
-import { TITLE_SET, DESCRIPTION_SET, TASK_ADD } from '../constants'
+import { TITLE_SET, DESCRIPTION_SET, TASK_ADD, TASK_REMOVE } from '../constants'
 
 export function setTitle(name) {
   return {
@@ -17,6 +17,13 @@ export function setDescription(description) {
 export function addTask(task) {
   return {
     type:TASK_ADD,
-    payload:task
+    payload:task,
+  }
+}
+
+export function removeTask(task) {
+  return {
+    type:TASK_REMOVE,
+    payload:task,
   }
 }
