@@ -28,9 +28,9 @@ class ActivitySetUpContainer extends Component {
       <div>
         <header>Creando actividad {title} : {description}</header>
         <Form>
-          <Form.Input name='title' label='Título' value={title} placeholder='Título'
+          <Form.Input name='title' label='Título' value={title} placeholder='Título' required
             onChange={(event, {value}) => {setTitle(value)}} />
-          <Form.Input name='description' label='Descripción' value={description} placeholder='Descripción' 
+          <Form.Input name='description' label='Descripción' value={description} placeholder='Descripción' required
             onChange={(event, {value}) => {setDescription(value)}} />
           <TaskCardGroup tasks={tasks}/>
           <Button onClick={() => history.push("/taskSetUp")}>Agregar tarea</Button>

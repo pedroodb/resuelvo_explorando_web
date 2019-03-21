@@ -33,8 +33,8 @@ class TaskSetUpContainer extends Component {
         <header> Creando tarea
         </header>
         <Form onSubmit={this.handleFormSubmit}>
-          <Form.Input label='Título' value={fields.title} placeholder='Título' onChange={(event, { value }) => setCurrentTaskTitle(value)} />
-          <Form.Input label='Descripción' value={fields.description} placeholder='Descripción' onChange={(event, { value }) => setCurrentTaskDescription(value)} />
+          <Form.Input label='Título' value={fields.title} placeholder='Título' onChange={(event, { value }) => setCurrentTaskTitle(value)} required/>
+          <Form.Input label='Descripción' value={fields.description} placeholder='Descripción' onChange={(event, { value }) => setCurrentTaskDescription(value)} required/>
           <Form.Select
             value={fields.type} 
             placeholder='Elija el tipo de tarea' 
