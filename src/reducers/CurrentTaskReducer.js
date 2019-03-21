@@ -1,23 +1,78 @@
-import { TASK_SET, TASK_CLEAR } from '../constants'
+import {
+  CURRENT_TASK_SET,
+  CURRENT_TASK_CLEAR,
+  CURRENT_TASK_TITLE_SET,
+  CURRENT_TASK_DESCRIPTION_SET,
+  CURRENT_TASK_TYPE_SET,
+  CURRENT_TASK_PAYLOAD_SET,
+} from '../constants'
 
 const initialState = {
-  title:'',
-  description:'',
-  code:'',
-  payload:null,
+  current:{
+    title:'',
+    description:'',
+    code:'',
+    payload:null,
+  },
+  fields:{
+    title:'',
+    description:'',
+    code:'',
+    payload:null,
+  },
+  editing:false,
 }
 
 const taskReducer = (state = initialState, action) => {
   switch (action.type) {
-    case TASK_SET:
+    case CURRENT_TASK_SET:
       return {
         ...state,
-        ...(action.payload),
+        current:{
+          ...(action.payload),
+        },
+        fields:{
+          ...(action.payload),
+        },
+        editing:true,
       }
-    case TASK_CLEAR:
+    case CURRENT_TASK_CLEAR:
       return {
-        ...initialState
+        ...initialState,
       }
+    case CURRENT_TASK_TITLE_SET:
+      return {
+        ...state,
+        fields:{
+          ...state.fields,
+          title:action.payload,
+          code:action.payload,
+        }
+      }
+    case CURRENT_TASK_DESCRIPTION_SET:
+        return {
+          ...state,
+          fields:{
+            ...state.fields,
+            description:action.payload,
+          }
+        }
+    case CURRENT_TASK_TYPE_SET:
+        return {
+          ...state,
+          fields:{
+            ...state.fields,
+            type:action.payload,
+          }
+        }
+    case CURRENT_TASK_PAYLOAD_SET:
+        return {
+          ...state,
+          fields:{
+            ...state.fields,
+            payload:action.payload,
+          }
+        }
     default:
       return state 
   }

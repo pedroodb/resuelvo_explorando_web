@@ -6,24 +6,12 @@ import { Form } from 'semantic-ui-react'
 
 import { MULTIPLE_CHOICE, FREE_ANSWER } from '../constants'
 import { addTask } from '../actions/currentActivityActions'
-import { clearTask } from '../actions/currentTaskActions'
+import { clearTask, setCurrentTaskTitle, setCurrentTaskDescription, setCurrentTaskType, setCurrentTaskPayload } from '../actions/currentTaskActions'
 
 class TaskSetUpContainer extends Component {
 
-  constructor(props) {
-    super(props)
-
-    this.handleFormChange = this.handleFormChange.bind(this)
-
-    this.state = {
-      task:this.props.task,
-    }
-  }
-
-  handleFormChange = (event, { name, value }) => this.setState(({task}) => ({ task:{...task,[name]:value} }))
-
   handleFormSubmit = () => {
-    this.props.actions.addTask(this.state.task)
+    this.props.actions.addTask(this.props.fields)
     this.props.actions.clearTask()
     this.props.history.push("/activitySetup")
   }
@@ -31,20 +19,26 @@ class TaskSetUpContainer extends Component {
   render() {
 
     const {
-      task,
-    } = this.state
+      fields,
+      actions:{
+        setCurrentTaskTitle,
+        setCurrentTaskDescription,
+        setCurrentTaskType,
+        setCurrentTaskPayload,
+      },
+    } = this.props
 
     return (
       <div>
         <header> Creando tarea
         </header>
         <Form onSubmit={this.handleFormSubmit}>
-          <Form.Input name='title' label='Título' value={task.title} placeholder='Título' onChange={this.handleFormChange} />
-          <Form.Input name='description' label='Descripción' value={task.description} placeholder='Descripción' onChange={this.handleFormChange} />
-          <Form.Select name='type' 
-            value={task.type} 
+          <Form.Input label='Título' value={fields.title} placeholder='Título' onChange={(event, { value }) => setCurrentTaskTitle(value)} />
+          <Form.Input label='Descripción' value={fields.description} placeholder='Descripción' onChange={(event, { value }) => setCurrentTaskDescription(value)} />
+          <Form.Select
+            value={fields.type} 
             placeholder='Elija el tipo de tarea' 
-            onChange={this.handleFormChange}
+            onChange={(event, { value }) => setCurrentTaskType(value)}
             options={[
               { text:'Multiple Choice', value:MULTIPLE_CHOICE },
               { text:'Respuesta libre', value:FREE_ANSWER },
@@ -63,14 +57,25 @@ function mapDispatchToProps(dispatch) {
     actions : bindActionCreators({
       addTask,
       clearTask,
+      setCurrentTaskTitle,
+      setCurrentTaskDescription,
+      setCurrentTaskType,
+      setCurrentTaskPayload
     }, dispatch)
   }
 }
 
 //Funcion que mapea el estado de la APLICACION (redux) con las props del componente
-function mapStateToProps({currentTaskReducer}) {
+function mapStateToProps(
+  {currentTaskReducer:{
+    current,
+    fields,
+    editing,
+  }}) {
   return {
-    task:currentTaskReducer
+    current,
+    fields,
+    editing,
   }
 }
 

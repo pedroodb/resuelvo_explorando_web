@@ -13,7 +13,7 @@ class TaskCardGroupComponent extends Component {
 
     return (
       <Card.Group>
-        {tasks.map((task) => <TaskCard task={task} key={task.code}/>)}
+        {tasks.map((task, index) => <TaskCard task={task} key={index}/>)}
       </Card.Group>
     )
   }
