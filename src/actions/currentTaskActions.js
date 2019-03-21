@@ -7,12 +7,12 @@ import {
   CURRENT_TASK_PAYLOAD_SET,
 } from '../constants'
 
-export const setTask = (task) => ({
+export const setCurrentTask = (task) => ({
   type:CURRENT_TASK_SET,
   payload:task,
 })
 
-export const clearTask = () => ({
+export const clearCurrentTask = () => ({
   type:CURRENT_TASK_CLEAR,
 })
 

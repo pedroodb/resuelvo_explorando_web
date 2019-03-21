@@ -6,13 +6,13 @@ import { Form } from 'semantic-ui-react'
 
 import { MULTIPLE_CHOICE, FREE_ANSWER } from '../constants'
 import { addTask } from '../actions/currentActivityActions'
-import { clearTask, setCurrentTaskTitle, setCurrentTaskDescription, setCurrentTaskType, setCurrentTaskPayload } from '../actions/currentTaskActions'
+import { clearCurrentTask, setCurrentTaskTitle, setCurrentTaskDescription, setCurrentTaskType, setCurrentTaskPayload } from '../actions/currentTaskActions'
 
 class TaskSetUpContainer extends Component {
 
   handleFormSubmit = () => {
     this.props.actions.addTask(this.props.fields)
-    this.props.actions.clearTask()
+    this.props.actions.clearCurrentTask()
     this.props.history.push("/activitySetup")
   }
 
@@ -56,7 +56,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions : bindActionCreators({
       addTask,
-      clearTask,
+      clearCurrentTask,
       setCurrentTaskTitle,
       setCurrentTaskDescription,
       setCurrentTaskType,

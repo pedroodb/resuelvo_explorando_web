@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import { removeTask } from '../../actions/currentActivityActions'
-import { setTask } from '../../actions/currentTaskActions'
+import { setCurrentTask } from '../../actions/currentTaskActions'
 
 class TaskCardComponent extends Component {
 
@@ -15,7 +15,7 @@ class TaskCardComponent extends Component {
       task,
       history,
       actions:{
-        setTask,
+        setCurrentTask,
         removeTask,
       },
     } = this.props
@@ -28,7 +28,7 @@ class TaskCardComponent extends Component {
           <Card.Description>{task.description}</Card.Description>
           <Button onClick={() => {
             removeTask(task)
-            setTask(task)
+            setCurrentTask(task)
             history.push("/taskSetUp")
           }}>Editar
           </Button>
@@ -43,7 +43,7 @@ class TaskCardComponent extends Component {
 function mapDispatchToProps(dispatch) {
   return {
     actions : bindActionCreators({
-      setTask,
+      setCurrentTask,
       removeTask,
     }, dispatch)
   }
