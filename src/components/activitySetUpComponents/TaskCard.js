@@ -27,7 +27,6 @@ class TaskCardComponent extends Component {
           <Card.Meta>{task.type}</Card.Meta>
           <Card.Description>{task.description}</Card.Description>
           <Button onClick={() => {
-            removeTask(task)
             setCurrentTask(task)
             history.push("/taskSetUp")
           }}>Editar

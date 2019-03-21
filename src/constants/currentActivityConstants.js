@@ -1,4 +1,5 @@
 export const TITLE_SET = 'title-set'
 export const DESCRIPTION_SET = 'description-set'
 export const TASK_ADD = 'task-add'
+export const TASK_EDIT = 'task-edit'
 export const TASK_REMOVE = 'task-remove'

@@ -5,13 +5,15 @@ import { bindActionCreators } from 'redux'
 import { Form } from 'semantic-ui-react'
 
 import { MULTIPLE_CHOICE, FREE_ANSWER } from '../constants'
-import { addTask } from '../actions/currentActivityActions'
+import { addTask, editTask } from '../actions/currentActivityActions'
 import { clearCurrentTask, setCurrentTaskTitle, setCurrentTaskDescription, setCurrentTaskType, setCurrentTaskPayload } from '../actions/currentTaskActions'
 
 class TaskSetUpContainer extends Component {
 
   handleFormSubmit = () => {
-    this.props.actions.addTask(this.props.fields)
+    this.props.editing ?
+      this.props.actions.editTask(this.props.fields) :
+      this.props.actions.addTask(this.props.fields)
     this.props.actions.clearCurrentTask()
     this.props.history.push("/activitySetup")
   }
@@ -56,11 +58,12 @@ function mapDispatchToProps(dispatch) {
   return {
     actions : bindActionCreators({
       addTask,
+      editTask,
       clearCurrentTask,
       setCurrentTaskTitle,
       setCurrentTaskDescription,
       setCurrentTaskType,
-      setCurrentTaskPayload
+      setCurrentTaskPayload,
     }, dispatch)
   }
 }

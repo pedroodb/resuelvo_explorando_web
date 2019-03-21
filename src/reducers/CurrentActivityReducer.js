@@ -1,4 +1,4 @@
-import { TITLE_SET, DESCRIPTION_SET, TASK_ADD, TASK_REMOVE } from '../constants'
+import { TITLE_SET, DESCRIPTION_SET, TASK_ADD, TASK_REMOVE, TASK_EDIT } from '../constants'
 
 const initialState = {
   title:'',
@@ -22,6 +22,12 @@ const activityReducer = (state = initialState, action) => {
       return {
         ...state,
         tasks:[...state.tasks, action.payload],
+      }
+    case TASK_EDIT:
+      const taskIndex = state.tasks.findIndex((task) => task.code == action.payload.code)
+      return {
+        ...state,
+        tasks:[...state.tasks.slice(0,taskIndex),action.payload.task,...state.tasks.slice(taskIndex+1)],
       }
     case TASK_REMOVE:
       return {

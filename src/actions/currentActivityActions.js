@@ -1,4 +1,4 @@
-import { TITLE_SET, DESCRIPTION_SET, TASK_ADD, TASK_REMOVE } from '../constants'
+import { TITLE_SET, DESCRIPTION_SET, TASK_ADD, TASK_REMOVE, TASK_EDIT } from '../constants'
 
 export const setTitle = (name) => ({
   type:TITLE_SET,
@@ -13,6 +13,11 @@ export const setDescription = (description) => ({
 export const addTask = (task) => ({
   type:TASK_ADD,
   payload:task,
+})
+
+export const editTask = (task) => ({
+  type:TASK_EDIT,
+  payload:{ task, code:task.code }
 })
 
 export const removeTask = (task) => ({
