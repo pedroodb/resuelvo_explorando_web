@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Button, Form } from 'semantic-ui-react'
+import { Button, Form, Divider } from 'semantic-ui-react'
 
 import { setTitle, setDescription } from '../actions/currentActivityActions'
 import { TaskCardGroup } from '../components/activitySetUpComponents'
@@ -33,8 +33,9 @@ class ActivitySetUpContainer extends Component {
           <Form.Input name='description' label='Descripción' value={description} placeholder='Descripción' required
             onChange={(event, {value}) => {setDescription(value)}} />
           <TaskCardGroup tasks={tasks}/>
-          <Button onClick={() => history.push("/taskSetUp")}>Agregar tarea</Button>
         </Form>
+        <Divider/>
+        <Button onClick={() => history.push("/taskSetUp")}>Agregar tarea</Button>
       </div>
     )
   }

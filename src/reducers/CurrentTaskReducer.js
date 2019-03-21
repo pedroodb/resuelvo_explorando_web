@@ -8,14 +8,7 @@ import {
 } from '../constants'
 
 const initialState = {
-  current:{
-    title:'',
-    description:'',
-    code:'',
-    type:'0',
-    payload:null,
-  },
-  fields:{
+  task:{
     title:'',
     description:'',
     code:'',
@@ -30,10 +23,7 @@ const taskReducer = (state = initialState, action) => {
     case CURRENT_TASK_SET:
       return {
         ...state,
-        current:{
-          ...(action.payload),
-        },
-        fields:{
+        task:{
           ...(action.payload),
         },
         editing:true,
@@ -45,8 +35,8 @@ const taskReducer = (state = initialState, action) => {
     case CURRENT_TASK_TITLE_SET:
       return {
         ...state,
-        fields:{
-          ...state.fields,
+        task:{
+          ...state.task,
           title:action.payload,
           code:action.payload,
         }
@@ -54,24 +44,24 @@ const taskReducer = (state = initialState, action) => {
     case CURRENT_TASK_DESCRIPTION_SET:
         return {
           ...state,
-          fields:{
-            ...state.fields,
+          task:{
+            ...state.task,
             description:action.payload,
           }
         }
     case CURRENT_TASK_TYPE_SET:
         return {
           ...state,
-          fields:{
-            ...state.fields,
+          task:{
+            ...state.task,
             type:action.payload,
           }
         }
     case CURRENT_TASK_PAYLOAD_SET:
         return {
           ...state,
-          fields:{
-            ...state.fields,
+          task:{
+            ...state.task,
             payload:action.payload,
           }
         }
