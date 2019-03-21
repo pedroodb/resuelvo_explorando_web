@@ -6,7 +6,7 @@ import { Form, Button } from 'semantic-ui-react'
 
 import { MULTIPLE_CHOICE, FREE_ANSWER } from '../constants'
 import { addTask, editTask } from '../actions/currentActivityActions'
-import { clearCurrentTask, setCurrentTaskTitle, setCurrentTaskDescription, setCurrentTaskType, setCurrentTaskPayload } from '../actions/currentTaskActions'
+import { clearCurrentTask, setCurrentTaskField } from '../actions/currentTaskActions'
 
 class TaskSetUpContainer extends Component {
 
@@ -28,10 +28,7 @@ class TaskSetUpContainer extends Component {
     const {
       task,
       actions:{
-        setCurrentTaskTitle,
-        setCurrentTaskDescription,
-        setCurrentTaskType,
-        setCurrentTaskPayload,
+        setCurrentTaskField,
       },
     } = this.props
 
@@ -40,12 +37,13 @@ class TaskSetUpContainer extends Component {
         <header> Creando tarea
         </header>
         <Form>
-          <Form.Input label='Título' value={task.title} placeholder='Título' onChange={(event, { value }) => setCurrentTaskTitle(value)} required/>
-          <Form.Input label='Descripción' value={task.description} placeholder='Descripción' onChange={(event, { value }) => setCurrentTaskDescription(value)} required/>
+          <Form.Input name='title' label='Título' value={task.title} placeholder='Título' onChange={(event, { value, name }) => setCurrentTaskField(name,value)} required/>
+          <Form.Input name='description' label='Descripción' value={task.description} placeholder='Descripción' onChange={(event, { value, name }) => setCurrentTaskField(name,value)} required/>
           <Form.Select
+            name='type'
             value={task.type} 
             placeholder='Elija el tipo de tarea' 
-            onChange={(event, { value }) => setCurrentTaskType(value)}
+            onChange={(event, { value, name }) => setCurrentTaskField(name,value)}
             options={[
               { text:'Multiple Choice', value:MULTIPLE_CHOICE },
               { text:'Respuesta libre', value:FREE_ANSWER },
@@ -66,10 +64,7 @@ function mapDispatchToProps(dispatch) {
       addTask,
       editTask,
       clearCurrentTask,
-      setCurrentTaskTitle,
-      setCurrentTaskDescription,
-      setCurrentTaskType,
-      setCurrentTaskPayload,
+      setCurrentTaskField,
     }, dispatch)
   }
 }

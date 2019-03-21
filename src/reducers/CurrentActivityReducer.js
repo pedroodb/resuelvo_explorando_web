@@ -24,7 +24,7 @@ const activityReducer = (state = initialState, action) => {
         tasks:[...state.tasks, action.payload],
       }
     case TASK_EDIT:
-      const taskIndex = state.tasks.findIndex((task) => task.code == action.payload.code)
+      const taskIndex = state.tasks.findIndex((task) => task.code === action.payload.code)
       return {
         ...state,
         tasks:[...state.tasks.slice(0,taskIndex),action.payload.task,...state.tasks.slice(taskIndex+1)],

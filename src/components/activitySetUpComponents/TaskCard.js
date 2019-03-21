@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { removeTask } from '../../actions/currentActivityActions'
 import { setCurrentTask } from '../../actions/currentTaskActions'
 
 class TaskCardComponent extends Component {
@@ -16,7 +15,6 @@ class TaskCardComponent extends Component {
       history,
       actions:{
         setCurrentTask,
-        removeTask,
       },
     } = this.props
 
@@ -43,14 +41,8 @@ function mapDispatchToProps(dispatch) {
   return {
     actions : bindActionCreators({
       setCurrentTask,
-      removeTask,
     }, dispatch)
   }
 }
 
-//Funcion que mapea el estado de la APLICACION (redux) con las props del componente
-function mapStateToProps({}) {
-  return {}
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(withRouter(TaskCardComponent))
+export default connect(null,mapDispatchToProps)(withRouter(TaskCardComponent))

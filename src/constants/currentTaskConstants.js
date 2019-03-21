@@ -1,6 +1,3 @@
 export const CURRENT_TASK_SET = 'current-task-set'
 export const CURRENT_TASK_CLEAR = 'current-task-clear'
-export const CURRENT_TASK_TITLE_SET = 'current-task-title-set'
-export const CURRENT_TASK_DESCRIPTION_SET = 'current-task-description-set'
-export const CURRENT_TASK_TYPE_SET = 'current-task-type-set'
-export const CURRENT_TASK_PAYLOAD_SET = 'current-task-payload-set'
+export const CURRENT_TASK_FIELD_SET = 'current-task-field-set'
