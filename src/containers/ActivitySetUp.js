@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Button, Form, Divider } from 'semantic-ui-react'
 
-import { setTitle, setDescription } from '../actions/currentActivityActions'
+import { setField } from '../actions/currentActivityActions'
 import { TaskCardGroup } from '../components/activitySetUpComponents'
 
 class ActivitySetUpContainer extends Component {
@@ -19,8 +19,7 @@ class ActivitySetUpContainer extends Component {
         tasks,
       },
       actions: {
-        setTitle,
-        setDescription,
+        setField,
       },
     } = this.props
 
@@ -29,9 +28,9 @@ class ActivitySetUpContainer extends Component {
         <header>Creando actividad {title} : {description}</header>
         <Form>
           <Form.Input name='title' label='Título' value={title} placeholder='Título' required
-            onChange={(event, {value}) => {setTitle(value)}} />
+            onChange={(event, { value, name }) => {setField(name,value)}} />
           <Form.Input name='description' label='Descripción' value={description} placeholder='Descripción' required
-            onChange={(event, {value}) => {setDescription(value)}} />
+            onChange={(event, {value, name}) => {setField(name,value)}} />
           <TaskCardGroup tasks={tasks}/>
         </Form>
         <Divider/>
@@ -45,8 +44,7 @@ class ActivitySetUpContainer extends Component {
 function mapDispatchToProps(dispatch) {
   return {
     actions : bindActionCreators({
-      setTitle,
-      setDescription,
+      setField,
     }, dispatch)
   }
 }

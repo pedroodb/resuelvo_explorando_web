@@ -1,4 +1,4 @@
-import { TITLE_SET, DESCRIPTION_SET, TASK_ADD, TASK_REMOVE, TASK_EDIT } from '../constants'
+import { FIELD_SET, TASK_ADD, TASK_REMOVE, TASK_EDIT } from '../constants'
 
 const initialState = {
   title:'',
@@ -8,15 +8,16 @@ const initialState = {
 
 const activityReducer = (state = initialState, action) => {
   switch (action.type) {
-    case TITLE_SET:
+    case FIELD_SET:
+      const {
+        payload:{
+          field,
+          value,
+        }
+      } = action
       return {
         ...state,
-        title:action.payload,
-      }
-    case DESCRIPTION_SET:
-      return {
-        ...state,
-        description:action.payload,
+        [field]:value,
       }
     case TASK_ADD:
       return {
