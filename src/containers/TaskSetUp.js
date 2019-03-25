@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Form, Button } from 'semantic-ui-react'
+import { Form, Button, Divider } from 'semantic-ui-react'
 
 import { MULTIPLE_CHOICE, FREE_ANSWER } from '../constants'
 import { addTask, editTask } from '../actions/currentActivityActions'
@@ -50,6 +50,7 @@ class TaskSetUpContainer extends Component {
             ]}
           />
         </Form>
+        <Divider/>
         <Button content='Confirmar' onClick={this.handleFormSubmit.bind(this)}/>
         <Button content='Cancelar' onClick={this.handleFormCancel.bind(this)}/>
       </div>
