@@ -7,7 +7,7 @@ import AppReducer from './reducers'
 
 class App extends Component {
 
-  store = createStore(AppReducer)
+  store = createStore(AppReducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
   render() {
     return (
