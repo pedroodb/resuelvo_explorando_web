@@ -5,28 +5,59 @@ import { bindActionCreators } from 'redux'
 import { Form, Button, Divider } from 'semantic-ui-react'
 
 import { MULTIPLE_CHOICE, FREE_ANSWER } from '../constants'
-import { addTask, editTask } from '../actions/currentActivityActions'
+import { addTask, editTask, removeTask } from '../actions/currentActivityActions'
 import { clearCurrentTask, setCurrentTaskField } from '../actions/currentTaskActions'
 
 class TaskSetUpContainer extends Component {
 
-  handleFormSubmit = () => {
-    this.props.editing ?
-      this.props.actions.editTask(this.props.task) :
-      this.props.actions.addTask(this.props.task)
-    this.props.actions.clearCurrentTask()
-    this.props.history.push("/activitySetup")
+  constructor(props) {
+    super(props)
+
+    this.handleFormSubmit = this.handleFormSubmit.bind(this)
+    this.handleTaskRemoval = this.handleTaskRemoval.bind(this)
   }
 
-  handleFormCancel = () => {
-    this.props.actions.clearCurrentTask()
-    this.props.history.push("/activitySetup")
+  handleFormSubmit = (shouldSubmit) => {
+    const {
+      editing,
+      history,
+      task,
+      actions:{
+        editTask,
+        addTask,
+        clearCurrentTask,
+      },
+    } = this.props
+
+    if(shouldSubmit) {
+      (editing ?
+        editTask(task) :
+        addTask(task))
+    }
+    clearCurrentTask()
+    history.push("/activitySetup")
+  }
+
+  handleTaskRemoval = () => {
+    const {
+      history,
+      task,
+      actions:{
+        removeTask,
+        clearCurrentTask,
+      },
+    } = this.props
+
+    removeTask(task)
+    clearCurrentTask()
+    history.push("/activitySetup")    
   }
 
   render() {
 
     const {
       task,
+      editing,
       actions:{
         setCurrentTaskField,
       },
@@ -51,8 +82,9 @@ class TaskSetUpContainer extends Component {
           />
         </Form>
         <Divider/>
-        <Button content='Confirmar' onClick={this.handleFormSubmit.bind(this)}/>
-        <Button content='Cancelar' onClick={this.handleFormCancel.bind(this)}/>
+        <Button content='Confirmar' onClick={() => this.handleFormSubmit(true)}/>
+        <Button content='Cancelar' onClick={() => this.handleFormSubmit(false)}/>
+        { editing ? (<Button content='Eliminar' onClick={this.handleTaskRemoval}/>) : null }
       </div>
     )
   }
@@ -64,6 +96,7 @@ function mapDispatchToProps(dispatch) {
     actions : bindActionCreators({
       addTask,
       editTask,
+      removeTask,
       clearCurrentTask,
       setCurrentTaskField,
     }, dispatch)

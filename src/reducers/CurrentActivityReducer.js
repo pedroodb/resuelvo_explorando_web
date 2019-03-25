@@ -31,6 +31,7 @@ const activityReducer = (state = initialState, action) => {
         tasks:[...state.tasks.slice(0,taskIndex),action.payload.task,...state.tasks.slice(taskIndex+1)],
       }
     case TASK_REMOVE:
+      console.log(action.payload)
       return {
         ...state,
         tasks:state.tasks.filter((task) => task.code !== action.payload.code)
