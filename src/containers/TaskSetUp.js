@@ -7,6 +7,7 @@ import { Form, Button, Divider } from 'semantic-ui-react'
 import { MULTIPLE_CHOICE, FREE_ANSWER } from '../constants'
 import { addTask, editTask, removeTask } from '../actions/currentActivityActions'
 import { clearCurrentTask, setCurrentTaskField } from '../actions/currentTaskActions'
+import { MultipleChoice } from '../components/taskSetUpComponents'
 
 class TaskSetUpContainer extends Component {
 
@@ -80,6 +81,7 @@ class TaskSetUpContainer extends Component {
               { text:'Respuesta libre', value:FREE_ANSWER },
             ]}
           />
+          <MultipleChoice/>
         </Form>
         <Divider/>
         <Button content='Confirmar' onClick={() => this.handleFormSubmit(true)}/>
@@ -104,11 +106,11 @@ function mapDispatchToProps(dispatch) {
 }
 
 //Funcion que mapea el estado de la APLICACION (redux) con las props del componente
-function mapStateToProps(
-  {currentTaskReducer:{
+function mapStateToProps({currentTaskReducer}) {
+  const {
     task,
     editing,
-  }}) {
+  } = currentTaskReducer
   return {
     task,
     editing,
