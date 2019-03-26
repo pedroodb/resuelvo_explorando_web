@@ -1,4 +1,4 @@
-import { CURRENT_TASK_SET, CURRENT_TASK_CLEAR, CURRENT_TASK_FIELD_SET } from '../constants'
+import { CURRENT_TASK_SET, CURRENT_TASK_CLEAR, CURRENT_TASK_FIELD_SET, CURRENT_TASK_TYPE_SET } from '../constants'
 
 export const setCurrentTask = (task) => ({
   type:CURRENT_TASK_SET,
@@ -14,5 +14,14 @@ export const setCurrentTaskField = (field,value) => ({
   payload:{
     field,
     value,
+  },
+})
+
+//Se usa una especifica para el tipo porque se debe cambiar tambien el payload por default
+export const setCurrentTaskType = (type, defaultPayload) => ({
+  type:CURRENT_TASK_TYPE_SET,
+  payload:{
+    type,
+    taskPayload:defaultPayload
   },
 })

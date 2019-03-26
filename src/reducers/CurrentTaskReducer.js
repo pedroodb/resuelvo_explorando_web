@@ -2,6 +2,7 @@ import {
   CURRENT_TASK_SET,
   CURRENT_TASK_CLEAR,
   CURRENT_TASK_FIELD_SET,
+  CURRENT_TASK_TYPE_SET,
 } from '../constants'
 
 const initialState = {
@@ -9,7 +10,7 @@ const initialState = {
     title:'',
     description:'',
     code:'',
-    type:'0',
+    type:null,
     payload:null,
   },
   editing:false,
@@ -41,6 +42,16 @@ const taskReducer = (state = initialState, action) => {
         task:{
           ...state.task,
           [field]:value,
+        }
+      }
+    case CURRENT_TASK_TYPE_SET:
+      console.log(action)
+      return {
+        ...state,
+        task:{
+          ...state.task,
+          type:action.payload.type,
+          payload:action.payload.taskPayload
         }
       }
     default:

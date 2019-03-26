@@ -6,8 +6,8 @@ import { Form, Button, Divider } from 'semantic-ui-react'
 
 import { MULTIPLE_CHOICE, FREE_ANSWER } from '../constants'
 import { addTask, editTask, removeTask } from '../actions/currentActivityActions'
-import { clearCurrentTask, setCurrentTaskField } from '../actions/currentTaskActions'
-import { MultipleChoice } from '../components/taskSetUpComponents'
+import { clearCurrentTask, setCurrentTaskField, setCurrentTaskType } from '../actions/currentTaskActions'
+import taskTypesDictionary from '../helpers/TaskTypesDictionary'
 
 class TaskSetUpContainer extends Component {
 
@@ -61,6 +61,7 @@ class TaskSetUpContainer extends Component {
       editing,
       actions:{
         setCurrentTaskField,
+        setCurrentTaskType,
       },
     } = this.props
 
@@ -75,14 +76,14 @@ class TaskSetUpContainer extends Component {
             name='type'
             value={task.type} 
             placeholder='Elija el tipo de tarea' 
-            onChange={(event, { value, name }) => setCurrentTaskField(name,value)}
+            onChange={(event, { value }) => setCurrentTaskType(value,taskTypesDictionary[value].defaultPayload)}
             options={[
               { text:'Multiple Choice', value:MULTIPLE_CHOICE },
               { text:'Respuesta libre', value:FREE_ANSWER },
             ]}
           />
-          <MultipleChoice/>
         </Form>
+        { task.type !== null ? taskTypesDictionary[task.type].componentToRender : null }
         <Divider/>
         <Button content='Confirmar' onClick={() => this.handleFormSubmit(true)}/>
         <Button content='Cancelar' onClick={() => this.handleFormSubmit(false)}/>
@@ -101,6 +102,7 @@ function mapDispatchToProps(dispatch) {
       removeTask,
       clearCurrentTask,
       setCurrentTaskField,
+      setCurrentTaskType,
     }, dispatch)
   }
 }
