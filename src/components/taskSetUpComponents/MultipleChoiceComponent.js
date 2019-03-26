@@ -3,23 +3,26 @@ import { Button, Form } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { setCurrentTaskField } from '../../actions/currentTaskActions'
+import { setCurrentTaskField, addOptionToMCTask } from '../../actions/currentTaskActions'
 
 class MultipleChoiceComponent extends Component {
 
   render() {
 
     const {
-      options,
+      payload:{
+        options,
+      },
       actions:{
-        setCurrentTaskField
+        setCurrentTaskField,
+        addOptionToMCTask,
       }
     } = this.props
 
     return(
       <div>
         {options.map((option, index) => (<Form.Input key={index} value={option.value}/>))}
-        <Button content='Agregar opción' onClick={() => setCurrentTaskField('payload',[...options, {value:''}])}></Button>
+        <Button content='Agregar opción' onClick={() => addOptionToMCTask({value:''})}></Button>
       </div>
     )
   }
@@ -31,6 +34,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions : bindActionCreators({
       setCurrentTaskField,
+      addOptionToMCTask,
     }, dispatch)
   }
 }
@@ -39,13 +43,11 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps({currentTaskReducer}) {
   const {
     task:{
-      payload:{
-        options,
-      },
+      payload,
     },
   } = currentTaskReducer
   return {
-    options,
+    payload,
   }
 }
 

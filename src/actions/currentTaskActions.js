@@ -1,4 +1,4 @@
-import { CURRENT_TASK_SET, CURRENT_TASK_CLEAR, CURRENT_TASK_FIELD_SET, CURRENT_TASK_TYPE_SET } from '../constants'
+import { CURRENT_TASK_SET, CURRENT_TASK_CLEAR, CURRENT_TASK_FIELD_SET, CURRENT_TASK_TYPE_SET, MC_TASK_OPTION_ADD } from '../constants'
 
 export const setCurrentTask = (task) => ({
   type:CURRENT_TASK_SET,
@@ -23,5 +23,13 @@ export const setCurrentTaskType = (type, defaultPayload) => ({
   payload:{
     type,
     taskPayload:defaultPayload
+  },
+})
+
+//Actions especificas para tarea de tipo Multiple-Choice
+export const addOptionToMCTask = (option) => ({
+  type:MC_TASK_OPTION_ADD,
+  payload:{
+    option,
   },
 })
