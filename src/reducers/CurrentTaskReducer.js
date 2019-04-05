@@ -4,6 +4,7 @@ import {
   CURRENT_TASK_FIELD_SET,
   CURRENT_TASK_TYPE_SET,
   MC_TASK_OPTION_ADD,
+  MC_TASK_OPTION_UPDATE,
 } from '../constants'
 
 const initialState = {
@@ -63,6 +64,17 @@ const taskReducer = (state = initialState, action) => {
           payload:{
             ...state.task.payload,
             options:[...state.task.payload.options, action.payload],
+          }
+        },
+      }
+    case MC_TASK_OPTION_UPDATE:
+      return {
+        ...state,
+        task:{
+          ...state.task,
+          payload:{
+            ...state.task.payload,
+            options:state.task.payload.options.map((option,index) => (index===action.payload.index) ? action.payload.option : option),
           }
         },
       }

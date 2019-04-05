@@ -5,3 +5,4 @@ export const CURRENT_TASK_TYPE_SET = 'current-task-type-set'
 
 //Constantes especificas del tipo de tarea Multiple Choice
 export const MC_TASK_OPTION_ADD = 'mc-task-option-add'
+export const MC_TASK_OPTION_UPDATE = 'mc-task-option-update'

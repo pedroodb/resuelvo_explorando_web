@@ -3,9 +3,19 @@ import { Button, Form } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { setCurrentTaskField, addOptionToMCTask } from '../../actions/currentTaskActions'
+import {
+  addOptionToMCTask,
+  updateMCTaskOption,
+} from '../../actions/currentTaskActions'
 
 class MultipleChoiceComponent extends Component {
+
+  handleOptionChange(index,option,field,value) {
+    this.props.actions.updateMCTaskOption(index,{
+      ...option,
+      [field]:value,
+    })
+  }
 
   render() {
 
@@ -14,15 +24,27 @@ class MultipleChoiceComponent extends Component {
         options,
       },
       actions:{
-        setCurrentTaskField,
         addOptionToMCTask,
       }
     } = this.props
 
     return(
       <div>
-        {options.map((option, index) => (<Form.Input key={index} value={option.value}/>))}
-        <Button content='Agregar opción' onClick={() => addOptionToMCTask({value:''})}></Button>
+        {options.map((option, index) => (
+          <Form.Group key={index}>
+            <Form.Input
+              name='value' 
+              value={option.value}
+              onChange={(event, { value, name }) => this.handleOptionChange(index,option,name,value)}  
+            />
+            <Form.Checkbox
+              name='isCorrect'
+              label='Es correcta'
+              checked={option.isCorrect}
+              onChange={(event, { value, name }) => this.handleOptionChange(index,option,name,!option.isCorrect)}
+            />
+          </Form.Group>))}
+        <Button content='Agregar opción' onClick={() => addOptionToMCTask({ value:'', isCorrect:false })}></Button>
       </div>
     )
   }
@@ -33,8 +55,8 @@ class MultipleChoiceComponent extends Component {
 function mapDispatchToProps(dispatch) {
   return {
     actions : bindActionCreators({
-      setCurrentTaskField,
       addOptionToMCTask,
+      updateMCTaskOption,
     }, dispatch)
   }
 }

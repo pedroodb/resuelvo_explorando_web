@@ -1,4 +1,11 @@
-import { CURRENT_TASK_SET, CURRENT_TASK_CLEAR, CURRENT_TASK_FIELD_SET, CURRENT_TASK_TYPE_SET, MC_TASK_OPTION_ADD } from '../constants'
+import { 
+  CURRENT_TASK_SET,
+  CURRENT_TASK_CLEAR,
+  CURRENT_TASK_FIELD_SET,
+  CURRENT_TASK_TYPE_SET,
+  MC_TASK_OPTION_ADD,
+  MC_TASK_OPTION_UPDATE,
+} from '../constants'
 
 export const setCurrentTask = (task) => ({
   type:CURRENT_TASK_SET,
@@ -30,6 +37,15 @@ export const setCurrentTaskType = (type, defaultPayload) => ({
 export const addOptionToMCTask = (option) => ({
   type:MC_TASK_OPTION_ADD,
   payload:{
+    ...option,
+  },
+})
+
+export const updateMCTaskOption = (index,option) => ({
+  type:MC_TASK_OPTION_UPDATE,
+  payload:{
+    index,
     option,
   },
 })
+
