@@ -4,6 +4,7 @@ import { Button } from 'semantic-ui-react'
 
 import logo from '../assets/resuelvo_explorando_logo.png'
 import '../styles/Home.css'
+import '../styles/General.css'
 
 class HomeContainer extends Component {
 
@@ -14,14 +15,14 @@ class HomeContainer extends Component {
     } = this.props
 
     return (
-      <div id="HomeContainer">
+      <div id="Home" className="background">
+        <img src={logo} className="logo" alt="logo" />
         <header className="header">
-          <img src={logo} className="logo" alt="logo" />
           <p>
             Bienvenido a la herramienta de configuración de Resuelvo Explorando.
           </p>
-          <Button onClick={() => history.push("/activityCreation/activitySetUp")}>Crear actividad</Button>
         </header>
+        <Button onClick={() => history.push("/activityCreation/activitySetUp")}>Crear actividad</Button>
       </div>
     )
   }

@@ -26,7 +26,7 @@ class TaskCardComponent extends Component {
           <Card.Description>{task.description}</Card.Description>
           <Button onClick={() => {
             setCurrentTask(task)
-            history.push("/taskSetUp")
+            history.push("/activityCreation/taskSetUp")
           }}>Editar
           </Button>
         </Card.Content>

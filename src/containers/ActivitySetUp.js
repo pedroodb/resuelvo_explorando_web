@@ -6,6 +6,7 @@ import { Button, Form, Divider } from 'semantic-ui-react'
 
 import { setField } from '../actions/currentActivityActions'
 import { TaskCardGroup } from '../components/activitySetUpComponents'
+import '../styles/General.css'
 
 class ActivitySetUpContainer extends Component {
 
@@ -36,20 +37,22 @@ class ActivitySetUpContainer extends Component {
     } = this.props
 
     return (
-      <div>
-        <header>Creando actividad {title} : {description}</header>
-        <Form>
-          <Form.Input name='title' label='Título' value={title} placeholder='Título' required
-            onChange={(event, { value, name }) => {setField(name,value)}} />
-          <Form.Input name='description' label='Descripción' value={description} placeholder='Descripción' required
-            onChange={(event, {value, name}) => {setField(name,value)}} />
-          <TaskCardGroup tasks={tasks}/>
-        </Form>
-        <Divider/>
-        <Button onClick={() => history.push("/activityCreation/taskSetUp")}>Agregar tarea</Button>
-        <Button onClick={() => this.saveActivity(this.props.currentActivity).then(
-          res => res.ok ?  history.push("/") : null
-        )}>Guardar actividad</Button>
+      <div className="background">
+        <div className="container">
+          <header>Creando actividad {title} : {description}</header>
+          <Form>
+            <Form.Input name='title' label='Título' value={title} placeholder='Título' required
+              onChange={(event, { value, name }) => {setField(name,value)}} />
+            <Form.Input name='description' label='Descripción' value={description} placeholder='Descripción' required
+              onChange={(event, {value, name}) => {setField(name,value)}} />
+            <TaskCardGroup tasks={tasks}/>
+          </Form>
+          <Divider/>
+          <Button onClick={() => history.push("/activityCreation/taskSetUp")}>Agregar tarea</Button>
+          <Button onClick={() => this.saveActivity(this.props.currentActivity).then(
+            res => res.ok ?  history.push("/") : null
+          )}>Guardar actividad</Button>
+        </div>
       </div>
     )
   }
