@@ -36,7 +36,7 @@ class TaskSetUpContainer extends Component {
         addTask(task))
     }
     clearCurrentTask()
-    history.push("/activitySetup")
+    history.push("/activityCreation/activitySetup")
   }
 
   handleTaskRemoval = () => {
@@ -51,7 +51,7 @@ class TaskSetUpContainer extends Component {
 
     removeTask(task)
     clearCurrentTask()
-    history.push("/activitySetup")    
+    history.push("/activityCreation/activitySetup")    
   }
 
   render() {

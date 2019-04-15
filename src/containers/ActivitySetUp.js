@@ -9,6 +9,18 @@ import { TaskCardGroup } from '../components/activitySetUpComponents'
 
 class ActivitySetUpContainer extends Component {
 
+  async saveActivity(activity) {
+    return fetch('http://localhost:3001/activities/', {
+      method:'POST',
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({activity:activity, id:activity.title}),
+    })
+    .then((res) => res)
+    .catch((error) => error)
+  }
+
   render() {
       
     const {
@@ -34,7 +46,10 @@ class ActivitySetUpContainer extends Component {
           <TaskCardGroup tasks={tasks}/>
         </Form>
         <Divider/>
-        <Button onClick={() => history.push("/taskSetUp")}>Agregar tarea</Button>
+        <Button onClick={() => history.push("/activityCreation/taskSetUp")}>Agregar tarea</Button>
+        <Button onClick={() => this.saveActivity(this.props.currentActivity).then(
+          res => res.ok ?  history.push("/") : null
+        )}>Guardar actividad</Button>
       </div>
     )
   }

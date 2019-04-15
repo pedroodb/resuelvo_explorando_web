@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { MULTIPLE_CHOICE, FREE_ANSWER } from '../constants'
+import { MULTIPLE_CHOICE } from '../constants'
 import { MultipleChoice } from '../components/taskSetUpComponents'
 
 const taskTypesDictionary = {

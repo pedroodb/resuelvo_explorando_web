@@ -2,15 +2,15 @@ import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
 
 import { Home } from '../containers'
-import ActivityCreationRouter from '../routers/ActivityCreationRouter'
+import { ActivitySetUp, TaskSetUp } from '../containers'
 
-//Rutas correspondientes a la aplicación principal
 class AppRoutes extends Component {
     render() {
       return (
         <Switch>
             <Route exact path='/' component={Home}/>
-            <Route path='/activityCreation' component={ActivityCreationRouter}/>
+            <Route path='/activityCreation/activitySetUp' component={ActivitySetUp}/>
+            <Route path='/activityCreation/taskSetUp' component={TaskSetUp}/>
         </Switch>
       )
     }

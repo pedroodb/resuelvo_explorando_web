@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 
-import { AppRoutes } from '../routes'
+import AppRoutes from '../routes/AppRoutes'
 
 //Router correspondiente a la aplicación principal
 class AppRouter extends Component {
