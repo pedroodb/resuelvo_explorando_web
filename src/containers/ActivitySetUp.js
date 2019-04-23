@@ -6,24 +6,13 @@ import { Button, Form, Divider } from 'semantic-ui-react'
 
 import { setField, clearActivity } from '../actions/currentActivityActions'
 import { TaskCardGroup } from '../components/activitySetUpComponents'
+import { saveActivity, getActivities } from '../helpers/APIFunctions'
 import '../styles/General.css'
 
 class ActivitySetUpContainer extends Component {
 
-  async saveActivity(activity) {
-    return fetch('http://localhost:3001/activities/', {
-      method:'POST',
-      headers:{
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({activity:activity, id:activity.title}),
-    })
-    .then((res) => res)
-    .catch((error) => error)
-  }
-
   render() {
-      
+
     const {
       history,
       currentActivity: {
@@ -50,7 +39,7 @@ class ActivitySetUpContainer extends Component {
           </Form>
           <Divider/>
           <Button onClick={() => history.push("/activityCreation/taskSetUp")}>Agregar tarea</Button>
-          <Button onClick={() => this.saveActivity(this.props.currentActivity).then(
+          <Button onClick={() => saveActivity(this.props.currentActivity).then(
             res => {
               if(res.ok) {
                 clearActivity()
