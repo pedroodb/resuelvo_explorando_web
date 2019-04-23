@@ -6,7 +6,7 @@ import { Button, Form, Divider } from 'semantic-ui-react'
 
 import { setField, clearActivity } from '../actions/currentActivityActions'
 import { TaskCardGroup } from '../components/activitySetUpComponents'
-import { saveActivity, getActivities } from '../helpers/APIFunctions'
+import { saveActivity } from '../helpers/APIFunctions'
 import '../styles/General.css'
 
 class ActivitySetUpContainer extends Component {

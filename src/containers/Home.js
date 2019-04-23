@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { Button } from 'semantic-ui-react'
 
+import { RecentActivitiesList } from '../components/homeComponents/index'
+import { getActivities } from '../helpers/APIFunctions'
 import logo from '../assets/resuelvo_explorando_logo.png'
 import '../styles/Home.css'
 import '../styles/General.css'
@@ -22,6 +24,9 @@ class HomeContainer extends Component {
             Bienvenido a la herramienta de configuración de Resuelvo Explorando.
           </p>
         </header>
+        {/*getActivities().then((activities) =>
+          <RecentActivitiesList activities={activities}/>
+        )*/}
         <Button onClick={() => history.push("/activityCreation/activitySetUp")}>Crear actividad</Button>
       </div>
     )
