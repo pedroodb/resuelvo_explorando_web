@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Button, Form, Divider } from 'semantic-ui-react'
 
-import { setField } from '../actions/currentActivityActions'
+import { setField, clearActivity } from '../actions/currentActivityActions'
 import { TaskCardGroup } from '../components/activitySetUpComponents'
 import '../styles/General.css'
 
@@ -33,6 +33,7 @@ class ActivitySetUpContainer extends Component {
       },
       actions: {
         setField,
+        clearActivity,
       },
     } = this.props
 
@@ -50,7 +51,12 @@ class ActivitySetUpContainer extends Component {
           <Divider/>
           <Button onClick={() => history.push("/activityCreation/taskSetUp")}>Agregar tarea</Button>
           <Button onClick={() => this.saveActivity(this.props.currentActivity).then(
-            res => res.ok ?  history.push("/") : null
+            res => {
+              if(res.ok) {
+                clearActivity()
+                history.push("/")
+              }
+            }
           )}>Guardar actividad</Button>
         </div>
       </div>
@@ -63,6 +69,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions : bindActionCreators({
       setField,
+      clearActivity,
     }, dispatch)
   }
 }
