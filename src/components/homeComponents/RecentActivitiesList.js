@@ -16,7 +16,7 @@ class RecentActivitiesListComponent extends Component {
             <List.Content floated='right'>
               <Button>Cargar</Button>
             </List.Content>
-            <List.Content>{activity.name}</List.Content>
+            <List.Content>{activity}</List.Content>
           </List.Item>  
         )}
       </List>

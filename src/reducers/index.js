@@ -3,8 +3,10 @@ import { combineReducers } from 'redux'
 
 import currentActivityReducer from './CurrentActivityReducer'
 import currentTaskReducer from './CurrentTaskReducer'
+import activitiesReducer from './ActivitiesReducer'
 
 const AppReducer = combineReducers({
+  activitiesReducer,
   currentActivityReducer,
   currentTaskReducer,
 })
