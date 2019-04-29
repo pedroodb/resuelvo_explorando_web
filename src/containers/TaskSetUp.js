@@ -95,7 +95,6 @@ class TaskSetUpContainer extends Component {
   }
 }
 
-//Funcion que mapea las acciones con las funciones que llamamos desde el componente
 function mapDispatchToProps(dispatch) {
   return {
     actions : bindActionCreators({
@@ -109,7 +108,6 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-//Funcion que mapea el estado de la APLICACION (redux) con las props del componente
 function mapStateToProps({currentTaskReducer}) {
   const {
     task,

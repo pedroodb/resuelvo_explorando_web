@@ -11,6 +11,22 @@ import '../styles/General.css'
 
 class ActivitySetUpContainer extends Component {
 
+  handleFieldSet = (event, { value, name }) => this.props.actions.setField(name,value)
+
+  handleActivityDiscard() {
+    this.props.actions.clearActivity()
+    this.props.history.push("/")
+  }
+
+  handleActivitySaved = () => saveActivity(this.props.currentActivity).then(
+    res => {
+      if(res.ok) {
+        this.props.actions.clearActivity()
+        this.props.history.push("/")
+      }
+    }
+  )
+
   render() {
 
     const {
@@ -20,10 +36,6 @@ class ActivitySetUpContainer extends Component {
         description,
         tasks,
       },
-      actions: {
-        setField,
-        clearActivity,
-      },
     } = this.props
 
     return (
@@ -32,28 +44,21 @@ class ActivitySetUpContainer extends Component {
           <header>Creando actividad {title} : {description}</header>
           <Form>
             <Form.Input name='title' label='Título' value={title} placeholder='Título' required
-              onChange={(event, { value, name }) => {setField(name,value)}} />
+              onChange={this.handleFieldSet.bind(this)} />
             <Form.Input name='description' label='Descripción' value={description} placeholder='Descripción' required
-              onChange={(event, {value, name}) => {setField(name,value)}} />
+              onChange={this.handleFieldSet.bind(this)} />
             <TaskCardGroup tasks={tasks}/>
           </Form>
           <Divider/>
           <Button onClick={() => history.push("/activityCreation/taskSetUp")}>Agregar tarea</Button>
-          <Button onClick={() => saveActivity(this.props.currentActivity).then(
-            res => {
-              if(res.ok) {
-                clearActivity()
-                history.push("/")
-              }
-            }
-          )}>Guardar actividad</Button>
+          <Button onClick={this.handleActivitySaved.bind(this)}>Guardar actividad</Button>
+          <Button onClick={this.handleActivityDiscard.bind(this)}>Descartar</Button>
         </div>
       </div>
     )
   }
 }
 
-//Funcion que mapea las acciones con las funciones que llamamos desde el componente
 function mapDispatchToProps(dispatch) {
   return {
     actions : bindActionCreators({
@@ -63,7 +68,6 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-//Funcion que mapea el estado de la APLICACION (redux) con las props del componente
 function mapStateToProps({currentActivityReducer}) {
   return {
     currentActivity:currentActivityReducer
