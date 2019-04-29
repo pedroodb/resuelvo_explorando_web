@@ -1,5 +1,6 @@
 import {
   ACTIVITY_CLEAR,
+  ACTIVITY_SET,
   FIELD_SET,
   TASK_ADD,
   TASK_REMOVE,
@@ -16,6 +17,11 @@ const activityReducer = (state = initialState, action) => {
   switch (action.type) {
     case ACTIVITY_CLEAR:
       return initialState
+    case ACTIVITY_SET:
+      return {
+        ...state,
+        ...action.payload.activity
+      }
     case FIELD_SET:
       const {
         payload:{

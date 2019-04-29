@@ -1,5 +1,6 @@
 import {
   ACTIVITY_CLEAR,
+  ACTIVITY_SET,
   FIELD_SET,
   TASK_ADD,
   TASK_REMOVE,
@@ -8,6 +9,13 @@ import {
 
 export const clearActivity = () => ({
   type:ACTIVITY_CLEAR,
+})
+
+export const setActivity = (activity) => ({
+  type:ACTIVITY_SET,
+  payload:{
+    activity,
+  }
 })
 
 export const setField = (field, value) => ({

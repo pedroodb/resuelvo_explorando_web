@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { Button, Divider } from 'semantic-ui-react'
+import { Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -34,11 +34,7 @@ class HomeContainer extends Component {
             Bienvenido a la herramienta de configuración de Resuelvo Explorando.
           </p>
         </header>
-        <div className="listContainer">
-          <h3>Recientes</h3>
-          <Divider/>
-          <RecentActivitiesList activities={activities}/>
-        </div>
+        <RecentActivitiesList activities={activities}/>
         <Button onClick={() => history.push("/activityCreation/activitySetUp")}>Crear actividad</Button>
       </div>
     )

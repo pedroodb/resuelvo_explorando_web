@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { Button, List } from 'semantic-ui-react'
+import { List, Divider } from 'semantic-ui-react'
+
+import RecentActivityItem from './RecentActivityItem'
 
 class RecentActivitiesListComponent extends Component {
 
@@ -10,16 +12,15 @@ class RecentActivitiesListComponent extends Component {
     } = this.props
 
     return (
-      <List divided verticalAlign='middle'>
-        {activities.map((activity) => 
-          <List.Item>
-            <List.Content floated='right'>
-              <Button>Cargar</Button>
-            </List.Content>
-            <List.Content>{activity}</List.Content>
-          </List.Item>  
-        )}
-      </List>
+      <div className="listContainer">
+        <h3>Recientes</h3>
+        <Divider/>
+        <List divided verticalAlign='middle'>
+          {activities.map((activity) => 
+            <RecentActivityItem activity={activity}/>
+          )}
+        </List>
+      </div>
     )
   }
 }

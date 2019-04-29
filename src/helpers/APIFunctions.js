@@ -11,4 +11,7 @@ export const saveActivity = (activity) => fetch(`${API}/activities/`, {
 export const getActivities = () => fetch(`${API}/activities/all/`).then(
   (response) => response.json())
 
-export default { saveActivity, getActivities }
+export const getActivity = (activity) => fetch(`${API}/activities/${activity}`).then(
+  (response) => response.json())
+
+export default { saveActivity, getActivities, getActivity }
