@@ -9,8 +9,8 @@ import { getActivity } from '../../helpers/APIFunctions'
 
 class RecentActivityItemComponent extends Component {
 
-  handleActivityLoad(activityName) {
-    getActivity(activityName).then(
+  handleActivityLoad(activityId) {
+    getActivity(activityId).then(
       (activity) => {
         this.props.actions.setActivity(activity)
         this.props.history.push('/activityCreation/activitySetUp')
@@ -19,7 +19,6 @@ class RecentActivityItemComponent extends Component {
   }
 
   render() {
-      
     const {
       activity,
     } = this.props
@@ -27,9 +26,9 @@ class RecentActivityItemComponent extends Component {
     return (
       <List.Item>
         <List.Content floated='right'>
-          <Button onClick={() => this.handleActivityLoad(activity)}>Cargar</Button>
+          <Button onClick={() => this.handleActivityLoad(activity._id)}>Cargar</Button>
         </List.Content>
-        <List.Content>{activity}</List.Content>
+        <List.Content>{activity.title}</List.Content>
       </List.Item>  
     )
   }

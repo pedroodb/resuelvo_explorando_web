@@ -15,9 +15,9 @@ class RecentActivitiesListComponent extends Component {
       <div className="listContainer">
         <h3>Recientes</h3>
         <Divider/>
-        <List divided verticalAlign='middle'>
+        <List verticalAlign='middle'>
           {activities.map((activity) => 
-            <RecentActivityItem activity={activity}/>
+            <RecentActivityItem key={activity._id} activity={activity}/>
           )}
         </List>
       </div>

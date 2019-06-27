@@ -14,8 +14,8 @@ import '../styles/General.css'
 class HomeContainer extends Component {
 
   componentDidMount() {
-    getActivities().then((activities) =>
-      this.props.actions.updateActivities(activities)
+    getActivities().then(
+      activities => this.props.actions.updateActivities(activities)
     )
   }
 

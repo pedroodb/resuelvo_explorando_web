@@ -9,10 +9,10 @@ const initialState = {
 const activityReducer = (state = initialState, action) => {
   switch (action.type) {
     case ACTIVITIES_UPDATE:
-       return {
-         ...state,
-         activities:action.payload,
-       }
+      return {
+        ...state,
+        activities:action.payload,
+      }
     default:
       return state 
   }
