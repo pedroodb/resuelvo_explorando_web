@@ -1,8 +1,24 @@
 import {
-  ACTIVITIES_UPDATE,
-} from '../constants'
+  ACTIVITIES_REQUEST,
+  ACTIVITIES_SUCCESS,
+  ACTIVITIES_FAILURE,
+} from '../constants/activitiesConstants'
 
-export const updateActivities = (activities) => ({
-  type:ACTIVITIES_UPDATE,
-  payload:activities,
-})
+import { 
+  getActivities,
+} from '../helpers/APIFunctions'
+
+export const updateActivities = () => dispatch => {
+  dispatch({type: ACTIVITIES_REQUEST})
+  getActivities().then(
+    activities => dispatch({
+      type: ACTIVITIES_SUCCESS,
+      payload: activities,
+    })
+  ).catch(
+    error => dispatch({
+      type: ACTIVITIES_FAILURE,
+      payload: error,
+    })
+  )
+}

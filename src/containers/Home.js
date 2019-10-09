@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { Button } from 'semantic-ui-react'
+import { Button, Message, Icon } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
+import {
+  PENDING,
+} from '../constants/status'
 import { RecentActivitiesList } from '../components/homeComponents/index'
-import { getActivities } from '../helpers/APIFunctions'
 import { updateActivities } from '../actions/activitiesActions'
 import logo from '../assets/resuelvo_explorando_logo.png'
 import '../styles/Home.css'
@@ -14,9 +16,7 @@ import '../styles/General.css'
 class HomeContainer extends Component {
 
   componentDidMount() {
-    getActivities().then(
-      activities => this.props.actions.updateActivities(activities)
-    )
+    this.props.actions.updateActivities()
   }
 
   render() {
@@ -24,6 +24,7 @@ class HomeContainer extends Component {
     const {
       history,
       activities,
+      status,
     } = this.props
 
     return (
@@ -34,7 +35,17 @@ class HomeContainer extends Component {
             Bienvenido a la herramienta de configuración de Resuelvo Explorando.
           </p>
         </header>
-        <RecentActivitiesList activities={activities}/>
+        {
+          status === PENDING ?
+            <Message icon>
+              <Icon name='circle notched' loading />
+              <Message.Content>
+                <Message.Header>Just one second</Message.Header>
+                We are fetching that content for you.
+              </Message.Content>
+            </Message> :
+            <RecentActivitiesList activities={activities}/>
+        }
         <Button onClick={() => history.push("/activityCreation/activitySetUp")}>Crear actividad</Button>
       </div>
     )
@@ -52,8 +63,14 @@ function mapDispatchToProps(dispatch) {
 
 //Funcion que mapea el estado de la APLICACION (redux) con las props del componente
 function mapStateToProps({activitiesReducer}) {
+  const {
+    activities,
+    status,
+  } = activitiesReducer
+
   return {
-    activities:activitiesReducer.activities,
+    activities,
+    status,
   }
 }
 
