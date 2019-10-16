@@ -6,7 +6,7 @@ import {
 
 import { 
   getActivities,
-} from '../helpers/APIFunctions'
+} from '../helpers/ActivitiesAPIFunctions'
 
 export const updateActivities = () => dispatch => {
   dispatch({type: ACTIVITIES_REQUEST})
