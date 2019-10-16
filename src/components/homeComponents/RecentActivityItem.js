@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import { setActivity } from '../../actions/currentActivityActions'
-import { getActivity } from '../../helpers/APIFunctions'
+import { getActivity } from '../../helpers/ActivitiesAPIFunctions'
 
 class RecentActivityItemComponent extends Component {
 
