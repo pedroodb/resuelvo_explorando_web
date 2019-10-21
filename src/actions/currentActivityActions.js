@@ -13,9 +13,7 @@ export const clearActivity = () => ({
 
 export const setActivity = (activity) => ({
   type:ACTIVITY_SET,
-  payload:{
-    activity,
-  }
+  payload:activity,
 })
 
 export const setField = (field, value) => ({

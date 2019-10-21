@@ -1,13 +1,9 @@
 import {
-  ACTIVITIES_UPDATE,
-} from '../constants'
+  ACTIVITIES_REQUEST,
+  ACTIVITIES_SUCCESS,
+  ACTIVITIES_FAILURE,
+} from '../constants/activitiesConstants'
 
-<<<<<<< HEAD
-export const updateActivities = (activities) => ({
-  type:ACTIVITIES_UPDATE,
-  payload:activities,
-})
-=======
 import { 
   getActivities,
 } from '../helpers/ActivitiesAPIFunctions'
@@ -26,4 +22,3 @@ export const updateActivities = () => dispatch => {
     })
   )
 }
->>>>>>> 806111b... Trae actividades desde la api + Separacion APIFunc

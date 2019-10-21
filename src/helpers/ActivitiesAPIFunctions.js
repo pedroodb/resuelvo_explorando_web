@@ -18,4 +18,4 @@ export const updateActivity = activity => fetch(`${API}/Activities/${activity}`,
   body: JSON.stringify({activity}),
 })
 
-export default { saveActivity, getActivities, getActivity }
+export default { saveActivity, getActivities, getActivity, updateActivity }
