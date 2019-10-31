@@ -2,15 +2,26 @@ import {
   ACTIVITIES_REQUEST,
   ACTIVITIES_SUCCESS,
   ACTIVITIES_FAILURE,
+  ACTIVITY_SAVE_REQUEST,
+  ACTIVITY_SAVE_SUCCESS,
+  ACTIVITY_SAVE_FAILURE,
+  ACTIVITY_DELETE_REQUEST,
+  ACTIVITY_DELETE_SUCCESS,
+  ACTIVITY_DELETE_FAILURE,
 } from '../constants/activities'
 
+import {
+  getActivities as get,
+  saveActivity as save,
+  deleteActivity as del,
+} from '../backend/activities'
+
 import { 
-  getActivities,
 } from '../backend/activities'
 
 export const updateActivities = () => dispatch => {
   dispatch({type: ACTIVITIES_REQUEST})
-  getActivities().then(
+  get().then(
     activities => dispatch({
       type: ACTIVITIES_SUCCESS,
       payload: activities,
@@ -18,6 +29,36 @@ export const updateActivities = () => dispatch => {
   ).catch(
     error => dispatch({
       type: ACTIVITIES_FAILURE,
+      payload: error,
+    })
+  )
+}
+
+export const saveActivity = activity => dispatch => {
+  dispatch({type: ACTIVITY_SAVE_REQUEST})
+  save(activity).then(
+    activity => dispatch({
+      type: ACTIVITY_SAVE_SUCCESS,
+      payload: activity,
+    })
+  ).catch(
+    error => dispatch({
+      type: ACTIVITY_SAVE_FAILURE,
+      payload: error,
+    })
+  )
+}
+
+export const deleteActivity = id => dispatch => {
+  dispatch({type: ACTIVITY_DELETE_REQUEST})
+  del(id).then(
+    ({count}) => dispatch({
+      type: ACTIVITY_DELETE_SUCCESS,
+      payload: count,
+    })
+  ).catch(
+    error => dispatch({
+      type: ACTIVITY_DELETE_FAILURE,
       payload: error,
     })
   )

@@ -18,7 +18,7 @@ export const saveActivity = activity => axios.post('Activities/', {
   response => response.data
 )
   
-export const updateActivity = activity => axios.post(`Activities/${activity}`, {
+export const updateActivity = (id,activity) => axios.put(`Activities/${id}`, {
   ...activity,
 }, {
   headers: {
@@ -27,11 +27,14 @@ export const updateActivity = activity => axios.post(`Activities/${activity}`, {
 }).then(
   response => response.data
 )
+
+export const deleteActivity = id => axios.delete(`Activities/${id}`)
   
 
 export default {
   saveActivity,
   getActivities,
   getActivity,
-  updateActivity
+  updateActivity,
+  deleteActivity,
 }

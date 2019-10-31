@@ -1,8 +1,5 @@
 export const ACTIVITY_CLEAR = 'activity-clear'
 export const ACTIVITY_SET = 'activity-set'
-export const ACTIVITY_SAVE_REQUEST = 'activity-save-request'
-export const ACTIVITY_SAVE_SUCCESS = 'activity-save-success'
-export const ACTIVITY_SAVE_FAILURE = 'activity-save-failure'
 export const FIELD_SET = 'field-set'
 export const TASK_ADD = 'task-add'
 export const TASK_EDIT = 'task-edit'

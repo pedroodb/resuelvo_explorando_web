@@ -4,10 +4,17 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Button, Form, Divider } from 'semantic-ui-react'
 
-import { setField, clearActivity, saveActivity } from '../actions/currentActivity'
+import { SUCCESS } from '../constants/status'
+import {
+  setField,
+  clearActivity,
+} from '../actions/currentActivity'
+import {
+  saveActivity,
+} from '../actions/activities'
+
 import { TaskCardGroup } from '../components/activitySetUpComponents'
 import '../styles/General.css'
-import { SUCCESS } from '../constants/status';
 
 class ActivitySetUpContainer extends Component {
 
@@ -22,20 +29,18 @@ class ActivitySetUpContainer extends Component {
 
     const {
       history,
+      saveStatus,
       currentActivity: {
-        store_status,
-        activity:{
-          title,
-          description,
-          tasks,
-        }
+        title,
+        description,
+        tasks,
       },
       actions: {
         saveActivity,
       }
     } = this.props
 
-    return store_status === SUCCESS ?
+    return saveStatus === SUCCESS ?
       <Redirect to="/" />
     : (
       <div className="background">
@@ -50,7 +55,7 @@ class ActivitySetUpContainer extends Component {
           </Form>
           <Divider/>
           <Button onClick={() => history.push("/activityCreation/taskSetUp")}>Agregar tarea</Button>
-          <Button onClick={() => saveActivity(this.props.currentActivity.activity)}>Guardar actividad</Button>
+          <Button onClick={() => saveActivity(this.props.currentActivity)}>Guardar actividad</Button>
           <Button onClick={this.handleActivityDiscard.bind(this)}>Descartar</Button>
         </div>
       </div>
@@ -68,9 +73,10 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-function mapStateToProps({currentActivityReducer}) {
+function mapStateToProps({currentActivity,activities}) {
   return {
-    currentActivity:currentActivityReducer
+    currentActivity,
+    saveStatus:activities.save.status,
   }
 }
 
