@@ -1,6 +1,6 @@
-import HomeContainer from './Home'
-import ActivitySetUpContainer from './ActivitySetUp'
-import TaskSetUpContainer from './TaskSetUp'
+import HomeContainer from './Home.jsx'
+import ActivitySetUpContainer from './ActivitySetUp.jsx'
+import TaskSetUpContainer from './TaskSetUp.jsx'
 
 export const Home = HomeContainer
 export const ActivitySetUp = ActivitySetUpContainer

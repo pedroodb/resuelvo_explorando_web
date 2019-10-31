@@ -4,8 +4,9 @@ import { Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import RecentActivityItem from '../components/RecentActivityItem'
+import ActivityListItem from '../components/ActivityListItem'
 import { updateActivities } from '../actions/activities'
+import { setActivity } from '../actions/currentActivity'
 import logo from '../assets/resuelvo_explorando_logo.png'
 import StatusList from '../components/StatusList'
 import '../styles/Home.css'
@@ -23,6 +24,9 @@ class HomeContainer extends Component {
       history,
       activities,
       status,
+      actions: {
+        setActivity
+      }
     } = this.props
 
     return (
@@ -34,7 +38,12 @@ class HomeContainer extends Component {
           </p>
         </header>
         <StatusList status={status} items={activities} render_item={
-          activity => <RecentActivityItem activity={activity} key={activity.title}/>
+          activity => <ActivityListItem activity={activity} key={activity.title} onLoad={
+            () => {
+              setActivity(activity)
+              history.push('/activityCreation/activitySetUp')
+            }
+          }/>
         }/>
         <Button onClick={() => history.push("/activityCreation/activitySetUp")}>Crear actividad</Button>
       </div>
@@ -47,6 +56,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions : bindActionCreators({
       updateActivities,
+      setActivity,
     }, dispatch)
   }
 }
@@ -64,6 +74,4 @@ function mapStateToProps({activitiesReducer}) {
   }
 }
 
-/*La funcion withRouter importada de react-router-dom es una funcion de alto orden de componentes
-que te devuelve el componente con las props del router (entre ellas history)*/
 export default connect(mapStateToProps,mapDispatchToProps)(withRouter(HomeContainer))

@@ -10,14 +10,14 @@ class ItemsList extends Component {
   constructor() {
     super()
     this.state = {
+      itemsOnPage:3,
       activePage:1,
     }
   }
 
+  cutItems = items => items.length/this.state.itemsOnPage
 
-  cutItems = items => items.length/10
-
-  itemsForPage = (items, activePage) => (items.slice((activePage-1) *10, activePage*10))
+  itemsForPage = (items, activePage) => (items.slice((activePage-1) *this.state.itemsOnPage, activePage*this.state.itemsOnPage))
 
   handleInputChange = (e, { value }) => this.setState({ activePage: value })
 

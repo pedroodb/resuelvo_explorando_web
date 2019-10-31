@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
 
-import { Home } from '../containers'
-import { ActivitySetUp, TaskSetUp } from '../containers'
+import { Home, ActivitySetUp, TaskSetUp } from '../containers'
 
 class AppRoutes extends Component {
     render() {

@@ -35,7 +35,10 @@ const activityReducer = (state = initialState, action) => {
     case ACTIVITY_SET:
       return {
         ...state,
-        ...action.payload,
+        activity:{
+          ...state.activity,
+          ...action.payload,
+        },
         store_status:UNSET,
         store_error:UNSET,
       }
