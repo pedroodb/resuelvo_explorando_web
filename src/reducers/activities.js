@@ -2,7 +2,7 @@ import {
   ACTIVITIES_REQUEST,
   ACTIVITIES_SUCCESS,
   ACTIVITIES_FAILURE,
-} from '../constants/activitiesConstants'
+} from '../constants/activities'
 
 import {
   UNSET,

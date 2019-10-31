@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { Form, Button, Divider } from 'semantic-ui-react'
 
 import { MULTIPLE_CHOICE, FREE_ANSWER } from '../constants'
-import { addTask, editTask, removeTask } from '../actions/currentActivityActions'
+import { addTask, editTask, removeTask } from '../actions/currentActivity'
 import { clearCurrentTask, setCurrentTaskField, setCurrentTaskType } from '../actions/currentTaskActions'
 import taskTypesDictionary from '../helpers/TaskTypesDictionary'
 import '../styles/General.css'

@@ -2,11 +2,11 @@ import {
   ACTIVITIES_REQUEST,
   ACTIVITIES_SUCCESS,
   ACTIVITIES_FAILURE,
-} from '../constants/activitiesConstants'
+} from '../constants/activities'
 
 import { 
   getActivities,
-} from '../helpers/ActivitiesAPIFunctions'
+} from '../backend/activities'
 
 export const updateActivities = () => dispatch => {
   dispatch({type: ACTIVITIES_REQUEST})

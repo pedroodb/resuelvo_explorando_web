@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { Button, Message, Icon } from 'semantic-ui-react'
+import { Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import {
-  PENDING,
-} from '../constants/status'
-import { RecentActivitiesList } from '../components/homeComponents/index'
-import { updateActivities } from '../actions/activitiesActions'
+import RecentActivityItem from '../components/RecentActivityItem'
+import { updateActivities } from '../actions/activities'
 import logo from '../assets/resuelvo_explorando_logo.png'
+import StatusList from '../components/StatusList'
 import '../styles/Home.css'
 import '../styles/General.css'
 
@@ -35,17 +33,9 @@ class HomeContainer extends Component {
             Bienvenido a la herramienta de configuración de Resuelvo Explorando.
           </p>
         </header>
-        {
-          status === PENDING ?
-            <Message icon>
-              <Icon name='circle notched' loading />
-              <Message.Content>
-                <Message.Header>Just one second</Message.Header>
-                We are fetching that content for you.
-              </Message.Content>
-            </Message> :
-            <RecentActivitiesList activities={activities}/>
-        }
+        <StatusList status={status} items={activities} render_item={
+          activity => <RecentActivityItem activity={activity} key={activity.title}/>
+        }/>
         <Button onClick={() => history.push("/activityCreation/activitySetUp")}>Crear actividad</Button>
       </div>
     )

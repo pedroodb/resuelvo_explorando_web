@@ -4,8 +4,8 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { setActivity } from '../../actions/currentActivityActions'
-import { getActivity } from '../../helpers/ActivitiesAPIFunctions'
+import { setActivity } from '../actions/currentActivity'
+import { getActivity } from '../backend/activities'
 
 class RecentActivityItemComponent extends Component {
 
