@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Button, Form, Divider } from 'semantic-ui-react'
 
-import { setField, clearActivity } from '../actions/currentActivityActions'
+import { setField, clearActivity, saveActivity } from '../actions/currentActivity'
 import { TaskCardGroup } from '../components/activitySetUpComponents'
-import { saveActivity } from '../helpers/ActivitiesAPIFunctions'
 import '../styles/General.css'
+import { SUCCESS } from '../constants/status';
 
 class ActivitySetUpContainer extends Component {
 
@@ -18,27 +18,26 @@ class ActivitySetUpContainer extends Component {
     this.props.history.push("/")
   }
 
-  handleActivitySaved = () => saveActivity(this.props.currentActivity).then(
-    res => {
-      if(res.ok) {
-        this.props.actions.clearActivity()
-        this.props.history.push("/")
-      }
-    }
-  )
-
   render() {
 
     const {
       history,
       currentActivity: {
-        title,
-        description,
-        tasks,
+        store_status,
+        activity:{
+          title,
+          description,
+          tasks,
+        }
       },
+      actions: {
+        saveActivity,
+      }
     } = this.props
 
-    return (
+    return store_status === SUCCESS ?
+      <Redirect to="/" />
+    : (
       <div className="background">
         <div className="container">
           <header>Creando actividad {title} : {description}</header>
@@ -51,7 +50,7 @@ class ActivitySetUpContainer extends Component {
           </Form>
           <Divider/>
           <Button onClick={() => history.push("/activityCreation/taskSetUp")}>Agregar tarea</Button>
-          <Button onClick={this.handleActivitySaved.bind(this)}>Guardar actividad</Button>
+          <Button onClick={() => saveActivity(this.props.currentActivity.activity)}>Guardar actividad</Button>
           <Button onClick={this.handleActivityDiscard.bind(this)}>Descartar</Button>
         </div>
       </div>
@@ -64,6 +63,7 @@ function mapDispatchToProps(dispatch) {
     actions : bindActionCreators({
       setField,
       clearActivity,
+      saveActivity,
     }, dispatch)
   }
 }
