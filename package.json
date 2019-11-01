@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+<<<<<<< HEAD
+=======
     "axios": "^0.19.0",
+>>>>>>> 15f380eb34d9b142d7c57b2ba1c9cdf779b2beb1
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-redux": "^6.0.1",
