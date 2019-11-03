@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import {
-  updateActivities,
+  getActivities,
   deleteActivity,
 } from '../actions/activities'
 import {
@@ -75,7 +75,7 @@ class HomeContainer extends Component {
 function mapDispatchToProps(dispatch) {
   return {
     actions : bindActionCreators({
-      updateActivities,
+      updateActivities: getActivities,
       setActivity,
       deleteActivity,
     }, dispatch)

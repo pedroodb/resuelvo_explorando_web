@@ -23,7 +23,7 @@ import {
 import { 
 } from '../backend/activities'
 
-export const updateActivities = () => dispatch => {
+export const getActivities = () => dispatch => {
   dispatch({type: ACTIVITIES_REQUEST})
   get().then(
     activities => dispatch({
