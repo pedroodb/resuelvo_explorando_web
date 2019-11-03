@@ -34,7 +34,7 @@ class ItemsList extends Component {
 
     return (
       items.length > 0 ? (
-        <div>
+        <div style={{alignContent:'center'}}>
           <List>
             {
               this.itemsForPage(items,activePage).map(render_item)
