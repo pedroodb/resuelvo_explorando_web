@@ -7,9 +7,19 @@ import {
   TASK_EDIT,
 } from '../constants/currentActivity'
 
+import {
+  ACTIVITY_SAVE_SUCCESS,
+  ACTIVITY_UPDATE_SUCCESS,
+} from '../constants/activities'
+
+import {
+  UNSET
+} from '../constants/status'
+
 const initialState = {
-  title:'',
-  description:'',
+  title:UNSET,
+  description:UNSET,
+  id:UNSET,
   tasks:[],
 }
 
@@ -49,6 +59,10 @@ const activityReducer = (state = initialState, action) => {
         ...state,
         tasks:state.tasks.filter(task => task.code !== action.payload.code),
       }
+    case ACTIVITY_SAVE_SUCCESS:
+      return initialState
+    case ACTIVITY_UPDATE_SUCCESS:
+      return initialState
     default:
       return state 
   }

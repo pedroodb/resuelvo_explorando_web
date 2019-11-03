@@ -4,13 +4,14 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Button, Form, Divider } from 'semantic-ui-react'
 
-import { SUCCESS } from '../constants/status'
+import { UNSET } from '../constants/status'
 import {
   setField,
   clearActivity,
 } from '../actions/currentActivity'
 import {
   saveActivity,
+  updateActivity,
 } from '../actions/activities'
 
 import { TaskCardGroup } from '../components/activitySetUpComponents'
@@ -29,23 +30,24 @@ class ActivitySetUpContainer extends Component {
 
     const {
       history,
-      saveStatus,
       currentActivity: {
         title,
         description,
         tasks,
+        id,
       },
       actions: {
         saveActivity,
+        updateActivity,
       }
     } = this.props
 
-    return saveStatus === SUCCESS ?
+    return title === UNSET ?
       <Redirect to="/" />
     : (
       <div className="background">
         <div className="container">
-          <header>Creando actividad {title} : {description}</header>
+          <header>{(id===UNSET) ? 'Creando' : 'Editando'} actividad {title} : {description}</header>
           <Form>
             <Form.Input name='title' label='Título' value={title} placeholder='Título' required
               onChange={this.handleFieldSet.bind(this)} />
@@ -55,7 +57,11 @@ class ActivitySetUpContainer extends Component {
           </Form>
           <Divider/>
           <Button onClick={() => history.push("/activityCreation/taskSetUp")}>Agregar tarea</Button>
-          <Button onClick={() => saveActivity(this.props.currentActivity)}>Guardar actividad</Button>
+          <Button
+            onClick={() => (id===UNSET) ? 
+              saveActivity({...this.props.currentActivity,id:undefined})
+              : updateActivity(id,this.props.currentActivity)}
+          >Guardar</Button>
           <Button onClick={this.handleActivityDiscard.bind(this)}>Descartar</Button>
         </div>
       </div>
@@ -69,14 +75,14 @@ function mapDispatchToProps(dispatch) {
       setField,
       clearActivity,
       saveActivity,
+      updateActivity,
     }, dispatch)
   }
 }
 
-function mapStateToProps({currentActivity,activities}) {
+function mapStateToProps({currentActivity}) {
   return {
     currentActivity,
-    saveStatus:activities.save.status,
   }
 }
 

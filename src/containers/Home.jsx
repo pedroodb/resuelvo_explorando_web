@@ -63,7 +63,10 @@ class HomeContainer extends Component {
             />
           )
         }/>
-        <Button onClick={() => history.push("/activityCreation/activitySetUp")}>Crear actividad</Button>
+        <Button onClick={() => {
+          setActivity({title:'', description:''})
+          history.push("/activityCreation/activitySetUp")
+        }}>Crear actividad</Button>
       </div>
     )
   }

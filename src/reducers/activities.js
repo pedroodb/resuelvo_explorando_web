@@ -5,6 +5,9 @@ import {
   ACTIVITY_SAVE_REQUEST,
   ACTIVITY_SAVE_SUCCESS,
   ACTIVITY_SAVE_FAILURE,
+  ACTIVITY_UPDATE_REQUEST,
+  ACTIVITY_UPDATE_SUCCESS,
+  ACTIVITY_UPDATE_FAILURE,
   ACTIVITY_DELETE_REQUEST,
   ACTIVITY_DELETE_SUCCESS,
   ACTIVITY_DELETE_FAILURE,
@@ -25,6 +28,11 @@ const initialState = {
     error:UNSET,
   },
   save:{
+    status:UNSET,
+    error:UNSET,
+    last:UNSET,
+  },
+  update:{
     status:UNSET,
     error:UNSET,
     last:UNSET,
@@ -89,6 +97,36 @@ const activityReducer = (state = initialState, action) => {
         ...state,
         save:{
           ...state.save,
+          status:FAILURE,
+          error:action.payload,
+        }
+      }
+    case ACTIVITY_UPDATE_REQUEST:
+      return {
+        ...state,
+        update:{
+          ...state.update,
+          status:PENDING,
+        }
+      }
+    case ACTIVITY_UPDATE_SUCCESS:
+      return {
+        ...state,
+        index:{
+          ...state.index,
+          status:OUTDATED,
+        },
+        update:{
+          ...state.update,
+          status:SUCCESS,
+          last:action.payload,
+        }
+      }
+    case ACTIVITY_UPDATE_FAILURE:
+      return {
+        ...state,
+        update:{
+          ...state.update,
           status:FAILURE,
           error:action.payload,
         }
