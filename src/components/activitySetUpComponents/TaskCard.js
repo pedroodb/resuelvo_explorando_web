@@ -18,7 +18,6 @@ class TaskCardComponent extends Component {
           <Card.Meta>{task.type}</Card.Meta>
           <Card.Description>{task.description}</Card.Description>
           <Button onClick={() => {
-            setCurrentTask(task)
             history.push("/")
           }}>Editar
           </Button>
