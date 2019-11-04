@@ -7,7 +7,6 @@ import {
   ActivityNew,
   Task,
   TaskNew,
-  TaskSetUp,
 } from '../containers'
 
 class AppRoutes extends Component {
@@ -19,7 +18,6 @@ class AppRoutes extends Component {
             <Route path='/Activity/:id/Task/New' component={TaskNew}/>
             <Route path='/Activity/:id/Task/:fk' component={Task}/>
             <Route path='/Activity/:id' component={Activity}/>
-            <Route path='/activityCreation/taskSetUp' component={TaskSetUp}/>
         </Switch>
       )
     }

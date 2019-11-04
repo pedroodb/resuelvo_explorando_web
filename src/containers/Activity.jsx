@@ -7,9 +7,6 @@ import { Button, Form, Divider } from 'semantic-ui-react'
 import { SUCCESS, PENDING, UNSET } from '../constants/status'
 import StatusList from '../components/StatusList'
 import {
-  initCurrentTask,
-} from '../actions/currentTaskActions'
-import {
   getActivity,
   saveActivity,
   updateActivity,
@@ -48,7 +45,6 @@ class ActivitySetUpContainer extends Component {
       tasks_index_status,
       actions: {
         updateActivity,
-        initCurrentTask,
       }
     } = this.props
 
@@ -64,10 +60,7 @@ class ActivitySetUpContainer extends Component {
             <StatusList items={tasks} status={tasks_index_status} render_item={task => task.title}/>
           </Form>
           <Divider/>
-          <Button onClick={() => {
-            initCurrentTask()
-            history.push(`/Activity/${id}/Task/new`)
-          }}>Agregar tarea</Button>
+          <Button onClick={() => history.push(`/Activity/${id}/Task/new`)}>Agregar tarea</Button>
           <Button
             onClick={() => {
               updateActivity(id,this.props.activity)
@@ -89,7 +82,6 @@ function mapDispatchToProps(dispatch) {
       saveActivity,
       updateActivity,
       getTasks,
-      initCurrentTask,
     }, dispatch)
   }
 }

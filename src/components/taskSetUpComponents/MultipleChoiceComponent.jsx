@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 import {
   setCurrentTaskType,
   mcActions,
-} from '../../actions/currentTaskActions'
+} from '../../actions/tasks'
 
 class MultipleChoiceComponent extends Component {
 
