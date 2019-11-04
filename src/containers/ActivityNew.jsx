@@ -11,7 +11,7 @@ import {
 
 import '../styles/General.css'
 
-class ActivitySetUpContainer extends Component {
+class ActivityNewContainer extends Component {
 
   constructor() {
     super()
@@ -77,4 +77,4 @@ function mapStateToProps({activities: activityReducer}) {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(withRouter(ActivitySetUpContainer))
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(ActivityNewContainer))

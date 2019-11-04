@@ -47,7 +47,6 @@ class ActivitySetUpContainer extends Component {
       tasks,
       tasks_index_status,
       actions: {
-        saveActivity,
         updateActivity,
         initCurrentTask,
       }
@@ -67,15 +66,11 @@ class ActivitySetUpContainer extends Component {
           <Divider/>
           <Button onClick={() => {
             initCurrentTask()
-            history.push("/activityCreation/taskSetUp")
+            history.push(`/Activity/${id}/Task/new`)
           }}>Agregar tarea</Button>
           <Button
             onClick={() => {
-              if (id===UNSET) {
-                saveActivity({...this.props.activity,id:undefined})
-              } else {
-                updateActivity(id,this.props.activity)
-              }
+              updateActivity(id,this.props.activity)
               history.push('/')
             }}
           >Guardar</Button>
