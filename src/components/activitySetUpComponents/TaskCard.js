@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Card } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-
-import { setCurrentTask } from '../../actions/tasks'
 
 class TaskCardComponent extends Component {
 
@@ -13,9 +9,6 @@ class TaskCardComponent extends Component {
     const {
       task,
       history,
-      actions:{
-        setCurrentTask,
-      },
     } = this.props
 
     return(
@@ -26,7 +19,7 @@ class TaskCardComponent extends Component {
           <Card.Description>{task.description}</Card.Description>
           <Button onClick={() => {
             setCurrentTask(task)
-            history.push("/activityCreation/taskSetUp")
+            history.push("/")
           }}>Editar
           </Button>
         </Card.Content>
@@ -36,13 +29,4 @@ class TaskCardComponent extends Component {
 
 }
 
-//Funcion que mapea las acciones con las funciones que llamamos desde el componente
-function mapDispatchToProps(dispatch) {
-  return {
-    actions : bindActionCreators({
-      setCurrentTask,
-    }, dispatch)
-  }
-}
-
-export default connect(null,mapDispatchToProps)(withRouter(TaskCardComponent))
+export default (withRouter(TaskCardComponent))
