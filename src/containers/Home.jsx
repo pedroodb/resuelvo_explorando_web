@@ -8,9 +8,6 @@ import {
   getActivities,
   deleteActivity,
 } from '../actions/activities'
-import {
-  setActivity,
-} from '../actions/currentActivity'
 
 import { OUTDATED } from '../constants/status'
 import ActivityListItem from '../components/ActivityListItem'
@@ -32,7 +29,6 @@ class HomeContainer extends Component {
       activities,
       status,
       actions: {
-        setActivity,
         deleteActivity,
         updateActivities,
       }
@@ -52,20 +48,14 @@ class HomeContainer extends Component {
           activity => (
             <ActivityListItem
               activity={activity}
-              key={activity.title}
+              key={activity.id}
               del={() => deleteActivity(activity.id)}
-              onLoad={
-                () => {
-                  setActivity(activity)
-                  history.push('/activityCreation/activitySetUp')
-                }
-              }
+              onLoad={() => history.push(`/Activity/${activity.id}`)}
             />
           )
         }/>
         <Button onClick={() => {
-          setActivity({title:'', description:''})
-          history.push("/activityCreation/activitySetUp")
+          history.push("/Activity/new")
         }}>Crear actividad</Button>
       </div>
     )
@@ -76,7 +66,6 @@ function mapDispatchToProps(dispatch) {
   return {
     actions : bindActionCreators({
       updateActivities: getActivities,
-      setActivity,
       deleteActivity,
     }, dispatch)
   }

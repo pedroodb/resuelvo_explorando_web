@@ -1,11 +1,12 @@
 import { 
   CURRENT_TASK_SET,
+  CURRENT_TASK_INIT,
   CURRENT_TASK_CLEAR,
   CURRENT_TASK_FIELD_SET,
   CURRENT_TASK_TYPE_SET,
   MC_TASK_OPTION_ADD,
   MC_TASK_OPTION_UPDATE,
-} from '../constants'
+} from '../constants/currentTask'
 
 export const setCurrentTask = (task) => ({
   type:CURRENT_TASK_SET,
@@ -14,6 +15,11 @@ export const setCurrentTask = (task) => ({
 
 export const clearCurrentTask = () => ({
   type:CURRENT_TASK_CLEAR,
+})
+
+
+export const initCurrentTask = () => ({
+  type:CURRENT_TASK_INIT,
 })
 
 export const setCurrentTaskField = (field,value) => ({
@@ -34,18 +40,18 @@ export const setCurrentTaskType = (type, defaultPayload) => ({
 })
 
 //Actions especificas para tarea de tipo Multiple-Choice
-export const addOptionToMCTask = (option) => ({
-  type:MC_TASK_OPTION_ADD,
-  payload:{
-    ...option,
-  },
-})
-
-export const updateMCTaskOption = (index,option) => ({
-  type:MC_TASK_OPTION_UPDATE,
-  payload:{
-    index,
-    option,
-  },
-})
-
+export const mcActions = {
+  addOption: option => ({
+    type:MC_TASK_OPTION_ADD,
+    payload:{
+      ...option,
+    },
+  }),
+  updateOption: (index, option) => ({
+    type:MC_TASK_OPTION_UPDATE,
+    payload:{
+      index,
+      option,
+    },
+  })
+}

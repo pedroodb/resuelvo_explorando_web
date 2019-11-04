@@ -1,94 +1,79 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Form, Button, Divider } from 'semantic-ui-react'
 
-import { MULTIPLE_CHOICE, FREE_ANSWER } from '../constants'
-import { addTask, editTask, removeTask } from '../actions/currentActivity'
-import { clearCurrentTask, setCurrentTaskField, setCurrentTaskType } from '../actions/currentTaskActions'
-import taskTypesDictionary from '../helpers/TaskTypesDictionary'
+import {
+  MULTIPLE_CHOICE,
+  FREE_ANSWER,
+} from '../constants/taskTypes'
+import {
+  UNSET,
+} from '../constants/status'
+import {
+  saveTask,
+  updateTask,
+  deleteTask,
+} from '../actions/tasks'
+import {
+  clearCurrentTask,
+  setCurrentTaskField,
+  setCurrentTaskType,
+} from '../actions/currentTaskActions'
+import TaskTypesHelper from '../helpers/taskTypesHelper'
+import TaskBuilder from '../components/taskSetUpComponents/TaskBuilder.jsx'
 import '../styles/General.css'
 
 class TaskSetUpContainer extends Component {
 
-  constructor(props) {
-    super(props)
-
-    this.handleFormSubmit = this.handleFormSubmit.bind(this)
-    this.handleTaskRemoval = this.handleTaskRemoval.bind(this)
-  }
-
-  handleFormSubmit = (shouldSubmit) => {
-    const {
-      editing,
-      history,
-      task,
-      actions:{
-        editTask,
-        addTask,
-        clearCurrentTask,
-      },
-    } = this.props
-
-    if(shouldSubmit) {
-      (editing ?
-        editTask(task) :
-        addTask(task))
-    }
-    clearCurrentTask()
-    history.push("/activityCreation/activitySetup")
-  }
-
-  handleTaskRemoval = () => {
-    const {
-      history,
-      task,
-      actions:{
-        removeTask,
-        clearCurrentTask,
-      },
-    } = this.props
-
-    removeTask(task)
-    clearCurrentTask()
-    history.push("/activityCreation/activitySetup")    
-  }
-
   render() {
 
     const {
-      task,
+      title,
+      description,
+      type,
+      code,
+      payload,
       editing,
       actions:{
         setCurrentTaskField,
         setCurrentTaskType,
+        clearCurrentTask,
+        editTask,
+        addTask,
+        removeTask,
       },
     } = this.props
 
-    return (
+    const task = {title, description, type, code, payload}
+
+    return title === UNSET ? (
+      <Redirect to='/activityCreation/activitySetUp' />
+    ) : 
+    (
       <div className="background">
         <div className="container">
           <header>Creando tarea</header>
           <Form>
-            <Form.Input name='title' label='Título' value={task.title} placeholder='Título' onChange={(event, { value, name }) => setCurrentTaskField(name,value)} required/>
-            <Form.Input name='description' label='Descripción' value={task.description} placeholder='Descripción' onChange={(event, { value, name }) => setCurrentTaskField(name,value)} required/>
+            <Form.Input name='title' label='Título' value={title} placeholder='Título' onChange={(event, { value, name }) => setCurrentTaskField(name,value)} required/>
+            <Form.Input name='description' label='Descripción' value={description} placeholder='Descripción' onChange={(event, { value, name }) => setCurrentTaskField(name,value)} required/>
             <Form.Select
               name='type'
-              value={task.type} 
+              value={type} 
               placeholder='Elija el tipo de tarea' 
-              onChange={(event, { value }) => setCurrentTaskType(value,taskTypesDictionary[value].defaultPayload)}
+              onChange={(event, { value }) => setCurrentTaskType(value,TaskTypesHelper[value].defaultPayload)}
               options={[
                 { text:'Multiple Choice', value:MULTIPLE_CHOICE },
                 { text:'Respuesta libre', value:FREE_ANSWER },
               ]}
             />
           </Form>
-          { task.type !== null ? taskTypesDictionary[task.type].componentToRender : null }
+          <TaskBuilder type={type} payload={payload}/>
           <Divider/>
-          <Button content='Confirmar' onClick={() => this.handleFormSubmit(true)}/>
-          <Button content='Cancelar' onClick={() => this.handleFormSubmit(false)}/>
-          { editing ? (<Button content='Eliminar' onClick={this.handleTaskRemoval}/>) : null }
+          <Button content='Confirmar' onClick={() => (editing ? editTask(task) : addTask(task))}/>
+          <Button content='Cancelar' onClick={() => clearCurrentTask()}/>
+          { editing ? (<Button content='Eliminar' onClick={() => removeTask(task)}/>) : null }
         </div>
       </div>
     )
@@ -98,9 +83,9 @@ class TaskSetUpContainer extends Component {
 function mapDispatchToProps(dispatch) {
   return {
     actions : bindActionCreators({
-      addTask,
-      editTask,
-      removeTask,
+      addTask: saveTask,
+      editTask: updateTask,
+      removeTask: deleteTask,
       clearCurrentTask,
       setCurrentTaskField,
       setCurrentTaskType,
@@ -108,14 +93,21 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-function mapStateToProps({currentTaskReducer}) {
+function mapStateToProps({currentTask,currentActivity}) {
   const {
-    task,
-    editing,
-  } = currentTaskReducer
+    title,
+    description,
+    code,
+    type,
+    payload,
+  } = currentTask
   return {
-    task,
-    editing,
+    title,
+    description,
+    code,
+    type,
+    payload,
+    editing:(code!==UNSET),
   }
 }
 

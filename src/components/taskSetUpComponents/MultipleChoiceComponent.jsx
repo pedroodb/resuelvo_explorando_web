@@ -4,14 +4,14 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import {
-  addOptionToMCTask,
-  updateMCTaskOption,
+  setCurrentTaskType,
+  mcActions,
 } from '../../actions/currentTaskActions'
 
 class MultipleChoiceComponent extends Component {
 
   handleOptionChange(index,option,field,value) {
-    this.props.actions.updateMCTaskOption(index,{
+    this.props.actions.updateOption(index,{
       ...option,
       [field]:value,
     })
@@ -24,7 +24,7 @@ class MultipleChoiceComponent extends Component {
         options,
       },
       actions:{
-        addOptionToMCTask,
+        addOption,
       }
     } = this.props
 
@@ -44,33 +44,21 @@ class MultipleChoiceComponent extends Component {
               onChange={(event, { value, name }) => this.handleOptionChange(index,option,name,!option.isCorrect)}
             />
           </Form.Group>))}
-        <Button content='Agregar opción' onClick={() => addOptionToMCTask({ value:'', isCorrect:false })}></Button>
+        <Button content='Agregar opción' onClick={() => addOption({ value:'', isCorrect:false })}></Button>
       </div>
     )
   }
-
 }
 
 //Funcion que mapea las acciones con las funciones que llamamos desde el componente
 function mapDispatchToProps(dispatch) {
   return {
     actions : bindActionCreators({
-      addOptionToMCTask,
-      updateMCTaskOption,
+      setCurrentTaskType,
+      addOption:mcActions.addOption,
+      updateOption:mcActions.updateOption,
     }, dispatch)
   }
 }
 
-//Funcion que mapea el estado de la APLICACION (redux) con las props del componente
-function mapStateToProps({currentTaskReducer}) {
-  const {
-    task:{
-      payload,
-    },
-  } = currentTaskReducer
-  return {
-    payload,
-  }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(MultipleChoiceComponent)
+export default connect(null,mapDispatchToProps)(MultipleChoiceComponent)
