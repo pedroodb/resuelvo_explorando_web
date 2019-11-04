@@ -63,7 +63,7 @@ class HomeContainer extends Component {
             />
           )
         }/>
-        <Button onClick={() => {
+        <Button basic color='blue' onClick={() => {
           setActivity({title:'', description:''})
           history.push("/activityCreation/activitySetUp")
         }}>Crear actividad</Button>

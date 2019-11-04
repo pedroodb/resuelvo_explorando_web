@@ -34,14 +34,14 @@ class ItemsList extends Component {
 
     return (
       items.length > 0 ? (
-        <div style={{alignContent:'center'}}>
+        <div>
           <List>
             {
               this.itemsForPage(items,activePage).map(render_item)
             }
           </List>
           <Container textAlign='center'>
-            <Pagination
+            <Pagination basic color='blue'
               activePage={activePage}
               onPageChange={this.handlePaginationChange}
               totalPages={this.cutItems(items)}
