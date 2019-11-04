@@ -10,7 +10,7 @@ import {
 } from '../actions/activities'
 
 import { OUTDATED } from '../constants/status'
-import ActivityListItem from '../components/ActivityListItem'
+import ListItem from '../components/ListItem'
 import logo from '../assets/resuelvo_explorando_logo.png'
 import StatusList from '../components/StatusList'
 import '../styles/Home.css'
@@ -46,11 +46,11 @@ class HomeContainer extends Component {
         <img src={logo} className="logo" alt="logo" />
         <StatusList status={status} items={activities} render_item={
           activity => (
-            <ActivityListItem
-              activity={activity}
+            <ListItem
+              name={activity.title}
               key={activity.id}
               del={() => deleteActivity(activity.id)}
-              onLoad={() => history.push(`/Activity/${activity.id}`)}
+              load={() => history.push(`/Activity/${activity.id}`)}
             />
           )
         }/>

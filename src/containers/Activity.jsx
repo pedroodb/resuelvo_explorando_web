@@ -6,6 +6,7 @@ import { Button, Form, Divider, Header} from 'semantic-ui-react'
 
 import { SUCCESS, PENDING, UNSET } from '../constants/status'
 import StatusList from '../components/StatusList'
+import ListItem from '../components/ListItem'
 import {
   getActivity,
   saveActivity,
@@ -14,9 +15,9 @@ import {
 } from '../actions/activities'
 import {
   getTasks,
+  deleteTask,
 } from '../actions/tasks'
 
-import { TaskCardGroup } from '../components/activitySetUpComponents'
 import '../styles/ActivitySetUp.css'
 
 class ActivitySetUpContainer extends Component {
@@ -46,6 +47,7 @@ class ActivitySetUpContainer extends Component {
       tasks_index_status,
       actions: {
         updateActivity,
+        deleteTask,
       }
     } = this.props
 
@@ -58,10 +60,18 @@ class ActivitySetUpContainer extends Component {
               onChange={this.handleFieldSet.bind(this)} />
             <Form.Input name='description' label='Descripción' value={description} placeholder='Descripción' required
               onChange={this.handleFieldSet.bind(this)} />
-            <StatusList items={tasks} status={tasks_index_status} render_item={task => task.title}/>
+            <StatusList items={tasks} status={tasks_index_status} render_item={task =>
+              (<ListItem
+                name={task.name}
+                key={task.id}
+                load={() => history.push(`/activity/${id}/task/${task.id}`)}
+                del={() => deleteTask(id,task.id)}
+              />)}
+            />
           </Form>
           <Divider/>
-          <Button primary onClick={() => history.push(`/Activity/${id}/Task/new`)}>Agregar tarea</Button>
+          <Button primary onClick={() => history.push(`/activity/${id}/task/new`)}>Agregar tarea</Button>
+          <Button primary onClick={() => history.push(`/activity/${id}/workflow`)}>Workflow</Button>
           <Button primary
             onClick={() => {
               updateActivity(id,this.props.activity)
@@ -82,6 +92,7 @@ function mapDispatchToProps(dispatch) {
       getActivity,
       saveActivity,
       updateActivity,
+      deleteTask,
       getTasks,
     }, dispatch)
   }
