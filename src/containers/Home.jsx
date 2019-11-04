@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { Button } from 'semantic-ui-react'
+import { Button, Header } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -39,9 +39,9 @@ class HomeContainer extends Component {
     return (
       <div id="Home" className="background">
         <header className="header">
-          <h1>
+          <Header>
             Bienvenido a la herramienta de configuración de Resuelvo Explorando.
-          </h1>
+          </Header>
         </header>
         <img src={logo} className="logo" alt="logo" />
         <StatusList status={status} items={activities} render_item={
@@ -54,7 +54,7 @@ class HomeContainer extends Component {
             />
           )
         }/>
-        <Button basic color='blue' onClick={() => {
+        <Button primary onClick={() => {
           history.push("/Activity/new")
         }}>Crear actividad</Button>
       </div>

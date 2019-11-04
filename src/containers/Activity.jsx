@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Button, Form, Divider } from 'semantic-ui-react'
+import { Button, Form, Divider, Header} from 'semantic-ui-react'
 
 import { SUCCESS, PENDING, UNSET } from '../constants/status'
 import StatusList from '../components/StatusList'
@@ -16,7 +16,8 @@ import {
   getTasks,
 } from '../actions/tasks'
 
-import '../styles/General.css'
+import { TaskCardGroup } from '../components/activitySetUpComponents'
+import '../styles/ActivitySetUp.css'
 
 class ActivitySetUpContainer extends Component {
 
@@ -49,9 +50,9 @@ class ActivitySetUpContainer extends Component {
     } = this.props
 
     return (activity_status === SUCCESS) ? (
-      <div className="background">
-        <div className="container">
-          <header>{(id===UNSET) ? 'Creando' : 'Editando'} actividad {title} : {description}</header>
+      <div id="ActivitySetUp" className="background">
+        <Header textAlign='center' >{(id===UNSET) ? 'Creando' : 'Editando'} actividad {title} : {description}</Header>
+        <div className="ui raised very padded text container segment">
           <Form>
             <Form.Input name='title' label='Título' value={title} placeholder='Título' required
               onChange={this.handleFieldSet.bind(this)} />
@@ -60,14 +61,14 @@ class ActivitySetUpContainer extends Component {
             <StatusList items={tasks} status={tasks_index_status} render_item={task => task.title}/>
           </Form>
           <Divider/>
-          <Button onClick={() => history.push(`/Activity/${id}/Task/new`)}>Agregar tarea</Button>
-          <Button
+          <Button primary onClick={() => history.push(`/Activity/${id}/Task/new`)}>Agregar tarea</Button>
+          <Button primary
             onClick={() => {
               updateActivity(id,this.props.activity)
               history.push('/')
             }}
           >Guardar</Button>
-          <Button onClick={() => history.push('/')}>Descartar</Button>
+          <Button primary onClick={() => history.push('/')}>Descartar</Button>
         </div>
       </div>
     ) : null
