@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Button, Form, Divider } from 'semantic-ui-react'
+import { Button, Form, Divider, Header} from 'semantic-ui-react'
 
 import { UNSET } from '../constants/status'
 import {
@@ -15,7 +15,7 @@ import {
 } from '../actions/activities'
 
 import { TaskCardGroup } from '../components/activitySetUpComponents'
-import '../styles/General.css'
+import '../styles/ActivitySetUp.css'
 
 class ActivitySetUpContainer extends Component {
 
@@ -45,9 +45,9 @@ class ActivitySetUpContainer extends Component {
     return title === UNSET ?
       <Redirect to="/" />
     : (
-      <div className="background">
-        <div className="container">
-          <header>{(id===UNSET) ? 'Creando' : 'Editando'} actividad {title} : {description}</header>
+      <div id="ActivitySetUp" className="background">
+        <Header textAlign='center' >{(id===UNSET) ? 'Creando' : 'Editando'} actividad {title} : {description}</Header>
+        <div className="ui raised very padded text container segment">
           <Form>
             <Form.Input name='title' label='Título' value={title} placeholder='Título' required
               onChange={this.handleFieldSet.bind(this)} />
@@ -56,13 +56,15 @@ class ActivitySetUpContainer extends Component {
             <TaskCardGroup tasks={tasks}/>
           </Form>
           <Divider/>
-          <Button onClick={() => history.push("/activityCreation/taskSetUp")}>Agregar tarea</Button>
-          <Button
+          <div className="butonesco">
+          <Button primary onClick={() => history.push("/activityCreation/taskSetUp")}>Agregar tarea</Button>
+          <Button primary
             onClick={() => (id===UNSET) ? 
               saveActivity({...this.props.currentActivity,id:undefined})
               : updateActivity(id,this.props.currentActivity)}
           >Guardar</Button>
-          <Button onClick={this.handleActivityDiscard.bind(this)}>Descartar</Button>
+          <Button primary onClick={this.handleActivityDiscard.bind(this)}>Descartar</Button>
+          </div>
         </div>
       </div>
     )

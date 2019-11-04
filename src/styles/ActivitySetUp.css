@@ -1,0 +1,11 @@
+#ActivitySetUp > .header {
+  font-size: calc(10px + 2vmin);
+  color: black;
+  font-size:250%;
+}
+
+
+#ActivitySetUp > .container {
+  background: #9b9b9b;
+  align-items: center;
+}
