@@ -38,12 +38,12 @@ class HomeContainer extends Component {
 
     return (
       <div id="Home" className="background">
-        <img src={logo} className="logo" alt="logo" />
         <header className="header">
-          <p>
+          <h1>
             Bienvenido a la herramienta de configuración de Resuelvo Explorando.
-          </p>
+          </h1>
         </header>
+        <img src={logo} className="logo" alt="logo" />
         <StatusList status={status} items={activities} render_item={
           activity => (
             <ActivityListItem
@@ -54,7 +54,7 @@ class HomeContainer extends Component {
             />
           )
         }/>
-        <Button onClick={() => {
+        <Button basic color='blue' onClick={() => {
           history.push("/Activity/new")
         }}>Crear actividad</Button>
       </div>
