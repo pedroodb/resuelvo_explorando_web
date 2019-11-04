@@ -1,50 +1,55 @@
 import React, { Component } from 'react'
-import { withRouter, Redirect } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Button, Form, Divider, Header} from 'semantic-ui-react'
 
-import { UNSET } from '../constants/status'
+import { SUCCESS, PENDING, UNSET } from '../constants/status'
+import StatusList from '../components/StatusList'
 import {
-  setField,
-  clearActivity,
-} from '../actions/currentActivity'
-import {
+  getActivity,
   saveActivity,
   updateActivity,
+  setField,
 } from '../actions/activities'
+import {
+  getTasks,
+} from '../actions/tasks'
 
 import { TaskCardGroup } from '../components/activitySetUpComponents'
 import '../styles/ActivitySetUp.css'
 
 class ActivitySetUpContainer extends Component {
 
-  handleFieldSet = (event, { value, name }) => this.props.actions.setField(name,value)
-
-  handleActivityDiscard() {
-    this.props.actions.clearActivity()
-    this.props.history.push("/")
+  componentDidMount(){
+    const {
+      getActivity,
+      getTasks,
+    } = this.props.actions
+    getActivity(this.props.match.params.id)
+    getTasks(this.props.match.params.id)
   }
+
+  handleFieldSet = (event, { value, name }) => this.props.actions.setField(name,value)
 
   render() {
 
     const {
       history,
-      currentActivity: {
+      activity: {
         title,
         description,
-        tasks,
         id,
       },
+      activity_status,
+      tasks,
+      tasks_index_status,
       actions: {
-        saveActivity,
         updateActivity,
       }
     } = this.props
 
-    return title === UNSET ?
-      <Redirect to="/" />
-    : (
+    return (activity_status === SUCCESS) ? (
       <div id="ActivitySetUp" className="background">
         <Header textAlign='center' >{(id===UNSET) ? 'Creando' : 'Editando'} actividad {title} : {description}</Header>
         <div className="ui raised very padded text container segment">
@@ -53,21 +58,20 @@ class ActivitySetUpContainer extends Component {
               onChange={this.handleFieldSet.bind(this)} />
             <Form.Input name='description' label='Descripción' value={description} placeholder='Descripción' required
               onChange={this.handleFieldSet.bind(this)} />
-            <TaskCardGroup tasks={tasks}/>
+            <StatusList items={tasks} status={tasks_index_status} render_item={task => task.title}/>
           </Form>
           <Divider/>
-          <div className="butonesco">
-          <Button primary onClick={() => history.push("/activityCreation/taskSetUp")}>Agregar tarea</Button>
+          <Button primary onClick={() => history.push(`/Activity/${id}/Task/new`)}>Agregar tarea</Button>
           <Button primary
-            onClick={() => (id===UNSET) ? 
-              saveActivity({...this.props.currentActivity,id:undefined})
-              : updateActivity(id,this.props.currentActivity)}
+            onClick={() => {
+              updateActivity(id,this.props.activity)
+              history.push('/')
+            }}
           >Guardar</Button>
-          <Button primary onClick={this.handleActivityDiscard.bind(this)}>Descartar</Button>
-          </div>
+          <Button primary onClick={() => history.push('/')}>Descartar</Button>
         </div>
       </div>
-    )
+    ) : null
   }
 }
 
@@ -75,16 +79,32 @@ function mapDispatchToProps(dispatch) {
   return {
     actions : bindActionCreators({
       setField,
-      clearActivity,
+      getActivity,
       saveActivity,
       updateActivity,
+      getTasks,
     }, dispatch)
   }
 }
 
-function mapStateToProps({currentActivity}) {
+function mapStateToProps({activities: activityReducer,tasks: taskReducer}) {
+  const {
+    index:{
+      tasks,
+      status: tasks_index_status,
+    }
+  } = taskReducer
+  const {
+    get:{
+      activity,
+      status: activity_status
+    }
+  } = activityReducer
   return {
-    currentActivity,
+    tasks,
+    tasks_index_status,
+    activity,
+    activity_status,
   }
 }
 

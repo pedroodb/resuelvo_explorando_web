@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { setCurrentTask } from '../../actions/currentTaskActions'
+import { setCurrentTask } from '../../actions/tasks'
 
 class TaskCardComponent extends Component {
 

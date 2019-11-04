@@ -1,14 +1,11 @@
-//Combina todos los reducers en uno antes de exportarlo
 import { combineReducers } from 'redux'
 
-import currentActivity from './currentActivity'
-import currentTask from './currentTask'
 import activities from './activities'
+import tasks from './tasks'
 
 const AppReducer = combineReducers({
   activities,
-  currentActivity,
-  currentTask,
+  tasks,
 })
 
 export default AppReducer

@@ -1,9 +1,19 @@
 import HomeContainer from './Home.jsx'
-import ActivitySetUpContainer from './ActivitySetUp.jsx'
-import TaskSetUpContainer from './TaskSetUp.jsx'
+import ActivityContainer from './Activity'
+import ActivityNewContainer from './ActivityNew'
+import TaskContainer from './Task'
+import TaskNewContainer from './TaskNew'
 
 export const Home = HomeContainer
-export const ActivitySetUp = ActivitySetUpContainer
-export const TaskSetUp = TaskSetUpContainer
+export const Activity = ActivityContainer
+export const ActivityNew = ActivityNewContainer
+export const Task = TaskContainer
+export const TaskNew = TaskNewContainer
 
-export default { Home, ActivitySetUp, TaskSetUp }
+export default {
+  Home,
+  Activity,
+  ActivityNew,
+  Task,
+  TaskNew,
+}

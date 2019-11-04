@@ -1,22 +1,25 @@
 import {
-  ACTIVITIES_REQUEST,
-  ACTIVITIES_SUCCESS,
-  ACTIVITIES_FAILURE,
-  ACTIVITY_GET_REQUEST,
-  ACTIVITY_GET_SUCCESS,
-  ACTIVITY_GET_FAILURE,
-  ACTIVITY_SAVE_REQUEST,
-  ACTIVITY_SAVE_SUCCESS,
-  ACTIVITY_SAVE_FAILURE,
-  ACTIVITY_SAVE_CLEAR,
-  ACTIVITY_UPDATE_REQUEST,
-  ACTIVITY_UPDATE_SUCCESS,
-  ACTIVITY_UPDATE_FAILURE,
-  ACTIVITY_DELETE_REQUEST,
-  ACTIVITY_DELETE_SUCCESS,
-  ACTIVITY_DELETE_FAILURE,
-  FIELD_SET,
-} from '../constants/activities'
+  TASKS_REQUEST,
+  TASKS_SUCCESS,
+  TASKS_FAILURE,
+  TASK_GET_REQUEST,
+  TASK_GET_SUCCESS,
+  TASK_GET_FAILURE,
+  TASK_SAVE_REQUEST,
+  TASK_SAVE_SUCCESS,
+  TASK_SAVE_FAILURE,
+  TASK_SAVE_CLEAR,
+  TASK_UPDATE_REQUEST,
+  TASK_UPDATE_SUCCESS,
+  TASK_UPDATE_FAILURE,
+  TASK_DELETE_REQUEST,
+  TASK_DELETE_SUCCESS,
+  TASK_DELETE_FAILURE,
+  CURRENT_TASK_FIELD_SET,
+  CURRENT_TASK_TYPE_SET,
+  MC_TASK_OPTION_ADD,
+  MC_TASK_OPTION_UPDATE,
+} from '../constants/tasks'
 
 import {
   UNSET,
@@ -28,17 +31,17 @@ import {
 
 const initialState = {
   index:{
-    activities:[],
+    tasks:[],
     status:UNSET,
     error:UNSET,
   },
   get:{
-    activity:UNSET,
+    task:UNSET,
     status:UNSET,
     error:UNSET,
   },
   save:{
-    status:SUCCESS,
+    status:UNSET,
     error:UNSET,
     last:UNSET,
   },
@@ -54,9 +57,9 @@ const initialState = {
   }
 }
 
-const activityReducer = (state = initialState, action) => {
+const taskReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ACTIVITIES_REQUEST:
+    case TASKS_REQUEST:
       return {
         ...state,
         index:{
@@ -64,15 +67,15 @@ const activityReducer = (state = initialState, action) => {
           status:PENDING,
         }
       }
-    case ACTIVITIES_SUCCESS:
+    case TASKS_SUCCESS:
       return {
         ...state,
         index:{
           status:SUCCESS,
-          activities:action.payload,
+          tasks:action.payload,
         }
       }
-    case ACTIVITIES_FAILURE:
+    case TASKS_FAILURE:
       return {
         ...state,
         index:{
@@ -81,7 +84,7 @@ const activityReducer = (state = initialState, action) => {
           error:action.payload,
         }
       }
-    case ACTIVITY_GET_REQUEST:
+    case TASK_GET_REQUEST:
       return {
         ...state,
         get:{
@@ -89,16 +92,16 @@ const activityReducer = (state = initialState, action) => {
           status:PENDING,
         }
       }
-    case ACTIVITY_GET_SUCCESS:
+    case TASK_GET_SUCCESS:
       return {
         ...state,
         get:{
           ...state.get,
           status:SUCCESS,
-          activity:action.payload,
+          task:action.payload,
         }
       }
-    case ACTIVITY_GET_FAILURE:
+    case TASK_GET_FAILURE:
       return {
         ...state,
         get:{
@@ -107,7 +110,7 @@ const activityReducer = (state = initialState, action) => {
           error:action.payload,
         }
       }
-    case ACTIVITY_SAVE_REQUEST:
+    case TASK_SAVE_REQUEST:
       return {
         ...state,
         save:{
@@ -115,7 +118,7 @@ const activityReducer = (state = initialState, action) => {
           status:PENDING,
         }
       }
-    case ACTIVITY_SAVE_SUCCESS:
+    case TASK_SAVE_SUCCESS:
       return {
         ...state,
         index:{
@@ -128,7 +131,7 @@ const activityReducer = (state = initialState, action) => {
           last:action.payload,
         }
       }
-    case ACTIVITY_SAVE_FAILURE:
+    case TASK_SAVE_FAILURE:
       return {
         ...state,
         save:{
@@ -137,12 +140,14 @@ const activityReducer = (state = initialState, action) => {
           error:action.payload,
         }
       }
-    case ACTIVITY_SAVE_CLEAR:
+    case TASK_SAVE_CLEAR:
       return {
         ...state,
-        save:initialState.save,
+        save:{
+          ...initialState.save
+        }
       }
-    case ACTIVITY_UPDATE_REQUEST:
+    case TASK_UPDATE_REQUEST:
       return {
         ...state,
         update:{
@@ -150,7 +155,7 @@ const activityReducer = (state = initialState, action) => {
           status:PENDING,
         }
       }
-    case ACTIVITY_UPDATE_SUCCESS:
+    case TASK_UPDATE_SUCCESS:
       return {
         ...state,
         index:{
@@ -163,7 +168,7 @@ const activityReducer = (state = initialState, action) => {
           last:action.payload,
         }
       }
-    case ACTIVITY_UPDATE_FAILURE:
+    case TASK_UPDATE_FAILURE:
       return {
         ...state,
         update:{
@@ -172,7 +177,7 @@ const activityReducer = (state = initialState, action) => {
           error:action.payload,
         }
       }
-    case ACTIVITY_DELETE_REQUEST:
+    case TASK_DELETE_REQUEST:
       return {
         ...state,
         del:{
@@ -180,7 +185,7 @@ const activityReducer = (state = initialState, action) => {
           status:PENDING,
         }
       }
-    case ACTIVITY_DELETE_SUCCESS:
+    case TASK_DELETE_SUCCESS:
       return {
         ...state,
         index:{
@@ -192,7 +197,7 @@ const activityReducer = (state = initialState, action) => {
           status:SUCCESS,
         }
       }
-    case ACTIVITY_DELETE_FAILURE:
+    case TASK_DELETE_FAILURE:
       return {
         ...state,
         del:{
@@ -201,14 +206,69 @@ const activityReducer = (state = initialState, action) => {
           error:action.payload,
         }
       }
-    case FIELD_SET:
+    case CURRENT_TASK_FIELD_SET:
+      const {
+        payload:{
+          field,
+          value,
+        }
+      } = action
+      return {
+        ...state,
+        status:OUTDATED,
+        get:{
+          ...state.get,
+          task:{
+            ...state.get.task,
+            [field]:value,
+          }
+        }
+      }
+    case CURRENT_TASK_TYPE_SET:
+      const {
+        type,
+        taskPayload,
+      } = action.payload
+      return {
+        ...state,
+        status:OUTDATED,
+        get:{
+          ...state.get,
+          task:{
+            ...state.get.task,
+            type:type,
+            payload:taskPayload,
+          }
+        }
+      }
+    //Case especificos de tareas Multiple Choice
+    case MC_TASK_OPTION_ADD:
       return {
         ...state,
         get:{
           ...state.get,
-          activity:{
-            ...state.get.activity,
-            [action.payload.field]:action.payload.value,
+          status:OUTDATED,
+          task:{
+            ...state.get.task,
+            payload:{
+              ...state.payload,
+              options:[...state.get.task.payload.options, action.payload],
+          }
+        }
+        },
+      }
+    case MC_TASK_OPTION_UPDATE:
+      return {
+        ...state,
+        get:{
+          ...state.get,
+          status:OUTDATED,
+          task:{
+            ...state.get.task,
+            payload:{
+              ...state.payload,
+              options:state.get.task.payload.options.map((option,index) => (index===action.payload.index) ? action.payload.option : option),
+            },
           }
         }
       }
@@ -217,4 +277,4 @@ const activityReducer = (state = initialState, action) => {
   }
 }
 
-export default activityReducer
+export default taskReducer
