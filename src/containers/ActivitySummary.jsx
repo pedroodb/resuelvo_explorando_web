@@ -1,7 +1,14 @@
 import React, { Component } from 'react'
-import { GraphView } from 'react-digraph';
+import { GraphView } from 'react-digraph'
 import { Button, Dropdown } from 'semantic-ui-react'
-  
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
+import { PENDING, SUCCESS } from '../constants/status'
+import {
+	getTasks,
+} from '../actions/tasks'
+
     const GraphConfig =  {
         NodeTypes: {
         empty: { // required to show empty nodes
@@ -32,42 +39,32 @@ class ActivitySummaryContainer extends Component {
 
     constructor(props){
         super(props);
-        //tasks = this.convertTasksToNodes(props.tasks)
         this.state = {
-            nodes: [
-							{
-								"id": 1,
-								"title": "Node A",
-								"x": 0,
-								"y": 0,
-								"type": "empty"
-							},
-							{
-								"id": 2,
-								"title": "Node B",
-								"x": 150,
-								"y": 0,
-								"type": "empty"
-							},
-							{
-								"id": 3,
-								"title": "Node C",
-								"x": 300,
-								"y": 0,
-								"type": "empty"
-							},
-						],  //tasks,
-            edges: [],
-						selected: 0,
-						orderOption: 0,					
-        }
-    }
+          edges: [],
+					selected: 0,
+					orderOption: 0,					
+      }
+		}
+		
+		componentDidMount() {
+			const {
+				actions:{
+					getTasks,
+				},
+				match:{
+					params:{
+						id,
+					}
+				}
+			} = this.props
+			getTasks(id)
+		}
 
-    /*convertTasksToNodes = (tasks) => {
-        nodes = []
-        cont = 0
+    convertTasksToNodes = tasks => {
+        const nodes = []
+        var cont = 0
         tasks.forEach(task => {
-            xValue = cont * 150
+            var xValue = cont * 150
             nodes.push({
                 "id": task.id,
                 "title": task.title,
@@ -78,14 +75,14 @@ class ActivitySummaryContainer extends Component {
             cont+=1
         });
         return nodes
-		}*/
+		}
 		
     onSelectNode = () => null
     onCreateNode = () => null
     onUpdateNode = () => null
     onSelectEdge = () => null
     onCreateEdge = (source, target) => {
-			if(this.state.orderOption == 2) {
+			if(this.state.orderOption === 2) {
         this.setState({
             ...this.state,
             edges:[
@@ -102,10 +99,10 @@ class ActivitySummaryContainer extends Component {
     onSwapEdge = () => null
 		onDeleteEdge = () => null
 		
-		changeDropdownValue = (data) => {
+		changeDropdownValue(data) {
 			switch(data.value) {
 				case 1:
-					const secuencialEdges = this.edgesSecuencial(this.state.nodes)
+					const secuencialEdges = this.edgesSecuencial(this.convertTasksToNodes(this.props.index))
 					this.setState({
 						...this.state,
 						orderOption: data.value,
@@ -123,7 +120,6 @@ class ActivitySummaryContainer extends Component {
 
 		edgesSecuencial = (nodes) => {
 			const numberOfNodes = nodes.length
-			console.log(nodes.length)
 			var edges = []
 			for(var i=0; i<numberOfNodes-1; i++) {
 				edges.push({
@@ -132,17 +128,23 @@ class ActivitySummaryContainer extends Component {
       		"type": "emptyEdge",
 				})
 			}
+			console.log(edges)
 			return edges
 		}
 
     render() {
+
+			const {
+				index,
+				status,
+			} = this.props
 
 			const orderOptions = [
 				{ key: 0, value: 0,  text: 'Libre' },
 				{ key: 1, value: 1, text: 'Secuencial' },
 				{ key: 2, value: 2,  text: 'Personalizada' }
 			]
-      return(
+      return status === SUCCESS ? (
 				<div className="background">
 					<div className="container">
 						<header>Ordenando actividad title : description</header>
@@ -151,7 +153,7 @@ class ActivitySummaryContainer extends Component {
 						<div id='graph' style={{margin:30}}>
 						<GraphView  ref='panToNode'
 												nodeKey={NODE_KEY}
-												nodes={this.state.nodes}
+												nodes={this.convertTasksToNodes(index)}
 												edges={this.state.edges}
 												selected={this.state.selected}
 												nodeTypes={GraphConfig.NodeTypes}
@@ -171,7 +173,29 @@ class ActivitySummaryContainer extends Component {
           	<Button>Volver</Button>
 					</div>
       	</div>
-        );
+        ) : null
     }
 }
-export default ActivitySummaryContainer
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions : bindActionCreators({
+      getTasks,
+    }, dispatch)
+  }
+}
+
+function mapStateToProps({tasks}) {
+	const {
+		index: {
+			tasks: index,
+			status,
+		}
+	} = tasks
+	return {
+		index,
+		status,
+	}
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(ActivitySummaryContainer)

@@ -15,11 +15,11 @@ class AppRoutes extends Component {
       return (
         <Switch>
             <Route exact path='/' component={Home}/>
-            <Route path='/Activity/new' component={ActivityNew}/>
-            <Route path='/Activity/:id/Task/New' component={TaskNew}/>
-            <Route path='/Activity/:id/Task/:fk' component={Task}/>
-            <Route path='/Activity/:id' component={Activity}/>
-            <Route path='/activityCreation/activitySummary' component={ActivitySummary}/>
+            <Route path='/activity/new' component={ActivityNew}/>
+            <Route path='/activity/:id/task/New' component={TaskNew}/>
+            <Route path='/activity/:id/task/:fk' component={Task}/>
+            <Route path='/activity/:id/workflow' component={ActivitySummary}/>
+            <Route path='/activity/:id' component={Activity}/>
         </Switch>
       )
     }
