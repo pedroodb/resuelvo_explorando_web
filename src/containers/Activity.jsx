@@ -65,7 +65,7 @@ class ActivitySetUpContainer extends Component {
           <Button primary
             onClick={() => {
               updateActivity(id,this.props.activity)
-              history.push('/')
+              history.push(`/Activity/${id}/workflow`)
             }}
           >Guardar</Button>
           <Button primary onClick={() => history.push('/')}>Descartar</Button>

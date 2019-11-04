@@ -3,6 +3,7 @@ import { GraphView } from 'react-digraph'
 import { Button, Dropdown } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { withRouter } from 'react-router-dom'
 
 import { PENDING, SUCCESS } from '../constants/status'
 import {
@@ -135,6 +136,7 @@ class ActivitySummaryContainer extends Component {
     render() {
 
 			const {
+				history,
 				index,
 				status,
 			} = this.props
@@ -169,8 +171,8 @@ class ActivitySummaryContainer extends Component {
 												onDeleteEdge={this.onDeleteEdge}
 												/>      
 						</div>
-						<Button>Finalizar</Button>
-          	<Button>Volver</Button>
+						<Button onClick={() => history.push('/')}>Finalizar</Button>
+          	<Button onClick={() => history.push('/Activity/' + this.props.match.params.id)}>Volver</Button>
 					</div>
       	</div>
         ) : null
@@ -198,4 +200,4 @@ function mapStateToProps({tasks}) {
 	}
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(ActivitySummaryContainer)
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(ActivitySummaryContainer))
