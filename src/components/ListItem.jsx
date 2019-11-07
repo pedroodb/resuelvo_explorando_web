@@ -7,7 +7,7 @@ const ListItem = ({name,load,del}) => (
       <Button primary onClick={load}> <Icon name='edit'/>Editar</Button>
       <Button primary onClick={del}><Icon name='trash'/>Eliminar</Button> 
     </List.Content>
-    <List.Content className='listHeader' >{name}</List.Content>
+    <List.Content id="listHeader"className='listHeader' >{name}</List.Content>
   </List.Item>  
 )
 

@@ -16,3 +16,9 @@
   text-align: initial;
   padding: 1%;
 }
+#Home > .listHeader {
+  background-color: whitesmoke;
+  width: 80%;
+  text-align: initial;
+  padding: 1%;
+}
