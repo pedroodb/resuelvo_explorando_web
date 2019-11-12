@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import {
-  setCurrentTaskType,
   mcActions,
 } from '../../actions/tasks'
 
@@ -54,7 +53,6 @@ class MultipleChoiceComponent extends Component {
 function mapDispatchToProps(dispatch) {
   return {
     actions : bindActionCreators({
-      setCurrentTaskType,
       addOption:mcActions.addOption,
       updateOption:mcActions.updateOption,
     }, dispatch)

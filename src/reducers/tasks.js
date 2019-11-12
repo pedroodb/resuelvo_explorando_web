@@ -19,6 +19,8 @@ import {
   CURRENT_TASK_TYPE_SET,
   MC_TASK_OPTION_ADD,
   MC_TASK_OPTION_UPDATE,
+  FA_TASK_ANSWER_SET,
+  FA_TASK_SLOGAN_SET,
 } from '../constants/tasks'
 
 import {
@@ -251,7 +253,7 @@ const taskReducer = (state = initialState, action) => {
           task:{
             ...state.get.task,
             payload:{
-              ...state.payload,
+              ...state.get.task.payload,
               options:[...state.get.task.payload.options, action.payload],
           }
         }
@@ -266,9 +268,39 @@ const taskReducer = (state = initialState, action) => {
           task:{
             ...state.get.task,
             payload:{
-              ...state.payload,
+              ...state.get.task.payload,
               options:state.get.task.payload.options.map((option,index) => (index===action.payload.index) ? action.payload.option : option),
             },
+          }
+        }
+      }
+    case FA_TASK_ANSWER_SET:
+      return {
+        ...state,
+        get:{
+          ...state.get,
+          status:OUTDATED,
+          task:{
+            ...state.get.task,
+            payload:{
+              ...state.get.task.payload,
+              answer:action.payload,
+            }
+          }
+        }
+      }
+    case FA_TASK_SLOGAN_SET:
+      return {
+        ...state,
+        get:{
+          ...state.get,
+          status:OUTDATED,
+          task:{
+            ...state.get.task,
+            payload:{
+              ...state.get.task.payload,
+              slogan:action.payload,
+            }
           }
         }
       }

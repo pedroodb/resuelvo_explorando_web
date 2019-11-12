@@ -19,6 +19,8 @@ import {
   CURRENT_TASK_TYPE_SET,
   MC_TASK_OPTION_ADD,
   MC_TASK_OPTION_UPDATE,
+  FA_TASK_ANSWER_SET,
+  FA_TASK_SLOGAN_SET,
 } from '../constants/tasks'
 
 import {
@@ -142,5 +144,16 @@ export const mcActions = {
       index,
       option,
     },
+  })
+}
+
+export const faActions = {
+  setSlogan: slogan => ({
+    type:FA_TASK_SLOGAN_SET,
+    payload:slogan,
+  }),
+  setAnswer: answer => ({
+    type:FA_TASK_ANSWER_SET,
+    payload:answer,
   })
 }

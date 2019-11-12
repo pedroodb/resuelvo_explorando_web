@@ -18,7 +18,7 @@ import {
 import TaskTypesHelper from '../helpers/taskTypesHelper'
 import TaskBuilder from '../components/taskSetUpComponents/TaskBuilder.jsx'
 import '../styles/General.css'
-import { SUCCESS } from '../constants/status'
+import { SUCCESS, OUTDATED } from '../constants/status'
 
 class TaskSetUpContainer extends Component {
 
@@ -49,7 +49,7 @@ class TaskSetUpContainer extends Component {
       }
     } = this.props
 
-    return status === SUCCESS ? (
+    return (status === SUCCESS || status === OUTDATED) ? (
       <div className="background">
         <div className="container">
           <header>Creando tarea</header>
