@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Button, Form, Divider, Header} from 'semantic-ui-react'
 
-import { SUCCESS, PENDING, UNSET } from '../constants/status'
+import { SUCCESS, PENDING, UNSET, OUTDATED } from '../constants/status'
 import StatusList from '../components/StatusList'
 import ListItem from '../components/ListItem'
 import {
@@ -48,8 +48,11 @@ class ActivitySetUpContainer extends Component {
       actions: {
         updateActivity,
         deleteTask,
+        getTasks,
       }
     } = this.props
+
+    if(tasks_index_status === OUTDATED) getTasks(this.props.match.params.id)
 
     return (activity_status === SUCCESS) ? (
       <div id="ActivitySetUp" className="background">

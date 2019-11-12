@@ -18,7 +18,7 @@ import {
 import TaskTypesHelper from '../helpers/taskTypesHelper'
 import TaskBuilder from '../components/taskSetUpComponents/TaskBuilder.jsx'
 import '../styles/General.css'
-import { SUCCESS, OUTDATED } from '../constants/status'
+import { SUCCESS } from '../constants/status'
 
 class TaskSetUpContainer extends Component {
 
@@ -49,13 +49,13 @@ class TaskSetUpContainer extends Component {
       }
     } = this.props
 
-    return (status === SUCCESS || status === OUTDATED) ? (
+    return status === SUCCESS ? (
       <div className="background">
         <div className="container">
           <header>Creando tarea</header>
           <Form>
-            <Form.Input required name='name' label='Nombre' value={task.name} placeholder='Título' onChange={(event, { value, name }) => setCurrentTaskField(name,value)} required/>
-            <Form.Input required name='description' label='Descripción' value={task.description} placeholder='Descripción' onChange={(event, { value, name }) => setCurrentTaskField(name,value)} required/>
+            <Form.Input required name='name' label='Nombre' value={task.name} placeholder='Título' onChange={(event, { value, name }) => setCurrentTaskField(name,value)}/>
+            <Form.Input required name='description' label='Descripción' value={task.description} placeholder='Descripción' onChange={(event, { value, name }) => setCurrentTaskField(name,value)}/>
             <Form.Select
               name='type'
               value={task.type} 
