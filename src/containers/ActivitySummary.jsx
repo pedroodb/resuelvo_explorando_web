@@ -22,6 +22,7 @@ class ActivitySummaryContainer extends Component {
 		super(props);
 		this.state = {
 			order: FREE,
+			edges: []
 		}
 	}
 
@@ -40,6 +41,10 @@ class ActivitySummaryContainer extends Component {
 	}
 
 	changeDropdownValue = (e,{value}) => this.setState(() => ({order:value}))
+
+	setEdges = (edges) => {
+		this.setState(() => ({edges}))
+	}
 
 	render() {
 
@@ -68,7 +73,7 @@ class ActivitySummaryContainer extends Component {
 						onChange={this.changeDropdownValue.bind(this)}
 					/>
 					<div id='graph' style={{ margin: 30 }}>
-						<Workflow tasks={index} order={this.state.order} />
+						<Workflow tasks={index} order={this.state.order} edges={this.state.edges} setEdges={this.setEdges.bind(this)}/>
 					</div>
 					<Button onClick={() => history.push('/')}>Finalizar</Button>
 					<Button onClick={() => history.push('/Activity/' + this.props.match.params.id)}>Volver</Button>

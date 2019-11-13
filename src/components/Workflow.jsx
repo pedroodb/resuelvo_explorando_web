@@ -62,16 +62,16 @@ class Workflow extends Component {
   
   onCreateEdge = order => (source, target) => {
     if (order === CUSTOMIZED) {
-      this.setState(() => ({
-        edges: [
-          ...this.state.edges,
+      this.props.setEdges(
+        [
+          ...this.props.edges,
           {
             "source": source.id,
             "target": target.id,
             "type": "emptyEdge"
           }
         ]
-      }))
+      )
     }
   }
   
@@ -79,7 +79,6 @@ class Workflow extends Component {
     super(props)
     this.state = ({
       nodes:this.convertTasksToNodes(props.tasks),
-      edges:[],
     })
   }
 
@@ -87,15 +86,16 @@ class Workflow extends Component {
     
     const {
       order,
+      setEdges,
     } = this.props
 
     if(order !== nextProps.order) {
       switch (nextProps.order) {
         case SECUENTIAL:
-          this.setState(() => ({edges: this.edgesSecuencial(this.state.nodes)}))
+          setEdges(this.edgesSecuencial(this.state.nodes))
           break
         default:
-          this.setState(() => ({edges: []}))
+          setEdges([])
       }
     }
     return true
@@ -106,15 +106,19 @@ class Workflow extends Component {
   render() {
 
     const {
-      edges,
       selected,
+      nodes,
     } = this.state
+
+    const {
+      edges,
+    } = this.props
 
     return (
       <div>
         <GraphView ref='panToNode'
           nodeKey={NODE_KEY}
-          nodes={this.state.nodes}
+          nodes={nodes}
           edges={edges}
           selected={selected}
           nodeTypes={GraphConfig.NodeTypes}
