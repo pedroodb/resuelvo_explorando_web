@@ -63,7 +63,7 @@ class ActivitySummaryContainer extends Component {
 					<Dropdown
 						selection
 						placeholder=''
-						defaultValue={0}
+						defaultValue={FREE}
 						options={orderOptions}
 						onChange={this.changeDropdownValue.bind(this)}
 					/>

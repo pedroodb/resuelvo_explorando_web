@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { GraphView } from 'react-digraph'
-import { SECUENTIAL } from '../constants/workflows';
+import { SECUENTIAL, CUSTOMIZED } from '../constants/workflows'
 
 const NODE_KEY = "id"
 
@@ -60,10 +60,9 @@ class Workflow extends Component {
 		return edges
   }
   
-  onCreateEdge = (source, target) => {
-    if (this.state.orderOption === 2) {
-      this.setState({
-        ...this.state,
+  onCreateEdge = order => (source, target) => {
+    if (order === CUSTOMIZED) {
+      this.setState(() => ({
         edges: [
           ...this.state.edges,
           {
@@ -72,7 +71,7 @@ class Workflow extends Component {
             "type": "emptyEdge"
           }
         ]
-      })
+      }))
     }
   }
   
@@ -84,20 +83,25 @@ class Workflow extends Component {
     })
   }
 
-  componentDidMount() {
+  shouldComponentUpdate(nextProps) {
+    
     const {
       order,
     } = this.props
 
-    switch (order) {
-			case SECUENTIAL:
-				const secuencialEdges = this.edgesSecuencial(this.state.nodes)
-				this.setState(() => ({edges: secuencialEdges}))
-				break
-			default:
-				this.setState(() => ({edges: []}))
-		}
+    if(order !== nextProps.order) {
+      switch (nextProps.order) {
+        case SECUENTIAL:
+          this.setState(() => ({edges: this.edgesSecuencial(this.state.nodes)}))
+          break
+        default:
+          this.setState(() => ({edges: []}))
+      }
+    }
+    return true
   }
+
+  componentS
 
   render() {
 
@@ -107,23 +111,25 @@ class Workflow extends Component {
     } = this.state
 
     return (
-      <GraphView ref='panToNode'
-        nodeKey={NODE_KEY}
-        nodes={this.state.nodes}
-        edges={edges}
-        selected={selected}
-        nodeTypes={GraphConfig.NodeTypes}
-        nodeSubtypes={GraphConfig.NodeSubtypes}
-        edgeTypes={GraphConfig.EdgeTypes}
-        onSelectNode={() => null}
-        onCreateNode={() => null}
-        onUpdateNode={() => null}
-        onDeleteNode={() => null}
-        onSelectEdge={() => null}
-        onCreateEdge={() => null}
-        onSwapEdge={() => null}
-        onDeleteEdge={() => null}
-      />
+      <div>
+        <GraphView ref='panToNode'
+          nodeKey={NODE_KEY}
+          nodes={this.state.nodes}
+          edges={edges}
+          selected={selected}
+          nodeTypes={GraphConfig.NodeTypes}
+          nodeSubtypes={GraphConfig.NodeSubtypes}
+          edgeTypes={GraphConfig.EdgeTypes}
+          onSelectNode={() => null}
+          onCreateNode={() => null}
+          onUpdateNode={() => null}
+          onDeleteNode={() => null}
+          onSelectEdge={() => null}
+          onCreateEdge={this.onCreateEdge.bind(this)(this.props.order)}
+          onSwapEdge={() => null}
+          onDeleteEdge={() => null}
+        />
+      </div>
     )
   }
 }
