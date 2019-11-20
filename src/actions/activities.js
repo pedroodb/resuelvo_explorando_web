@@ -15,6 +15,9 @@ import {
   ACTIVITY_DELETE_REQUEST,
   ACTIVITY_DELETE_SUCCESS,
   ACTIVITY_DELETE_FAILURE,
+  ACTIVITY_WORKFLOW_SET_REQUEST,
+  ACTIVITY_WORKFLOW_SET_SUCCESS,
+  ACTIVITY_WORKFLOW_SET_FAILURE,
   FIELD_SET,
 } from '../constants/activities'
 
@@ -24,7 +27,9 @@ import {
   saveActivity as save,
   updateActivity as update,
   deleteActivity as del,
+  saveRequiredTask as saveReq,
 } from '../backend/activities'
+import { dispatch } from 'rxjs/internal/observable/range';
 
 export const getActivities = () => dispatch => {
   dispatch({type: ACTIVITIES_REQUEST})
@@ -112,3 +117,16 @@ export const setField = (field, value) => ({
     value,
   },
 })
+
+export const setWorkflow = edges => dispatch => {
+  dispatch({type: ACTIVITY_WORKFLOW_SET_REQUEST})
+  promises = edges.array.map(edge => saveReq(edge.target.id, edge.source.id));
+  try {
+    promises.forEach(promise => {
+      await promise
+    })
+    dispatch({type: ACTIVITY_WORKFLOW_SET_SUCCESS})
+  } catch(err) {
+    dispatch({type: ACTIVITY_WORKFLOW_SET_FAILURE})
+  }
+}

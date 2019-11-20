@@ -14,5 +14,9 @@ export const ACTIVITY_UPDATE_FAILURE = 'activity-update-failure'
 export const ACTIVITY_DELETE_REQUEST = 'activity-delete-request'
 export const ACTIVITY_DELETE_SUCCESS = 'activity-delete-success'
 export const ACTIVITY_DELETE_FAILURE = 'activity-delete-failure'
+export const ACTIVITY_WORKFLOW_SET_REQUEST = 'activity-workflow-set-request'
+export const ACTIVITY_WORKFLOW_SET_SUCCESS = 'activity-workflow-set-success'
+export const ACTIVITY_WORKFLOW_SET_FAILURE = 'activity-workflow-set-failure'
+
 
 export const FIELD_SET = 'field-set'
