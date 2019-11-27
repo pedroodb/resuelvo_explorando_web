@@ -41,7 +41,7 @@ class ItemsList extends Component {
             }
           </List>
           <Container textAlign='center'>
-            <Pagination basic color='blue'
+            <Pagination color='blue'
               activePage={activePage}
               onPageChange={this.handlePaginationChange}
               totalPages={this.cutItems(items)}

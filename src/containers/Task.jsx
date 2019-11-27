@@ -54,8 +54,8 @@ class TaskSetUpContainer extends Component {
         <div className="ui raised very padded text container segment">
           <header>Creando tarea</header>
           <Form>
-            <Form.Input required name='name' label='Nombre' value={task.name} placeholder='Título' onChange={(event, { value, name }) => setCurrentTaskField(name,value)} required/>
-            <Form.Input required name='description' label='Descripción' value={task.description} placeholder='Descripción' onChange={(event, { value, name }) => setCurrentTaskField(name,value)} required/>
+            <Form.Input required name='name' label='Nombre' value={task.name} placeholder='Título' onChange={(event, { value, name }) => setCurrentTaskField(name,value)}/>
+            <Form.Input required name='description' label='Descripción' value={task.description} placeholder='Descripción' onChange={(event, { value, name }) => setCurrentTaskField(name,value)}/>
             <Form.Select
               name='type'
               value={task.type} 

@@ -12,6 +12,7 @@ export default {
   },
   [FREE_ANSWER]:{
     defaultPayload:{
+      slogan:'',
       answer:'',
     },
     name:'Free answer'
