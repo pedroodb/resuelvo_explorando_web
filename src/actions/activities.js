@@ -123,10 +123,11 @@ export const setField = (field, value) => ({
 })
 
 export const setWorkflow = edges => dispatch => {
+  console.log(edges)
   dispatch({type: ACTIVITY_WORKFLOW_SET_REQUEST})
   console.log(edges)
   edges.reduce(
-    (accum, edge) => accum.then(res => saveReq(edge.target, edge.sourceTask.task)),
+    (accum, edge) => accum.then(res => saveReq(edge.targetTask, edge.source)),
     new Promise((resolve,reject) => resolve(0))
   ).then(
     dispatch({type: ACTIVITY_WORKFLOW_SET_SUCCESS})
