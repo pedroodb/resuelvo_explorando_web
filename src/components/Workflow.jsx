@@ -36,11 +36,12 @@ class Workflow extends Component {
     tasks.forEach(task => {
       var xValue = cont * 150
       nodes.push({
-        "id": task.id,
-        "title": task.name,
-        "x": xValue,
-        "y": 0,
-        "type": "empty"
+        id: task.id,
+        title: task.name,
+        task: task,
+        x: xValue,
+        y: 0,
+        type: "empty"
       })
       cont += 1
     });
@@ -52,9 +53,11 @@ class Workflow extends Component {
 		var edges = []
 		for (var i = 0; i < numberOfNodes - 1; i++) {
 			edges.push({
-        "source": nodes[i].id,
-				"target": nodes[i + 1].id,
-				"type": "emptyEdge",
+        source: nodes[i].id,
+        sourceTask: nodes[i],
+				target: nodes[i + 1].id,
+        targetTask: nodes[i + 1],
+				type: "emptyEdge",
 			})
 		}
 		return edges
@@ -66,9 +69,11 @@ class Workflow extends Component {
         [
           ...this.props.edges,
           {
-            "source": source.id,
-            "target": target.id,
-            "type": "emptyEdge"
+            source: source.id,
+            sourceTask: source,
+            target: target.id,
+            targetTask: target,
+            type: "emptyEdge"
           }
         ]
       )

@@ -13,6 +13,9 @@ import {
 import {
 	getTasks,
 } from '../actions/tasks'
+import {
+	setWorkflow,
+} from '../actions/activities'
 import Workflow from '../components/Workflow'
 
 
@@ -52,6 +55,9 @@ class ActivitySummaryContainer extends Component {
 			history,
 			status,
 			index,
+			actions: {
+				setWorkflow,
+			}
 		} = this.props
 
 		const orderOptions = [
@@ -75,7 +81,10 @@ class ActivitySummaryContainer extends Component {
 					<div id='graph' style={{ margin: 30 }}>
 						<Workflow tasks={index} order={this.state.order} edges={this.state.edges} setEdges={this.setEdges.bind(this)}/>
 					</div>
-					<Button onClick={() => history.push('/')}>Finalizar</Button>
+					<Button onClick={() => {
+						setWorkflow(this.state.edges)
+						history.push('/Activity/' + this.props.match.params.id)
+					}}>Finalizar</Button>
 					<Button onClick={() => history.push('/Activity/' + this.props.match.params.id)}>Volver</Button>
 				</div>
 			</div>
@@ -87,6 +96,7 @@ function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators({
 			getTasks,
+			setWorkflow,
 		}, dispatch)
 	}
 }

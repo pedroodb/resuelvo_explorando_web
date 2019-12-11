@@ -30,7 +30,9 @@ export const updateTask = (id,fk,task) => axios.put(`Activities/${id}/tasks/${fk
 
 export const deleteTask = (id,fk) => axios.delete(`Activities/${id}/tasks/${fk}`)
 
-export const saveRequiredTask = (id, fk) => axios.put(`Tasks/${id}/requiredTask/${fk}`)
+export const saveRequiredTask = (id, task) => axios.post(`Tasks/${id}/requiredTask`,{
+  ...task
+})
   
 
 export default {
