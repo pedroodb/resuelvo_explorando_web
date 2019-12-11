@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { Button, Header } from 'semantic-ui-react'
+import { Button, Header, Modal, Form } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import {
   getActivities,
   deleteActivity,
+  setField,
 } from '../actions/activities'
 
 import { OUTDATED } from '../constants/status'
@@ -17,6 +18,8 @@ import '../styles/Home.css'
 import '../styles/General.css'
 
 class HomeContainer extends Component {
+
+  handleFieldSet = (event, { value, name }) => this.props.actions.setField(name,value)
 
   componentDidMount() {
     this.props.actions.updateActivities()
@@ -54,10 +57,27 @@ class HomeContainer extends Component {
             />
           )
         }/>
-        <Button primary onClick={() => {
-          history.push("/Activity/new")
-        }}>Crear actividad</Button>
-      </div>
+        <Modal size='small'
+          trigger={<Button primary>Crear Nueva Actividad</Button>}
+          header='Crear Nueva Actividad'
+          content={
+            <div style={{padding:20}}>
+            <Form>
+              <Form.Input name='title' label='Título' placeholder='Título' required
+                onChange={this.handleFieldSet.bind(this)} 
+                />
+              <Form.Input name='description' label='Descripción' placeholder='Descripción' required
+                onChange={this.handleFieldSet.bind(this)} 
+                />
+            </Form>
+            </div>
+          }
+          actions={[
+            'Cancelar', 
+            { key: 'new', content: 'Crear', positive: true,  onClick:() => {history.push("/Activity/new")} }
+          ]}  
+        />
+      </div>  
     )
   }
 }
@@ -67,6 +87,7 @@ function mapDispatchToProps(dispatch) {
     actions : bindActionCreators({
       updateActivities: getActivities,
       deleteActivity,
+      setField,
     }, dispatch)
   }
 }

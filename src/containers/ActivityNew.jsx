@@ -27,7 +27,8 @@ class ActivityNewContainer extends Component {
     if (status === SUCCESS) {
       clearSaveActivity()
     } else {
-      saveActivity({title:' ',description:' '})
+      console.log(this.props.title)
+      saveActivity({title: this.props.title ,description:this.props.description})
       this.setState({created:true})
     }
   }
@@ -37,7 +38,7 @@ class ActivityNewContainer extends Component {
       saveActivity,
     } = this.props.actions
     if (!this.state.created) {
-      saveActivity({title:' ',description:' '})
+      saveActivity({title: this.props.title ,description:this.props.description})
       this.setState({created:true})
     }
   }
@@ -66,6 +67,12 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({activities: activityReducer}) {
   const {
+    get:{
+      activity:{
+        title,
+        description,
+      }
+    },
     save:{
       last:activity,
       status,
@@ -74,6 +81,8 @@ function mapStateToProps({activities: activityReducer}) {
   return {
     activity,
     status,
+    title,
+    description
   }
 }
 

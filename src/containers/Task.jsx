@@ -51,7 +51,7 @@ class TaskSetUpContainer extends Component {
 
     return (status === SUCCESS || status === OUTDATED) ? (
       <div className="background">
-        <div className="container">
+        <div className="ui raised very padded text container segment">
           <header>Creando tarea</header>
           <Form>
             <Form.Input required name='name' label='Nombre' value={task.name} placeholder='Título' onChange={(event, { value, name }) => setCurrentTaskField(name,value)}/>
