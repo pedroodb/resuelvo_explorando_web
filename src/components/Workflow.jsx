@@ -38,7 +38,6 @@ class Workflow extends Component {
       nodes.push({
         id: task.id,
         title: task.name,
-        task: task,
         x: xValue,
         y: 0,
         type: "empty"
@@ -54,9 +53,7 @@ class Workflow extends Component {
 		for (var i = 0; i < numberOfNodes - 1; i++) {
 			edges.push({
         source: nodes[i].id,
-        sourceTask: nodes[i].task,
 				target: nodes[i + 1].id,
-        targetTask: nodes[i + 1].task,
 				type: "emptyEdge",
 			})
 		}
@@ -70,9 +67,7 @@ class Workflow extends Component {
           ...this.props.edges,
           {
             source: source.id,
-            sourceTask: source.task,
             target: target.id,
-            targetTask: target.task,
             type: "emptyEdge"
           }
         ]
