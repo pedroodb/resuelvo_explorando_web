@@ -223,6 +223,7 @@ const taskReducer = (state = initialState, action) => {
           task:{
             ...state.get.task,
             [field]:value,
+            code:(field === "name") ? value : state.get.task.code
           }
         }
       }
