@@ -71,7 +71,7 @@ class TaskNewContainer extends Component {
     } = this.props
 
     return (status === SUCCESS && this.state.created) ? (
-      <Redirect to={`/Activity/${id}/task/${task.id}`} />
+      <Redirect to={`/Activity/${id}`} />
     ) : null
   }
 }
