@@ -19,7 +19,9 @@ import '../styles/General.css'
 
 class HomeContainer extends Component {
 
-  handleFieldSet = (event, { value, name }) => this.props.actions.setField(name,value)
+  handleFieldSet = (event, { value, name }) =>  {
+    this.props.actions.setField(name,value)
+  }
 
   componentDidMount() {
     this.props.actions.updateActivities()
