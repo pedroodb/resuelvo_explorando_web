@@ -30,7 +30,7 @@ import {
 } from '../backend/activities'
 
 import {
-  saveRequiredTask as saveReq,
+  updateTask,
 } from '../backend/tasks'
 
 import { dispatch } from 'rxjs/internal/observable/range';
@@ -122,12 +122,15 @@ export const setField = (field, value) => ({
   },
 })
 
-export const setWorkflow = edges => dispatch => {
-  console.log(edges)
+export const setWorkflow = (edges, tasks) => dispatch => {
   dispatch({type: ACTIVITY_WORKFLOW_SET_REQUEST})
-  console.log(edges)
-  edges.reduce(
-    (accum, edge) => accum.then(res => saveReq(edge.targetTask, edge.source)),
+  const tasksToUpdate = tasks.map(({id, activityId}) => ({
+    id,
+    activityId,
+    requiredTasks: edges.filter(edge => edge.target === id).map(edge => edge.source)
+  }))
+  tasksToUpdate.reduce(
+    (accum, {id, activityId, requiredTasks}) => accum.then(res => updateTask(activityId, id, {requiredTasks})),
     new Promise((resolve,reject) => resolve(0))
   ).then(
     dispatch({type: ACTIVITY_WORKFLOW_SET_SUCCESS})

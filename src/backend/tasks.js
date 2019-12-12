@@ -28,13 +28,7 @@ export const updateTask = (id,fk,task) => axios.put(`Activities/${id}/tasks/${fk
   response => response.data
 )
 
-export const deleteTask = (id,fk) => axios.delete(`Activities/${id}/tasks/${fk}`)
-
-export const saveRequiredTask = (task, fk) => axios.put(`Tasks/${task.id}`,{
-  ...task,
-  requiredTasks: task.requiredTasks ? [...task.requiredTasks, fk] : [fk]
-})
-  
+export const deleteTask = (id,fk) => axios.delete(`Activities/${id}/tasks/${fk}`)  
 
 export default {
   getTasks,

@@ -82,7 +82,7 @@ class ActivitySummaryContainer extends Component {
 						<Workflow tasks={index} order={this.state.order} edges={this.state.edges} setEdges={this.setEdges.bind(this)}/>
 					</div>
 					<Button onClick={() => {
-						setWorkflow(this.state.edges)
+						setWorkflow(this.state.edges, index)
 						history.push('/Activity/' + this.props.match.params.id)
 					}}>Finalizar</Button>
 					<Button onClick={() => history.push('/Activity/' + this.props.match.params.id)}>Volver</Button>
