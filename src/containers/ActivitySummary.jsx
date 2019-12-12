@@ -4,7 +4,12 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withRouter } from 'react-router-dom'
 
-import { PENDING, SUCCESS } from '../constants/status'
+import {
+	PENDING,
+	SUCCESS,
+	OUTDATED,
+	UNSET,
+} from '../constants/status'
 import {
 	FREE,
 	SECUENTIAL,
@@ -25,7 +30,7 @@ class ActivitySummaryContainer extends Component {
 		super(props);
 		this.state = {
 			order: FREE,
-			edges: []
+			edges: [],
 		}
 	}
 
@@ -38,9 +43,29 @@ class ActivitySummaryContainer extends Component {
 				params: {
 					id,
 				}
-			}
+			},
 		} = this.props
 		getTasks(id)
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		const {
+			index,
+			status,
+		} = this.props
+
+		if(prevProps.status != status && status !== PENDING) {
+			const edges = index.reduce(
+				((edges, task) => [...edges, ...task.requiredTasks.map(source => ({source, target:task.id, type:"emptyEdge"}))]),
+				[]
+			)
+			if (JSON.stringify(edges) !== JSON.stringify(this.state.edges)) {
+				this.setState(() => ({
+					edges,
+					order: (edges !== []) ? CUSTOMIZED : FREE,
+				}))			
+			}
+		}
 	}
 
 	changeDropdownValue = (e,{value}) => this.setState(() => ({order:value}))
@@ -66,6 +91,8 @@ class ActivitySummaryContainer extends Component {
 			{ key: 2, value: CUSTOMIZED, text: 'Personalizada' }
 		]
 
+    if(status === OUTDATED || status === UNSET) getTasks(this.props.match.params.id)
+
 		return status === SUCCESS ? (
 			<div className="background">
 				<div className="container">
@@ -74,7 +101,7 @@ class ActivitySummaryContainer extends Component {
 					<Dropdown
 						selection
 						placeholder=''
-						defaultValue={FREE}
+						value={this.state.order}
 						options={orderOptions}
 						onChange={this.changeDropdownValue.bind(this)}
 					/>

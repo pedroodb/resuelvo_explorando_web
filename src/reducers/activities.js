@@ -15,7 +15,7 @@ import {
   ACTIVITY_DELETE_REQUEST,
   ACTIVITY_DELETE_SUCCESS,
   ACTIVITY_DELETE_FAILURE,
-  ACTIVITY_WORKFLOW_SET,
+  ACTIVITY_WORKFLOW_SET_SUCCESS,
   FIELD_SET,
 } from '../constants/activities'
 
@@ -211,6 +211,14 @@ const activityReducer = (state = initialState, action) => {
             ...state.get.activity,
             [action.payload.field]:action.payload.value,
           }
+        }
+      }
+    case ACTIVITY_WORKFLOW_SET_SUCCESS:
+      return {
+        ...state,
+        get:{
+          ...state.get,
+          status:OUTDATED,
         }
       }
     default:

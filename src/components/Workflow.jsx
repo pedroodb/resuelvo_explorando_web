@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { GraphView } from 'react-digraph'
-import { SECUENTIAL, CUSTOMIZED } from '../constants/workflows'
+import { SECUENTIAL, CUSTOMIZED, FREE } from '../constants/workflows'
 
 const NODE_KEY = "id"
 
@@ -94,7 +94,7 @@ class Workflow extends Component {
         case SECUENTIAL:
           setEdges(this.edgesSecuencial(this.state.nodes))
           break
-        default:
+        case FREE:
           setEdges([])
       }
     }
