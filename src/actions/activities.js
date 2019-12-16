@@ -5,6 +5,7 @@ import {
   ACTIVITY_GET_REQUEST,
   ACTIVITY_GET_SUCCESS,
   ACTIVITY_GET_FAILURE,
+  ACTIVITY_GET_RESET,
   ACTIVITY_SAVE_REQUEST,
   ACTIVITY_SAVE_SUCCESS,
   ACTIVITY_SAVE_FAILURE,
@@ -62,6 +63,10 @@ export const getActivity = id => dispatch => {
     })
   )
 }
+
+export const resetGet = () => ({
+  type: ACTIVITY_GET_RESET,
+})
 
 export const saveActivity = activity => dispatch => {
   dispatch({type: ACTIVITY_SAVE_REQUEST})

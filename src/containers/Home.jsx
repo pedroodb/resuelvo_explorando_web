@@ -9,6 +9,7 @@ import {
   deleteActivity,
   saveActivity,
   setField,
+  resetGet,
 } from '../actions/activities'
 
 import { OUTDATED, SUCCESS, UNSET, PENDING } from '../constants/status'
@@ -33,7 +34,13 @@ class HomeContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.actions.getActivities()
+    const {
+      getActivities,
+      resetGet,
+    } = this.props.actions
+    
+    getActivities()
+    resetGet()
   }
 
   componentDidUpdate(prevProps) {
@@ -106,8 +113,20 @@ class HomeContainer extends Component {
           <Modal.Header>Crear Nueva Actividad</Modal.Header>
           <Modal.Content>
             <Form loading={saveStatus === PENDING}>
-              <Form.Input name='title' label='Título' placeholder='Título' onChange={this.handleFieldSet.bind(this)} />
-              <Form.Input name='description' label='Descripción' placeholder='Descripción' onChange={this.handleFieldSet.bind(this)} />
+              <Form.Input
+                name='title'
+                label='Título'
+                placeholder='Título'
+                value={(title === UNSET) ? '' : title}
+                onChange={this.handleFieldSet.bind(this)}
+              />
+              <Form.Input
+                name='description'
+                label='Descripción'
+                placeholder='Descripción'
+                value={(description === UNSET) ? '' : description}
+                onChange={this.handleFieldSet.bind(this)}
+              />
             </Form>
           </Modal.Content>
           <Modal.Actions>
@@ -131,6 +150,7 @@ function mapDispatchToProps(dispatch) {
       deleteActivity,
       saveActivity,
       setField,
+      resetGet,
     }, dispatch)
   }
 }

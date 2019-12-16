@@ -5,6 +5,7 @@ import {
   ACTIVITY_GET_REQUEST,
   ACTIVITY_GET_SUCCESS,
   ACTIVITY_GET_FAILURE,
+  ACTIVITY_GET_RESET,
   ACTIVITY_SAVE_REQUEST,
   ACTIVITY_SAVE_SUCCESS,
   ACTIVITY_SAVE_FAILURE,
@@ -112,6 +113,11 @@ const activityReducer = (state = initialState, action) => {
           status:FAILURE,
           error:action.payload,
         }
+      }
+    case ACTIVITY_GET_RESET:
+      return {
+        ...state,
+        get:initialState.get,
       }
     case ACTIVITY_SAVE_REQUEST:
       return {
