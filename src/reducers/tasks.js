@@ -38,7 +38,12 @@ const initialState = {
     error:UNSET,
   },
   get:{
-    task:UNSET,
+    task:{
+      name:UNSET,
+      description:UNSET,
+      type:UNSET,
+      payload:UNSET,
+    },
     status:UNSET,
     error:UNSET,
   },

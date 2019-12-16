@@ -32,6 +32,14 @@ import '../styles/ActivitySetUp.css'
 
 class ActivitySetUpContainer extends Component {
 
+  constructor(props) {
+    super(props)
+    this.toggleModal = this.toggleModal.bind(this)
+    this.state = {
+      creatingTask: false
+    }
+  }
+
   componentDidMount() {
     const {
       getActivity,
@@ -42,6 +50,39 @@ class ActivitySetUpContainer extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    this.checkIndexStatus()
+    this.checkTaskJustSaved(prevProps)
+    this.checkActivityJustSaved(prevProps)
+  }
+
+  checkIndexStatus() {
+    const {
+      tasks_index_status,
+      actions: {
+        getTasks,
+      },
+      match: {
+        params: {
+          id
+        }
+      }
+    } = this.props
+
+    if(tasks_index_status === OUTDATED) getTasks(id)
+  }
+
+  checkActivityJustSaved(prevProps) {
+    const {
+      activity_update_status,
+      history,
+    } = this.props
+
+    if (activity_update_status !== prevProps.activity_update_status && activity_update_status === SUCCESS) {
+      history.push('/')
+    }
+  }
+
+  checkTaskJustSaved(prevProps) {
     const {
       task_save_status,
       task_save_id,
@@ -50,6 +91,7 @@ class ActivitySetUpContainer extends Component {
         id,
       }
     } = this.props
+
     if (task_save_status !== prevProps.task_save_status && task_save_status === SUCCESS) {
       history.push(`/activity/${id}/task/${task_save_id}`)
     }
@@ -57,6 +99,8 @@ class ActivitySetUpContainer extends Component {
 
   handleFieldSet = (event, { value, name }) => this.props.actions.setField(name,value)
 
+  toggleModal = () => this.setState(state => ({creatingTask: !state.creatingTask}))
+    
   render() {
 
     const {
@@ -70,17 +114,15 @@ class ActivitySetUpContainer extends Component {
       tasks,
       task,
       tasks_index_status,
+      task_save_status,
       actions: {
         updateActivity,
         deleteTask,
-        getTasks,
         saveTask,
         setCurrentTaskField,
         setCurrentTaskType,
       }
     } = this.props
-
-    if(tasks_index_status === OUTDATED) getTasks(this.props.match.params.id)
 
     return (activity_status === SUCCESS) ? (
       <div id="ActivitySetUp" className="background">
@@ -101,43 +143,37 @@ class ActivitySetUpContainer extends Component {
             />
           </Form>
           <Divider/>
-          <Modal size='small'
-            trigger={<Button primary>Agregar tarea</Button>}
-            header="Crear una nueva tarea"
-            content={
-              <div style={{padding:20}}>
-                <Form>
-                  <Form.Input required name='name' label='Nombre' placeholder='Título' onChange={(event, { value, name }) => setCurrentTaskField(name,value)}/>
-                  <Form.Input required name='description' label='Descripción' placeholder='Descripción' onChange={(event, { value, name }) => setCurrentTaskField(name,value)}/>
-                  <Form.Select
-                    name='type'
-                    placeholder='Elija el tipo de tarea' 
-                    onChange={(event, { value }) => setCurrentTaskType(value,TaskTypesHelper[value].defaultPayload)}
-                    options={[
-                      { text:'Multiple Choice', value:MULTIPLE_CHOICE },
-                      { text:'Respuesta libre', value:FREE_ANSWER },
-                    ]}
-                  />
-                </Form>
-                <TaskBuilder type={task.type} payload={task.payload}/>
-              </div>
-            }
-            actions={[
-              'Cancelar',
-              { key:"new", content:"Crear", positive:true, onClick : () => saveTask(id, task)}
-            ]}
-          />
-          <Button
-            primary
-            onClick={() => history.push(`/activity/${id}/workflow`)}
-          >Workflow</Button>
-          <Button
-            primary
-            onClick={() => {
-              updateActivity(id,this.props.activity)
-              history.push(`/Activity/${id}/workflow`)
-            }}
-          >Guardar</Button>
+          <Button primary onClick={this.toggleModal}>Agregar tarea</Button>
+          <Modal size='small' open={this.state.creatingTask} onClose={this.toggleModal}>
+            <Modal.Header>Crear una nueva tarea</Modal.Header>
+            <Modal.Content>
+              <Form loading={task_save_status === PENDING}>
+                <Form.Input required name='name' label='Nombre' placeholder='Título' onChange={(event, { value, name }) => setCurrentTaskField(name,value)}/>
+                <Form.Input required name='description' label='Descripción' placeholder='Descripción' onChange={(event, { value, name }) => setCurrentTaskField(name,value)}/>
+                <Form.Select
+                  name='type'
+                  placeholder='Elija el tipo de tarea' 
+                  onChange={(event, { value }) => setCurrentTaskType(value,TaskTypesHelper[value].defaultPayload)}
+                  options={[
+                    { text:'Multiple Choice', value:MULTIPLE_CHOICE },
+                    { text:'Respuesta libre', value:FREE_ANSWER },
+                  ]}
+                />
+              </Form>
+              <TaskBuilder type={task.type} payload={task.payload}/>
+            </Modal.Content>
+            <Modal.Actions>
+              <Button onClick={this.toggleModal}>Cancelar</Button>
+              <Button positive onClick={() => {
+                if(task.name !== UNSET && task.description !== UNSET && task.type !== UNSET) {
+                  saveTask(id, task)
+                }
+              }}>Crear</Button>
+            </Modal.Actions>
+          </Modal>
+          <Button onClick={() => history.push(`/activity/${id}/workflow`)}>Workflow</Button>
+          <Button onClick={() => history.push('/')}>Descartar</Button>
+          <Button primary onClick={() => updateActivity(id,this.props.activity)}>Guardar</Button>
         </div>
       </div>
     ) : null
@@ -163,24 +199,27 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({activities: activityReducer,tasks: taskReducer}) {
   const {
-    index:{
+    index: {
       tasks,
       status: tasks_index_status,
     },
     get: {
       task
     },
-    save:{
+    save: {
       status: task_save_status,
-      last:{
+      last: {
         id: task_save_id,
       }
     }
   } = taskReducer
   const {
-    get:{
+    get: {
       activity,
       status: activity_status
+    },
+    update: {
+      status: activity_update_status,
     }
   } = activityReducer
   return {
@@ -191,6 +230,7 @@ function mapStateToProps({activities: activityReducer,tasks: taskReducer}) {
     task,
     activity,
     activity_status,
+    activity_update_status,
   }
 }
 

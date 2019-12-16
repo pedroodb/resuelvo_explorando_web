@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { Button, Header, Modal, Form, Divider } from 'semantic-ui-react'
+import { Button, Header, Modal, Form } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -24,7 +24,7 @@ class HomeContainer extends Component {
     super(props)
     this.toggleModal = this.toggleModal.bind(this)
     this.state = {
-      creatingTask: false
+      creatingActivity: false
     }
   } 
 
@@ -64,7 +64,7 @@ class HomeContainer extends Component {
     }
   }
 
-  toggleModal = () => this.setState(state => ({creatingTask: !state.creatingTask}))
+  toggleModal = () => this.setState(state => ({creatingActivity: !state.creatingActivity}))
 
   render() {
 
@@ -102,7 +102,7 @@ class HomeContainer extends Component {
           )
         }/>
         <Button primary onClick={this.toggleModal}>Crear Nueva Actividad</Button>
-        <Modal size='small' open={this.state.creatingTask} onClose={this.toggleModal}>
+        <Modal size='small' open={this.state.creatingActivity} onClose={this.toggleModal}>
           <Modal.Header>Crear Nueva Actividad</Modal.Header>
           <Modal.Content>
             <Form loading={saveStatus === PENDING}>
