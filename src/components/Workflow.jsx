@@ -104,8 +104,6 @@ class Workflow extends Component {
     return true
   }
 
-  componentS
-
   render() {
 
     const {
