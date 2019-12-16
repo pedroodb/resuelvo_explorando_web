@@ -58,7 +58,8 @@ class TaskSetUpContainer extends Component {
             <Form.Input required name='description' label='Descripción' value={task.description} placeholder='Descripción' onChange={(event, { value, name }) => setCurrentTaskField(name,value)}/>
             <Form.Select
               name='type'
-              value={task.type} 
+              value={task.type}
+              label='Seleccione un tipo de tarea'
               placeholder='Elija el tipo de tarea' 
               onChange={(event, { value }) => setCurrentTaskType(value,TaskTypesHelper[value].defaultPayload)}
               options={[
