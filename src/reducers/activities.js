@@ -36,8 +36,8 @@ const initialState = {
   },
   get:{
     activity:{
-      title:UNSET,
-      description:UNSET,
+      title:'',
+      description:'',
       tasks:[],
       finishedTasks:[],
     },

@@ -27,7 +27,8 @@ class HomeContainer extends Component {
     super(props)
     this.toggleModal = this.toggleModal.bind(this)
     this.state = {
-      creatingActivity: false
+      creatingActivity: false,
+      validationError: false,
     }
   }
 
@@ -113,11 +114,16 @@ class HomeContainer extends Component {
             toggle={this.toggleModal}
             status={saveStatus}
             item={this.props.newActivity}
+            validationError={this.state.validationError}
             itemType={ACTIVITY}
             actions={({
               setField:setField,
               save:() => {
-                if(title !== UNSET && description !== UNSET) saveActivity({title, description})
+                if(title !== '' && description !== '') {
+                  saveActivity({title, description})
+                } else {
+                  this.setState(() => ({validationError:true}))
+                }
               }
             })}
         />

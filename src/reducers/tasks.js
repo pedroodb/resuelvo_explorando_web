@@ -40,8 +40,8 @@ const initialState = {
   },
   get:{
     task:{
-      name:UNSET,
-      description:UNSET,
+      name:'',
+      description:'',
       type:UNSET,
       payload:UNSET,
     },

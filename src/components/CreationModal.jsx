@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Modal} from 'semantic-ui-react'
 
-import { TASK, ACTIVITY } from '../constants/helpers'
+import { TASK, /*ACTIVITY*/ } from '../constants/helpers'
 import TaskCreationForm from './TaskCreationForm'
 import ActivityCreationForm from './ActivityCreationForm'
 
@@ -11,6 +11,7 @@ const CreationModal = ({
   status,
   item,
   itemType,
+  validationError,
   actions:{
     setField,
     setType,
@@ -20,9 +21,20 @@ const CreationModal = ({
     <Modal.Header>Crear Nueva {(itemType === TASK) ? 'Tarea' : 'Actividad'}</Modal.Header>
     <Modal.Content>
       {(itemType === TASK) ?
-        <TaskCreationForm status={status} task={item} setField={setField} setType={setType} />
+        <TaskCreationForm
+          status={status}
+          task={item}
+          validationError={validationError}
+          setField={setField}
+          setType={setType}
+        />
         :
-        <ActivityCreationForm status={status} activity={item} setField={setField} />
+        <ActivityCreationForm
+          status={status}
+          activity={item}
+          validationError={validationError}
+          setField={setField}
+        />
       }
     </Modal.Content>
     <Modal.Actions>

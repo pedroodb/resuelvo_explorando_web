@@ -33,7 +33,8 @@ class ActivitySetUpContainer extends Component {
     super(props)
     this.toggleModal = this.toggleModal.bind(this)
     this.state = {
-      creatingTask: false
+      creatingTask: false,
+      validationError: false,
     }
   }
 
@@ -148,12 +149,17 @@ class ActivitySetUpContainer extends Component {
             toggle={this.toggleModal}
             status={task_save_status}
             item={task}
+            validationError={this.state.validationError}
             itemType={TASK}
             actions={({
               setField:setCurrentTaskField,
               setType:setCurrentTaskType,
               save:() => {
-                if(task.name !== UNSET && task.description !== UNSET && task.type !== UNSET) saveTask(id,task)
+                if(task.name !== '' && task.description !== '' && task.type !== '') {
+                  saveTask(id,task)
+                } else {
+                  this.setState(() => ({validationError:true}))
+                }
               }
             })}
           />
