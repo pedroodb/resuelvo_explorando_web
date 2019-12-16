@@ -127,14 +127,17 @@ class ActivitySetUpContainer extends Component {
               { key:"new", content:"Crear", positive:true, onClick : () => saveTask(id, task)}
             ]}
           />
-          <Button primary onClick={() => history.push(`/activity/${id}/workflow`)}>Workflow</Button>
-          <Button primary
+          <Button
+            primary
+            onClick={() => history.push(`/activity/${id}/workflow`)}
+          >Workflow</Button>
+          <Button
+            primary
             onClick={() => {
               updateActivity(id,this.props.activity)
               history.push(`/Activity/${id}/workflow`)
             }}
           >Guardar</Button>
-          <Button primary onClick={() => history.push('/')}>Descartar</Button>
         </div>
       </div>
     ) : null
