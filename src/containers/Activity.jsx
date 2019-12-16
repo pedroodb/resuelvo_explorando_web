@@ -2,15 +2,13 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Button, Form, Divider, Header, Modal} from 'semantic-ui-react'
+import { Button, Form, Divider, Header } from 'semantic-ui-react'
 
-import { SUCCESS, PENDING, UNSET, OUTDATED } from '../constants/status'
+import { SUCCESS, UNSET, OUTDATED } from '../constants/status'
+import { TASK } from '../constants/helpers'
 import StatusList from '../components/StatusList'
 import ListItem from '../components/ListItem'
-import {
-  MULTIPLE_CHOICE,
-  FREE_ANSWER,
-} from '../constants/taskTypes'
+import CreationModal from '../components/CreationModal'
 import {
   getActivity,
   saveActivity,
@@ -26,8 +24,6 @@ import {
   setCurrentTaskField,
   setCurrentTaskType,
 } from '../actions/tasks'
-import TaskTypesHelper from '../helpers/taskTypesHelper'
-import TaskBuilder from '../components/taskSetUpComponents/TaskBuilder.jsx'
 
 import '../styles/ActivitySetUp.css'
 
@@ -147,45 +143,20 @@ class ActivitySetUpContainer extends Component {
           </Form>
           <Divider/>
           <Button primary onClick={this.toggleModal}>Agregar tarea</Button>
-          <Modal size='small' open={this.state.creatingTask} onClose={this.toggleModal}>
-            <Modal.Header>Crear una nueva tarea</Modal.Header>
-            <Modal.Content>
-              <Form loading={task_save_status === PENDING}>
-                <Form.Input
-                  name='name'
-                  label='Nombre'
-                  placeholder='Título'
-                  value={(task.name === UNSET) ? '' : task.name}
-                  onChange={(event, { value, name }) => setCurrentTaskField(name,value)}
-                />
-                <Form.Input
-                  name='description'
-                  label='Descripción'
-                  placeholder='Descripción'
-                  value={(task.description === UNSET) ? '' : task.description}
-                  onChange={(event, { value, name }) => setCurrentTaskField(name,value)}
-                />
-                <Form.Select
-                  name='type'
-                  placeholder='Elija el tipo de tarea' 
-                  onChange={(event, { value }) => setCurrentTaskType(value,TaskTypesHelper[value].defaultPayload)}
-                  options={[
-                    { text:'Multiple Choice', value:MULTIPLE_CHOICE },
-                    { text:'Respuesta libre', value:FREE_ANSWER },
-                  ]}
-                />
-              </Form>
-              <TaskBuilder type={task.type} payload={task.payload}/>
-            </Modal.Content>
-            <Modal.Actions>
-              <Button onClick={this.toggleModal}>Cancelar</Button>
-              <Button positive onClick={() => {
-                if(task.name !== UNSET && task.description !== UNSET && task.type !== UNSET) {
-                  saveTask(id, task)
-                }
-              }}>Crear</Button>
-            </Modal.Actions>
-          </Modal>
+          <CreationModal
+            open={this.state.creatingTask}
+            toggle={this.toggleModal}
+            status={task_save_status}
+            item={task}
+            itemType={TASK}
+            actions={({
+              setField:setCurrentTaskField,
+              setType:setCurrentTaskType,
+              save:() => {
+                if(task.name !== UNSET && task.description !== UNSET && task.type !== UNSET) saveTask(id,task)
+              }
+            })}
+          />
           <Button onClick={() => history.push(`/activity/${id}/workflow`)}>Workflow</Button>
           <Button onClick={() => history.push('/')}>Descartar</Button>
           <Button primary onClick={() => updateActivity(id,this.props.activity)}>Guardar</Button>

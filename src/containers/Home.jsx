@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { Button, Header, Modal, Form } from 'semantic-ui-react'
+import { Button, Header } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -12,10 +12,12 @@ import {
   resetGet,
 } from '../actions/activities'
 
-import { OUTDATED, SUCCESS, UNSET, PENDING } from '../constants/status'
+import { OUTDATED, SUCCESS, UNSET } from '../constants/status'
+import { ACTIVITY } from '../constants/helpers'
 import ListItem from '../components/ListItem'
-import logo from '../assets/resuelvo_explorando_logo.png'
 import StatusList from '../components/StatusList'
+import CreationModal from '../components/CreationModal'
+import logo from '../assets/resuelvo_explorando_logo.png'
 import '../styles/Home.css'
 import '../styles/General.css'
 
@@ -27,10 +29,6 @@ class HomeContainer extends Component {
     this.state = {
       creatingActivity: false
     }
-  } 
-
-  handleFieldSet = (event, { value, name }) =>  {
-    this.props.actions.setField(name,value)
   }
 
   componentDidMount() {
@@ -87,6 +85,7 @@ class HomeContainer extends Component {
       actions: {
         deleteActivity,
         saveActivity,
+        setField,
       }
     } = this.props
 
@@ -109,35 +108,19 @@ class HomeContainer extends Component {
           )
         }/>
         <Button primary onClick={this.toggleModal}>Crear Nueva Actividad</Button>
-        <Modal size='small' open={this.state.creatingActivity} onClose={this.toggleModal}>
-          <Modal.Header>Crear Nueva Actividad</Modal.Header>
-          <Modal.Content>
-            <Form loading={saveStatus === PENDING}>
-              <Form.Input
-                name='title'
-                label='Título'
-                placeholder='Título'
-                value={(title === UNSET) ? '' : title}
-                onChange={this.handleFieldSet.bind(this)}
-              />
-              <Form.Input
-                name='description'
-                label='Descripción'
-                placeholder='Descripción'
-                value={(description === UNSET) ? '' : description}
-                onChange={this.handleFieldSet.bind(this)}
-              />
-            </Form>
-          </Modal.Content>
-          <Modal.Actions>
-              <Button onClick={this.toggleModal}>Cancelar</Button>
-              <Button positive onClick={() => {
-                if(title !== UNSET && description !== UNSET) {
-                  saveActivity({title, description})
-                }
-              }}>Crear</Button>
-          </Modal.Actions>
-        </Modal>
+        <CreationModal
+            open={this.state.creatingActivity}
+            toggle={this.toggleModal}
+            status={saveStatus}
+            item={this.props.newActivity}
+            itemType={ACTIVITY}
+            actions={({
+              setField:setField,
+              save:() => {
+                if(title !== UNSET && description !== UNSET) saveActivity({title, description})
+              }
+            })}
+        />
       </div>  
     )
   }
