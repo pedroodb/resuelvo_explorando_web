@@ -22,6 +22,7 @@ import {
   deleteTask,
   getTask,
   saveTask,
+  resetGet,
   setCurrentTaskField,
   setCurrentTaskType,
 } from '../actions/tasks'
@@ -44,9 +45,11 @@ class ActivitySetUpContainer extends Component {
     const {
       getActivity,
       getTasks,
+      resetGet,
     } = this.props.actions
     getActivity(this.props.match.params.id)
     getTasks(this.props.match.params.id)
+    resetGet()
   }
 
   componentDidUpdate(prevProps) {
@@ -148,8 +151,20 @@ class ActivitySetUpContainer extends Component {
             <Modal.Header>Crear una nueva tarea</Modal.Header>
             <Modal.Content>
               <Form loading={task_save_status === PENDING}>
-                <Form.Input required name='name' label='Nombre' placeholder='Título' onChange={(event, { value, name }) => setCurrentTaskField(name,value)}/>
-                <Form.Input required name='description' label='Descripción' placeholder='Descripción' onChange={(event, { value, name }) => setCurrentTaskField(name,value)}/>
+                <Form.Input
+                  name='name'
+                  label='Nombre'
+                  placeholder='Título'
+                  value={(task.name === UNSET) ? '' : task.name}
+                  onChange={(event, { value, name }) => setCurrentTaskField(name,value)}
+                />
+                <Form.Input
+                  name='description'
+                  label='Descripción'
+                  placeholder='Descripción'
+                  value={(task.description === UNSET) ? '' : task.description}
+                  onChange={(event, { value, name }) => setCurrentTaskField(name,value)}
+                />
                 <Form.Select
                   name='type'
                   placeholder='Elija el tipo de tarea' 
@@ -191,6 +206,7 @@ function mapDispatchToProps(dispatch) {
       getTasks,
       getTask,
       saveTask,
+      resetGet,
       setCurrentTaskField,
       setCurrentTaskType,
     }, dispatch)

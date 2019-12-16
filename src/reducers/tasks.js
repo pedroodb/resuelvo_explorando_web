@@ -5,6 +5,7 @@ import {
   TASK_GET_REQUEST,
   TASK_GET_SUCCESS,
   TASK_GET_FAILURE,
+  TASK_GET_RESET,
   TASK_SAVE_REQUEST,
   TASK_SAVE_SUCCESS,
   TASK_SAVE_FAILURE,
@@ -116,6 +117,11 @@ const taskReducer = (state = initialState, action) => {
           status:FAILURE,
           error:action.payload,
         }
+      }
+    case TASK_GET_RESET:
+      return {
+        ...state,
+        get:initialState.get,
       }
     case TASK_SAVE_REQUEST:
       return {
