@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { Button, Header, Modal, Form } from 'semantic-ui-react'
+import { Button, Header, Modal, Form, Dropdown } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -11,12 +11,24 @@ import {
   setField,
 } from '../actions/activities'
 
+import {
+  setLanguage,
+} from '../actions/configuration'
+
 import { OUTDATED, SUCCESS, UNSET, PENDING } from '../constants/status'
 import ListItem from '../components/ListItem'
 import logo from '../assets/resuelvo_explorando_logo.png'
 import StatusList from '../components/StatusList'
 import '../styles/Home.css'
 import '../styles/General.css'
+
+import intl from 'react-intl-universal';
+
+const locales = {
+  "en-US": require('../locales/en-US.json'),
+  "es-ES": require('../locales/es-ES.json'),
+};
+
 
 class HomeContainer extends Component {
 
@@ -39,6 +51,18 @@ class HomeContainer extends Component {
   componentDidUpdate(prevProps) {
     this.checkIndexStatus()
     this.checkActivityJustSaved(prevProps)
+    this.loadLocales()
+  }
+
+  loadLocales() {
+    console.log(this.props.lang)
+    intl.init({
+      currentLocale: this.props.lang , // TODO: determine locale here
+      locales,
+    })
+    .then(() => {
+
+    });
   }
 
   checkIndexStatus() {
@@ -77,18 +101,33 @@ class HomeContainer extends Component {
         title,
         description,
       },
+      lang,
       actions: {
         deleteActivity,
         saveActivity,
+        setLanguage,
       }
     } = this.props
+
+    const languageOptions = [
+      {key: 'es-ES', text: 'Espanol', value: 'es-ES'},
+      {key: 'en-US', text: 'Ingles', value: 'en-US'},
+    ]
 
     return (
       <div id="Home" className="background">
         <header className="header">
           <Header>
-            Bienvenido a la herramienta de configuración de Resuelvo Explorando.
+            {intl.get('WELCOME_TITLE')}
           </Header>
+          <Dropdown
+            button
+            className='icon'
+            icon='world'
+            options={languageOptions}
+            value={lang}
+            onChange={(event, data) => setLanguage(data.value)}
+          />
         </header>
         <img src={logo} className="logo" alt="logo" />
         <StatusList status={status} items={activities} render_item={
@@ -131,11 +170,12 @@ function mapDispatchToProps(dispatch) {
       deleteActivity,
       saveActivity,
       setField,
+      setLanguage,
     }, dispatch)
   }
 }
 
-function mapStateToProps({activities}) {
+function mapStateToProps({activities,configuration}) {
   const {
     index:{
       activities: index,
@@ -155,6 +195,7 @@ function mapStateToProps({activities}) {
     newActivity,
     saveStatus,
     savedActivity,
+    lang: configuration.language,
   }
 }
 
