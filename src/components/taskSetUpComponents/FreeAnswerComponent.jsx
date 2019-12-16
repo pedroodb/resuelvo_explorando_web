@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Input, TextArea } from 'semantic-ui-react'
+import { Form, TextArea } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 

@@ -54,7 +54,7 @@ class ActivitySummaryContainer extends Component {
 			status,
 		} = this.props
 
-		if(prevProps.status != status && status !== PENDING) {
+		if(prevProps.status !== status && status !== PENDING) {
 			const edges = index.reduce(
 				((edges, task) => [...edges, ...task.requiredTasks.map(source => ({source, target:task.id, type:"emptyEdge"}))]),
 				[]

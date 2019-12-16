@@ -96,6 +96,9 @@ class Workflow extends Component {
           break
         case FREE:
           setEdges([])
+          break
+        default:
+          break
       }
     }
     return true

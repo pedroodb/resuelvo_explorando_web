@@ -33,8 +33,6 @@ import {
   updateTask,
 } from '../backend/tasks'
 
-import { dispatch } from 'rxjs/internal/observable/range';
-
 export const getActivities = () => dispatch => {
   dispatch({type: ACTIVITIES_REQUEST})
   index().then(
