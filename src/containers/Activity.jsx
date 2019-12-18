@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Button, Form, Divider, Header,Icon, Segment, ButtonGroup } from 'semantic-ui-react'
+import intl from 'react-intl-universal'
 
 import { SUCCESS, OUTDATED, PENDING } from '../constants/status'
 import { TASK } from '../constants/helpers'
@@ -132,6 +133,7 @@ class ActivitySetUpContainer extends Component {
     return (activity_status === SUCCESS) ? (
       <div id="ActivitySetUp" className="background">
         <Header as='h1' textAlign='center'>{title}</Header>
+        <p>{intl.get("WELCOME_TITLE") }</p>
         <Segment padded='very' className='container'>
           <Form loading={activity_update_status === PENDING}>
             <Form.Input name='title' label='Título' value={title} placeholder='Título' required

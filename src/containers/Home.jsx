@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-<<<<<<< HEAD
-import { Button, Header, Modal, Form, Dropdown } from 'semantic-ui-react'
-=======
-import { Button, Header } from 'semantic-ui-react'
->>>>>>> dev
+import { Button, Header, Dropdown } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import intl from 'react-intl-universal'
 
 import {
   getActivities,
@@ -16,16 +13,12 @@ import {
   resetGet,
 } from '../actions/activities'
 
-<<<<<<< HEAD
 import {
   setLanguage,
 } from '../actions/configuration'
 
-import { OUTDATED, SUCCESS, UNSET, PENDING } from '../constants/status'
-=======
-import { OUTDATED, SUCCESS } from '../constants/status'
+import { OUTDATED, SUCCESS, UNSET } from '../constants/status'
 import { ACTIVITY } from '../constants/helpers'
->>>>>>> dev
 import ListItem from '../components/ListItem'
 import StatusList from '../components/StatusList'
 import CreationModal from '../components/CreationModal'
@@ -33,13 +26,10 @@ import logo from '../assets/resuelvo_explorando_logo.png'
 import '../styles/Home.css'
 import '../styles/General.css'
 
-import intl from 'react-intl-universal';
-
 const locales = {
   "en-US": require('../locales/en-US.json'),
   "es-ES": require('../locales/es-ES.json'),
-};
-
+}
 
 class HomeContainer extends Component {
 
@@ -60,23 +50,25 @@ class HomeContainer extends Component {
     
     getActivities()
     resetGet()
+    this.loadLocales({lang:UNSET})
   }
 
   componentDidUpdate(prevProps) {
     this.checkIndexStatus()
     this.checkActivityJustSaved(prevProps)
-    this.loadLocales()
+    this.loadLocales(prevProps)
   }
 
-  loadLocales() {
-    console.log(this.props.lang)
-    intl.init({
-      currentLocale: this.props.lang , // TODO: determine locale here
-      locales,
-    })
-    .then(() => {
-
-    });
+  loadLocales(prevProps) {
+    if(prevProps.lang !== this.props.lang) {
+      intl.init({
+        currentLocale: this.props.lang , // TODO: determine locale here
+        locales,
+      })
+      .then(() => {
+        this.forceUpdate()
+      })
+    }
   }
 
   checkIndexStatus() {

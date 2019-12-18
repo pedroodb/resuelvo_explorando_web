@@ -1,8 +1,4 @@
 {
     "WELCOME_TITLE": "Welcome to the MoLE configuration tool",
-    "ADD_ACTIVITY": "Add New Activity",
-    "TITLE": "Title",
-    "DESCRIPTION": "Description",
-    "DELETE_BUTTON": "Delete",
-    "EDIT_BUTTON": "Edit"
+    "ADD_ACTIVITY": "Add New Activity"
 }

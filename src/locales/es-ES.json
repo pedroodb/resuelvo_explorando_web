@@ -1,8 +1,4 @@
 {
     "WELCOME_TITLE": "Bienvenido a la herramienta de configuración de MoLE",
-    "ADD_ACTIVITY": "Añadir nueva tarea",
-    "TITLE": "Title",
-    "DESCRIPTION": "Description",
-    "DELETE_BUTTON": "Delete",
-    "EDIT_BUTTON": "Edit"
+    "ADD_ACTIVITY": "Añadir nueva tarea"
 }
