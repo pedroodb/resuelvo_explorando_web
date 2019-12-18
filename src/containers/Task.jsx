@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Form, Button, Divider, Segment } from 'semantic-ui-react'
+import { Form, Button, Divider, Segment, Header } from 'semantic-ui-react'
 
 import {
   MULTIPLE_CHOICE,
@@ -17,9 +17,16 @@ import {
 import TaskTypesHelper from '../helpers/taskTypesHelper'
 import TaskBuilder from '../components/taskSetUpComponents/TaskBuilder.jsx'
 import '../styles/General.css'
-import { SUCCESS, OUTDATED } from '../constants/status'
+import { SUCCESS, OUTDATED, PENDING } from '../constants/status'
 
 class TaskSetUpContainer extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      validationError: false,
+    }
+  }
 
   componentDidMount() {
     const {
@@ -29,11 +36,32 @@ class TaskSetUpContainer extends Component {
     this.props.actions.getTask(id,fk)
   }
 
+  componentDidUpdate(prevProps) {
+    this.checkTaskJustSaved(prevProps)
+  }
+
+  checkTaskJustSaved(prevProps) {
+    const {
+      updateStatus,
+      history,
+      match:{
+        params:{
+          id
+        }
+      }
+    } = this.props
+
+    if (updateStatus !== prevProps.updateStatus && updateStatus === SUCCESS) {
+      history.push(`/Activity/${id}`)
+    }
+  }
+
   render() {
 
     const {
       task,
       status,
+      updateStatus,
       history,
       actions:{
         setCurrentTaskField,
@@ -47,13 +75,23 @@ class TaskSetUpContainer extends Component {
       }
     } = this.props
 
+    const {
+      validationError
+    } = this.state
+
     return (status === SUCCESS || status === OUTDATED) ? (
       <div className="background">
         <Segment padded='very' className='container'>
-          <header>Creando tarea</header>
-          <Form>
-            <Form.Input required name='name' label='Nombre' value={task.name} placeholder='Título' onChange={(event, { value, name }) => setCurrentTaskField(name,value)}/>
-            <Form.Input required name='description' label='Descripción' value={task.description} placeholder='Descripción' onChange={(event, { value, name }) => setCurrentTaskField(name,value)}/>
+          <Header>Creando tarea</Header>
+          <Form loading={updateStatus === PENDING}>
+            <Form.Input required name='name' label='Nombre' value={task.name} placeholder='Título'
+              onChange={(event, { value, name }) => setCurrentTaskField(name,value)}
+              error={(validationError && task.name === '') ? {content:'Este campo no puede estar vacio'} : undefined}
+            />
+            <Form.Input required name='description' label='Descripción' value={task.description} placeholder='Descripción'
+              onChange={(event, { value, name }) => setCurrentTaskField(name,value)}
+              error={(validationError && task.description === '') ? {content:'Este campo no puede estar vacio'} : undefined}
+            />
             <Form.Select
               name='type'
               value={task.type}
@@ -70,8 +108,11 @@ class TaskSetUpContainer extends Component {
           <TaskBuilder type={task.type} payload={task.payload}/>
           <Divider/>
           <Button primary content='Confirmar' onClick={() => {
-            updateTask(activity_id,task.id,task)
-            history.push(`/Activity/${activity_id}`)
+            if(task.name !== '' && task.description !== '') {
+              updateTask(activity_id,task.id,task)
+            } else {
+              this.setState(() => ({validationError:true}))
+            }
           }}/>
           <Button content='Cancelar' onClick={() => history.push(`/Activity/${activity_id}`)}/>
         </Segment>
@@ -96,11 +137,15 @@ function mapStateToProps({tasks}) {
     get:{
       task,
       status,
+    },
+    update:{
+      status:updateStatus,
     }
   } = tasks
   return {
     task,
     status,
+    updateStatus,
   }
 }
 
