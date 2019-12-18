@@ -127,21 +127,26 @@ class ActivitySetUpContainer extends Component {
     return (activity_status === SUCCESS) ? (
       <div id="ActivitySetUp" className="background">
         <Header textAlign='center' >{(id===UNSET) ? 'Creando' : 'Editando'} actividad {title} : {description}</Header>
-        <Segment padded='very'>
+        <Segment padded='very' className='container'>
           <Form>
             <Form.Input name='title' label='Título' value={title} placeholder='Título' required
               onChange={this.handleFieldSet.bind(this)} />
             <Form.Input name='description' label='Descripción' value={description} placeholder='Descripción' required
               onChange={this.handleFieldSet.bind(this)} />
-            <StatusList items={tasks} status={tasks_index_status} render_item={task =>
+          </Form>
+          <Divider/>
+          <StatusList
+            items={tasks}
+            status={tasks_index_status} 
+            render_item={task =>
               (<ListItem
                 name={task.name}
                 key={task.id}
                 load={() => history.push(`/activity/${id}/task/${task.id}`)}
                 del={() => deleteTask(id,task.id)}
-              />)}
-            />
-          </Form>
+              />)
+            }
+          />
           <Divider/>
           <Button primary onClick={this.toggleModal}><Icon name='add' />Agregar tarea</Button>
           <CreationModal
