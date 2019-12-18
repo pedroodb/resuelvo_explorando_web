@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Button, Form, Divider, Header } from 'semantic-ui-react'
+import { Button, Form, Divider, Header, Icon } from 'semantic-ui-react'
 
 import { SUCCESS, UNSET, OUTDATED } from '../constants/status'
 import { TASK } from '../constants/helpers'
@@ -143,7 +143,7 @@ class ActivitySetUpContainer extends Component {
             />
           </Form>
           <Divider/>
-          <Button primary onClick={this.toggleModal}>Agregar tarea</Button>
+          <Button primary onClick={this.toggleModal}><Icon name='add' />Agregar tarea</Button>
           <CreationModal
             open={this.state.creatingTask}
             toggle={this.toggleModal}
@@ -164,8 +164,8 @@ class ActivitySetUpContainer extends Component {
             })}
           />
           <Button onClick={() => history.push(`/activity/${id}/workflow`)}>Workflow</Button>
-          <Button onClick={() => history.push('/')}>Descartar</Button>
-          <Button primary onClick={() => updateActivity(id,this.props.activity)}>Guardar</Button>
+          <Button onClick={() => history.push('/')}> <Icon name='trash' />Descartar</Button>
+          <Button primary onClick={() => updateActivity(id,this.props.activity)}><Icon name='upload' />Guardar</Button>
         </div>
       </div>
     ) : null

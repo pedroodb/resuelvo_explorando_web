@@ -9,11 +9,13 @@ const ActivityCreationForm = ({status, activity:{title,description}, validationE
       name='title'
       label='Título'
       placeholder='Título'
+      required
       value={title}
       error={(validationError && title === '') ? {content:'Este campo no puede estar vacio'} : undefined}
       onChange={(event, { value, name }) => setField(name,value)}
     />
     <Form.Input
+      required
       name='description'
       label='Descripción'
       placeholder='Descripción'

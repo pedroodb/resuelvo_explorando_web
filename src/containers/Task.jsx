@@ -70,12 +70,12 @@ class TaskSetUpContainer extends Component {
           </Form>
           <TaskBuilder type={task.type} payload={task.payload}/>
           <Divider/>
-          <Button content='Confirmar' onClick={() => {
+          <Button primary content='Confirmar' onClick={() => {
             updateTask(activity_id,task.id,task)
             history.push(`/Activity/${activity_id}`)
           }}/>
-          <Button content='Cancelar' onClick={() => history.push(`/Activity/${activity_id}`)}/>
-          <Button content='Eliminar' onClick={() => deleteTask(activity_id,task)}/>
+          <Button primary content='Cancelar' onClick={() => history.push(`/Activity/${activity_id}`)}/>
+          {/* <Button content='Eliminar' onClick={() => deleteTask(activity_id,task)}/> */}
         </div>
       </div>
     ) : null
