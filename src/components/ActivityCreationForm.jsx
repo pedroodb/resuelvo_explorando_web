@@ -1,7 +1,7 @@
 import React from 'react'
 import { Form } from 'semantic-ui-react'
 
-import { PENDING, UNSET } from '../constants/status'
+import { PENDING} from '../constants/status'
 
 const ActivityCreationForm = ({status, activity:{title,description}, validationError, setField}) => (
   <Form loading={status === PENDING}>

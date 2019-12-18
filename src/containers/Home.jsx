@@ -12,7 +12,7 @@ import {
   resetGet,
 } from '../actions/activities'
 
-import { OUTDATED, SUCCESS, UNSET } from '../constants/status'
+import { OUTDATED, SUCCESS } from '../constants/status'
 import { ACTIVITY } from '../constants/helpers'
 import ListItem from '../components/ListItem'
 import StatusList from '../components/StatusList'
