@@ -47,7 +47,7 @@ class MultipleChoiceComponent extends Component {
             <Button basic color='red'><Icon name='trash'/></Button>
           </Form.Group>))}
           </Form>
-        <Button basic primary onClick={() => addOption({ value:'', isCorrect:false })}><Icon name='add'/>Agregar opción</Button>
+        <Button basic primary  onClick={() => addOption({ value:'', isCorrect:false })}><Icon name='add'/>Agregar opción</Button>
       </Segment>
     )
   }
