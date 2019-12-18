@@ -9,6 +9,7 @@ const TaskCreationForm = ({status, task, setField, setType, validationError}) =>
   <Form loading={status === PENDING}>
     <Form.Input
       name='name'
+      required
       label='Nombre'
       placeholder='Nombre'
       value={(task.name === UNSET) ? '' : task.name}
@@ -16,6 +17,7 @@ const TaskCreationForm = ({status, task, setField, setType, validationError}) =>
       onChange={(event, { value, name }) => setField(name,value)}
     />
     <Form.Input
+      required
       name='description'
       label='Descripción'
       placeholder='Descripción'
@@ -25,6 +27,8 @@ const TaskCreationForm = ({status, task, setField, setType, validationError}) =>
     />
     <Form.Select
       name='type'
+      required
+      label='Elija el tipo de tarea'
       placeholder='Elija el tipo de tarea'
       error={(validationError && task.type === UNSET) ? {content:'Este campo no puede estar vacio'} : undefined}
       onChange={(event, { value }) => setType(value,TaskTypesHelper[value].defaultPayload)}
