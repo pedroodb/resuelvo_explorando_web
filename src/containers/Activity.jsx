@@ -126,7 +126,7 @@ class ActivitySetUpContainer extends Component {
 
     return (activity_status === SUCCESS) ? (
       <div id="ActivitySetUp" className="background">
-        <Header textAlign='center' >{(id===UNSET) ? 'Creando' : 'Editando'} actividad {title} : {description}</Header>
+        <Header textAlign='center'>{title}</Header>
         <Segment padded='very' className='container'>
           <Form>
             <Form.Input name='title' label='Título' value={title} placeholder='Título' required
@@ -147,7 +147,6 @@ class ActivitySetUpContainer extends Component {
               />)
             }
           />
-          <Divider/>
           <Button primary onClick={this.toggleModal}><Icon name='add' />Agregar tarea</Button>
           <CreationModal
             open={this.state.creatingTask}
@@ -169,8 +168,8 @@ class ActivitySetUpContainer extends Component {
             })}
           />
           <Button onClick={() => history.push(`/activity/${id}/workflow`)}>Workflow</Button>
-          <Button onClick={() => history.push('/')}><Icon name='trash' />Descartar</Button>
-          <Button primary onClick={() => updateActivity(id,this.props.activity)}><Icon name='upload' />Guardar</Button>
+          <Button floated='right' primary onClick={() => updateActivity(id,this.props.activity)}><Icon name='upload' />Guardar</Button>
+          <Button floated='right' onClick={() => history.push('/')}><Icon name='trash' />Descartar</Button>
         </Segment>
       </div>
     ) : null
