@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { Form, TextArea} from 'semantic-ui-react'
+import { Form} from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import {
-  faActions,
+  mtActions,
 } from '../../actions/tasks'
 
 class MultimediaTaskComponent extends Component {
@@ -14,11 +14,11 @@ class MultimediaTaskComponent extends Component {
     const {
       payload:{
         slogan,
-        answer,
+        multimedia_type,
       },
       actions:{
         setSlogan,
-        setAnswer,
+        setMultimedia_type,
       }
     } = this.props
 
@@ -27,7 +27,19 @@ class MultimediaTaskComponent extends Component {
         <br/>
         <Form.Input label='Consigna' placeholder='Consigna' onChange={(e,{value}) => setSlogan(value)} value={slogan} />
         <h5>Tipo de respueta</h5>
-        <TextArea placeholder='Respuesta esperada' onChange={(e,{value}) => setAnswer(value)} value={answer} />
+        <Form.Select
+          name='multimedia_type'
+          required
+          label='Elija el tipo de contenido'
+          defaultValue={multimedia_type}
+          placeholder='Elija el tipo de contenido'
+          onChange={(event, { value }) => setMultimedia_type(value)}
+          options={[
+            { text:'Audio', value:'audio' },
+            { text:'Foto', value:'foto' },
+            { text:'Video', value:'video' },
+          ]}
+    />
       </Form>
     )
   }
@@ -37,8 +49,8 @@ class MultimediaTaskComponent extends Component {
 function mapDispatchToProps(dispatch) {
   return {
     actions : bindActionCreators({
-      setSlogan:faActions.setSlogan,
-      setAnswer:faActions.setAnswer,
+      setSlogan:mtActions.setSlogan,
+      setMultimedia_type:mtActions.setMultimedia_type,
     }, dispatch)
   }
 }

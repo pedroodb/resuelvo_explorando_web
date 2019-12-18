@@ -344,7 +344,7 @@ const taskReducer = (state = initialState, action) => {
                 ...state.get.task,
                 payload:{
                   ...state.get.task.payload,
-                  multmedia_type:action.payload,
+                  multimedia_type:action.payload,
                 }
               }
             }
