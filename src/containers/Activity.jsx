@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Button, Form, Divider, Header,Icon, Segment } from 'semantic-ui-react'
 
-import { SUCCESS, OUTDATED } from '../constants/status'
+import { SUCCESS, OUTDATED, PENDING } from '../constants/status'
 import { TASK } from '../constants/helpers'
 import StatusList from '../components/StatusList'
 import ListItem from '../components/ListItem'
@@ -32,7 +32,8 @@ class ActivitySetUpContainer extends Component {
     this.toggleModal = this.toggleModal.bind(this)
     this.state = {
       creatingTask: false,
-      validationError: false,
+      taskValidationError: false,
+      validationErrors: false,
     }
   }
 
@@ -109,6 +110,7 @@ class ActivitySetUpContainer extends Component {
         id,
       },
       activity_status,
+      activity_update_status,
       tasks,
       task,
       tasks_index_status,
@@ -122,15 +124,24 @@ class ActivitySetUpContainer extends Component {
       }
     } = this.props
 
+    const {
+      validationErrors,
+      taskValidationError,
+    } = this.state
+
     return (activity_status === SUCCESS) ? (
       <div id="ActivitySetUp" className="background">
         <Header as='h1' textAlign='center'>{title}</Header>
         <Segment padded='very' className='container'>
-          <Form>
+          <Form loading={activity_update_status === PENDING}>
             <Form.Input name='title' label='Título' value={title} placeholder='Título' required
-              onChange={this.handleFieldSet.bind(this)} />
+              onChange={this.handleFieldSet.bind(this)}
+              error={(validationErrors && title === '') ? {content:'Este campo no puede estar vacio'} : undefined}
+              />
             <Form.Input name='description' label='Descripción' value={description} placeholder='Descripción' required
-              onChange={this.handleFieldSet.bind(this)} />
+              onChange={this.handleFieldSet.bind(this)} 
+              error={(validationErrors && description === '') ? {content:'Este campo no puede estar vacio'} : undefined}
+              />
           </Form>
           <Divider/>
           <StatusList
@@ -151,7 +162,7 @@ class ActivitySetUpContainer extends Component {
             toggle={this.toggleModal}
             status={task_save_status}
             item={task}
-            validationError={this.state.validationError}
+            validationError={taskValidationError}
             itemType={TASK}
             actions={({
               setField:setCurrentTaskField,
@@ -160,13 +171,19 @@ class ActivitySetUpContainer extends Component {
                 if(task.name !== '' && task.description !== '' && task.type !== '') {
                   saveTask(id,task)
                 } else {
-                  this.setState(() => ({validationError:true}))
+                  this.setState(() => ({taskValidationError:true}))
                 }
               }
             })}
           />
           <Button onClick={() => history.push(`/activity/${id}/workflow`)}>Workflow</Button>
-          <Button floated='right' primary onClick={() => updateActivity(id,this.props.activity)}><Icon name='upload' />Guardar</Button>
+          <Button floated='right' primary onClick={() => {
+            if(title !== '' && description !== '') {
+              updateActivity(id,this.props.activity)
+            } else {
+              this.setState(() => ({validationErrors:true}))
+            }
+            }}><Icon name='upload' />Guardar</Button>
           <Button floated='right' onClick={() => history.push('/')}><Icon name='trash' />Descartar</Button>
         </Segment>
       </div>
