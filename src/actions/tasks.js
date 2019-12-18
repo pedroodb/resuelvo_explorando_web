@@ -22,6 +22,8 @@ import {
   MC_TASK_OPTION_UPDATE,
   FA_TASK_ANSWER_SET,
   FA_TASK_SLOGAN_SET,
+  MT_TASK_MULTIMEDIA_TYPE_SET,
+  MT_TASK_SLOGAN_SET,
 } from '../constants/tasks'
 
 import {
@@ -160,5 +162,16 @@ export const faActions = {
   setAnswer: answer => ({
     type:FA_TASK_ANSWER_SET,
     payload:answer,
+  })
+}
+
+export const mtActions = {
+  setSlogan: slogan => ({
+    type:MT_TASK_SLOGAN_SET,
+    payload:slogan,
+  }),
+  setMultimedia_type: multimedia_type => ({
+    type:MT_TASK_MULTIMEDIA_TYPE_SET,
+    payload:multimedia_type,
   })
 }

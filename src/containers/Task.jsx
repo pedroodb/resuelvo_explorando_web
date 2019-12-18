@@ -7,6 +7,7 @@ import { Form, Button, Divider, Segment, Header, ButtonGroup } from 'semantic-ui
 import {
   MULTIPLE_CHOICE,
   FREE_ANSWER,
+  MULTIMEDIA_TASK,
 } from '../constants/taskTypes'
 import {
   getTask,
@@ -101,6 +102,7 @@ class TaskSetUpContainer extends Component {
               options={[
                 { text:'Multiple Choice', value:MULTIPLE_CHOICE },
                 { text:'Respuesta libre', value:FREE_ANSWER },
+                { text:'Tarea multimedia', value:MULTIMEDIA_TASK },
               ]}
             />
           </Form>
