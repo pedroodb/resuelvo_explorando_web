@@ -1,14 +1,22 @@
 #Home > .logo {
-  height: 40vmin;
+  height: 30vmin;
   pointer-events: none;
 }
 
 #Home > .header {
   font-size: calc(10px + 2vmin);
   color: white;
+  margin-top: 10px;
+  font-size:200%;
 }
 
 #Home > .listContainer {
+  background-color: whitesmoke;
+  width: 80%;
+  text-align: initial;
+  padding: 1%;
+}
+#Home > .listHeader {
   background-color: whitesmoke;
   width: 80%;
   text-align: initial;

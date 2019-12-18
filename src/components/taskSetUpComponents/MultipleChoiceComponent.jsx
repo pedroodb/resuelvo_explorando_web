@@ -1,17 +1,16 @@
 import React, { Component } from 'react'
-import { Button, Form } from 'semantic-ui-react'
+import { Button, Form, Icon, Segment } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import {
-  addOptionToMCTask,
-  updateMCTaskOption,
-} from '../../actions/currentTaskActions'
+  mcActions,
+} from '../../actions/tasks'
 
 class MultipleChoiceComponent extends Component {
 
   handleOptionChange(index,option,field,value) {
-    this.props.actions.updateMCTaskOption(index,{
+    this.props.actions.updateOption(index,{
       ...option,
       [field]:value,
     })
@@ -24,14 +23,16 @@ class MultipleChoiceComponent extends Component {
         options,
       },
       actions:{
-        addOptionToMCTask,
+        addOption,
       }
     } = this.props
 
     return(
-      <div>
+      <Segment>
+        <Form>
         {options.map((option, index) => (
           <Form.Group key={index}>
+            <br/>
             <Form.Input
               name='value' 
               value={option.value}
@@ -43,34 +44,23 @@ class MultipleChoiceComponent extends Component {
               checked={option.isCorrect}
               onChange={(event, { value, name }) => this.handleOptionChange(index,option,name,!option.isCorrect)}
             />
+            <Button basic color='red'><Icon name='trash'/></Button>
           </Form.Group>))}
-        <Button content='Agregar opción' onClick={() => addOptionToMCTask({ value:'', isCorrect:false })}></Button>
-      </div>
+          </Form>
+        <Button basic primary  onClick={() => addOption({ value:'', isCorrect:false })}><Icon name='add'/>Agregar opción</Button>
+      </Segment>
     )
   }
-
 }
 
 //Funcion que mapea las acciones con las funciones que llamamos desde el componente
 function mapDispatchToProps(dispatch) {
   return {
     actions : bindActionCreators({
-      addOptionToMCTask,
-      updateMCTaskOption,
+      addOption:mcActions.addOption,
+      updateOption:mcActions.updateOption,
     }, dispatch)
   }
 }
 
-//Funcion que mapea el estado de la APLICACION (redux) con las props del componente
-function mapStateToProps({currentTaskReducer}) {
-  const {
-    task:{
-      payload,
-    },
-  } = currentTaskReducer
-  return {
-    payload,
-  }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(MultipleChoiceComponent)
+export default connect(null,mapDispatchToProps)(MultipleChoiceComponent)

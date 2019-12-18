@@ -1,9 +1,16 @@
-import HomeContainer from './Home'
-import ActivitySetUpContainer from './ActivitySetUp'
-import TaskSetUpContainer from './TaskSetUp'
+import HomeContainer from './Home.jsx'
+import ActivityContainer from './Activity'
+import TaskContainer from './Task'
+import WorkflowComponent from './Workflow'
 
 export const Home = HomeContainer
-export const ActivitySetUp = ActivitySetUpContainer
-export const TaskSetUp = TaskSetUpContainer
+export const Activity = ActivityContainer
+export const Task = TaskContainer
+export const Workflow = WorkflowComponent
 
-export default { Home, ActivitySetUp, TaskSetUp }
+export default {
+  Home,
+  Activity,
+  Task,
+  Workflow,
+}
