@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Button, Form, Divider, Header, Icon } from 'semantic-ui-react'
+import { Button, Form, Divider, Header,Icon, Segment } from 'semantic-ui-react'
 
 import { SUCCESS, UNSET, OUTDATED } from '../constants/status'
 import { TASK } from '../constants/helpers'
@@ -127,7 +127,7 @@ class ActivitySetUpContainer extends Component {
     return (activity_status === SUCCESS) ? (
       <div id="ActivitySetUp" className="background">
         <Header textAlign='center' >{(id===UNSET) ? 'Creando' : 'Editando'} actividad {title} : {description}</Header>
-        <div className="ui raised very padded text container segment">
+        <Segment padded='very'>
           <Form>
             <Form.Input name='title' label='Título' value={title} placeholder='Título' required
               onChange={this.handleFieldSet.bind(this)} />
@@ -164,9 +164,9 @@ class ActivitySetUpContainer extends Component {
             })}
           />
           <Button onClick={() => history.push(`/activity/${id}/workflow`)}>Workflow</Button>
-          <Button onClick={() => history.push('/')}> <Icon name='trash' />Descartar</Button>
+          <Button onClick={() => history.push('/')}><Icon name='trash' />Descartar</Button>
           <Button primary onClick={() => updateActivity(id,this.props.activity)}><Icon name='upload' />Guardar</Button>
-        </div>
+        </Segment>
       </div>
     ) : null
   }

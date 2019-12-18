@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Form, Button, Divider } from 'semantic-ui-react'
+import { Form, Button, Divider, Segment } from 'semantic-ui-react'
 
 import {
   MULTIPLE_CHOICE,
@@ -11,7 +11,6 @@ import {
 import {
   getTask,
   updateTask,
-  deleteTask,
   setCurrentTaskField,
   setCurrentTaskType,
 } from '../actions/tasks'
@@ -40,7 +39,6 @@ class TaskSetUpContainer extends Component {
         setCurrentTaskField,
         setCurrentTaskType,
         updateTask,
-        deleteTask,
       },
       match:{
         params:{
@@ -51,7 +49,7 @@ class TaskSetUpContainer extends Component {
 
     return (status === SUCCESS || status === OUTDATED) ? (
       <div className="background">
-        <div className="ui raised very padded text container segment">
+        <Segment padded='very'>
           <header>Creando tarea</header>
           <Form>
             <Form.Input required name='name' label='Nombre' value={task.name} placeholder='Título' onChange={(event, { value, name }) => setCurrentTaskField(name,value)}/>
@@ -68,15 +66,15 @@ class TaskSetUpContainer extends Component {
               ]}
             />
           </Form>
+          <Divider/>
           <TaskBuilder type={task.type} payload={task.payload}/>
           <Divider/>
           <Button primary content='Confirmar' onClick={() => {
             updateTask(activity_id,task.id,task)
             history.push(`/Activity/${activity_id}`)
           }}/>
-          <Button primary content='Cancelar' onClick={() => history.push(`/Activity/${activity_id}`)}/>
-          {/* <Button content='Eliminar' onClick={() => deleteTask(activity_id,task)}/> */}
-        </div>
+          <Button content='Cancelar' onClick={() => history.push(`/Activity/${activity_id}`)}/>
+        </Segment>
       </div>
     ) : null
   }
@@ -87,7 +85,6 @@ function mapDispatchToProps(dispatch) {
     actions : bindActionCreators({
       getTask,
       updateTask,
-      deleteTask,
       setCurrentTaskField,
       setCurrentTaskType,
     }, dispatch)

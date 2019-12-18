@@ -44,6 +44,7 @@ const initialState = {
       description:'',
       type:UNSET,
       payload:UNSET,
+      requiredTasks:[],
     },
     status:UNSET,
     error:UNSET,
