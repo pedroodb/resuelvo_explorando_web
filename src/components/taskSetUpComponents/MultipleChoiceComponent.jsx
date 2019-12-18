@@ -44,10 +44,10 @@ class MultipleChoiceComponent extends Component {
               checked={option.isCorrect}
               onChange={(event, { value, name }) => this.handleOptionChange(index,option,name,!option.isCorrect)}
             />
-            <Button color='youtube'><Icon name='trash' /></Button>
+            <Button basic color='red'><Icon name='trash'/></Button>
           </Form.Group>))}
           </Form>
-        <Button content='Agregar opción' onClick={() => addOption({ value:'', isCorrect:false })}></Button>
+        <Button basic primary onClick={() => addOption({ value:'', isCorrect:false })}><Icon name='add'/>Agregar opción</Button>
       </Segment>
     )
   }

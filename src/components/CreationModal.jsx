@@ -38,8 +38,8 @@ const CreationModal = ({
       }
     </Modal.Content>
     <Modal.Actions>
-      <Button onClick={toggle}>Cancelar</Button>
-      <Button positive onClick={save}>Crear</Button>
+      <Button basic onClick={toggle}>Cancelar</Button>
+      <Button basic positive onClick={save}>Crear</Button>
     </Modal.Actions>
   </Modal>
 )
