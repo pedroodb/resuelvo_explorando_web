@@ -154,6 +154,7 @@ export const mcActions = {
   })
 }
 
+//Actions especificas para tarea de tipo Free Answer
 export const faActions = {
   setSlogan: slogan => ({
     type:FA_TASK_SLOGAN_SET,
@@ -165,12 +166,13 @@ export const faActions = {
   })
 }
 
+//Actions especificas para tarea de tipo Multimedia
 export const mtActions = {
   setSlogan: slogan => ({
     type:MT_TASK_SLOGAN_SET,
     payload:slogan,
   }),
-  setMultimedia_type: multimedia_type => ({
+  setMultimediaType: multimedia_type => ({
     type:MT_TASK_MULTIMEDIA_TYPE_SET,
     payload:multimedia_type,
   })

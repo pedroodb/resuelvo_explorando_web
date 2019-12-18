@@ -6,6 +6,11 @@ import { bindActionCreators } from 'redux'
 import {
   mtActions,
 } from '../../actions/tasks'
+import {
+  AUDIO,
+  VIDEO,
+  IMAGE,
+} from '../../constants/taskTypes'
 
 class MultimediaTaskComponent extends Component {
 
@@ -18,7 +23,7 @@ class MultimediaTaskComponent extends Component {
       },
       actions:{
         setSlogan,
-        setMultimedia_type,
+        setMultimediaType,
       }
     } = this.props
 
@@ -33,11 +38,11 @@ class MultimediaTaskComponent extends Component {
           label='Elija el tipo de contenido'
           defaultValue={multimedia_type}
           placeholder='Elija el tipo de contenido'
-          onChange={(event, { value }) => setMultimedia_type(value)}
+          onChange={(event, { value }) => setMultimediaType(value)}
           options={[
-            { text:'Audio', value:'audio' },
-            { text:'Foto', value:'foto' },
-            { text:'Video', value:'video' },
+            { text:'Audio', value:AUDIO },
+            { text:'Foto', value:IMAGE },
+            { text:'Video', value:VIDEO },
           ]}
     />
       </Form>
@@ -50,7 +55,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions : bindActionCreators({
       setSlogan:mtActions.setSlogan,
-      setMultimedia_type:mtActions.setMultimedia_type,
+      setMultimediaType:mtActions.setMultimediaType,
     }, dispatch)
   }
 }
