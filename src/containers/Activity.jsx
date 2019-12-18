@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Button, Form, Divider, Header,Icon, Segment } from 'semantic-ui-react'
 
-import { SUCCESS, UNSET, OUTDATED } from '../constants/status'
+import { SUCCESS, OUTDATED } from '../constants/status'
 import { TASK } from '../constants/helpers'
 import StatusList from '../components/StatusList'
 import ListItem from '../components/ListItem'
@@ -24,8 +24,6 @@ import {
   setCurrentTaskField,
   setCurrentTaskType,
 } from '../actions/tasks'
-
-import '../styles/ActivitySetUp.css'
 
 class ActivitySetUpContainer extends Component {
 
@@ -126,7 +124,7 @@ class ActivitySetUpContainer extends Component {
 
     return (activity_status === SUCCESS) ? (
       <div id="ActivitySetUp" className="background">
-        <Header textAlign='center'>{title}</Header>
+        <Header as='h1' textAlign='center'>{title}</Header>
         <Segment padded='very' className='container'>
           <Form>
             <Form.Input name='title' label='Título' value={title} placeholder='Título' required

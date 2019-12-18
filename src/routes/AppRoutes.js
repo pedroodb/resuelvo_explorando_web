@@ -5,7 +5,7 @@ import {
   Home,
   Activity,
   Task,
-  ActivitySummary,
+  Workflow,
 } from '../containers'
 
 class AppRoutes extends Component {
@@ -14,7 +14,7 @@ class AppRoutes extends Component {
         <Switch>
             <Route exact path='/' component={Home}/>
             <Route path='/activity/:id/task/:fk' component={Task}/>
-            <Route path='/activity/:id/workflow' component={ActivitySummary}/>
+            <Route path='/activity/:id/workflow' component={Workflow}/>
             <Route path='/activity/:id' component={Activity}/>
         </Switch>
       )

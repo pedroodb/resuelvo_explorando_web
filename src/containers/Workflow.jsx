@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Dropdown } from 'semantic-ui-react'
+import { Button, Dropdown, Header } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withRouter } from 'react-router-dom'
@@ -24,7 +24,7 @@ import {
 import Workflow from '../components/Workflow'
 
 
-class ActivitySummaryContainer extends Component {
+class ActivityWorkflow extends Component {
 
 	constructor(props) {
 		super(props);
@@ -96,8 +96,7 @@ class ActivitySummaryContainer extends Component {
 		return status === SUCCESS ? (
 			<div className="background">
 				<div className="container">
-					<header>Ordenando actividad title : description</header>
-					<p>Sellecione el orden de las tareas:</p>
+					<Header as='h3'>Configurando Workflow</Header>
 					<Dropdown
 						selection
 						placeholder=''
@@ -141,4 +140,4 @@ function mapStateToProps({ tasks }) {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ActivitySummaryContainer))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ActivityWorkflow))

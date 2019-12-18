@@ -1,16 +1,16 @@
 import HomeContainer from './Home.jsx'
 import ActivityContainer from './Activity'
 import TaskContainer from './Task'
-import ActivitySummaryComponent from './ActivitySummary.jsx'
+import WorkflowComponent from './Workflow'
 
 export const Home = HomeContainer
 export const Activity = ActivityContainer
 export const Task = TaskContainer
-export const ActivitySummary = ActivitySummaryComponent
+export const Workflow = WorkflowComponent
 
 export default {
   Home,
   Activity,
   Task,
-  ActivitySummary,
+  Workflow,
 }
