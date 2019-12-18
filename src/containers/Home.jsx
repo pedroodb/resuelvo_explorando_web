@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+<<<<<<< HEAD
 import { Button, Header, Modal, Form, Dropdown } from 'semantic-ui-react'
+=======
+import { Button, Header } from 'semantic-ui-react'
+>>>>>>> dev
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -9,16 +13,23 @@ import {
   deleteActivity,
   saveActivity,
   setField,
+  resetGet,
 } from '../actions/activities'
 
+<<<<<<< HEAD
 import {
   setLanguage,
 } from '../actions/configuration'
 
 import { OUTDATED, SUCCESS, UNSET, PENDING } from '../constants/status'
+=======
+import { OUTDATED, SUCCESS } from '../constants/status'
+import { ACTIVITY } from '../constants/helpers'
+>>>>>>> dev
 import ListItem from '../components/ListItem'
-import logo from '../assets/resuelvo_explorando_logo.png'
 import StatusList from '../components/StatusList'
+import CreationModal from '../components/CreationModal'
+import logo from '../assets/resuelvo_explorando_logo.png'
 import '../styles/Home.css'
 import '../styles/General.css'
 
@@ -36,16 +47,19 @@ class HomeContainer extends Component {
     super(props)
     this.toggleModal = this.toggleModal.bind(this)
     this.state = {
-      creatingActivity: false
+      creatingActivity: false,
+      validationError: false,
     }
-  } 
-
-  handleFieldSet = (event, { value, name }) =>  {
-    this.props.actions.setField(name,value)
   }
 
   componentDidMount() {
-    this.props.actions.getActivities()
+    const {
+      getActivities,
+      resetGet,
+    } = this.props.actions
+    
+    getActivities()
+    resetGet()
   }
 
   componentDidUpdate(prevProps) {
@@ -106,6 +120,7 @@ class HomeContainer extends Component {
         deleteActivity,
         saveActivity,
         setLanguage,
+        setField,
       }
     } = this.props
 
@@ -140,24 +155,25 @@ class HomeContainer extends Component {
             />
           )
         }/>
-        <Button primary onClick={this.toggleModal}>Crear Nueva Actividad</Button>
-        <Modal size='small' open={this.state.creatingActivity} onClose={this.toggleModal}>
-          <Modal.Header>Crear Nueva Actividad</Modal.Header>
-          <Modal.Content>
-            <Form loading={saveStatus === PENDING}>
-              <Form.Input name='title' label='Título' placeholder='Título' onChange={this.handleFieldSet.bind(this)} />
-              <Form.Input name='description' label='Descripción' placeholder='Descripción' onChange={this.handleFieldSet.bind(this)} />
-            </Form>
-          </Modal.Content>
-          <Modal.Actions>
-              <Button onClick={this.toggleModal}>Cancelar</Button>
-              <Button positive onClick={() => {
-                if(title !== UNSET && description !== UNSET) {
+        <Button basic primary onClick={this.toggleModal}>Crear Nueva Actividad</Button>
+        <CreationModal
+            open={this.state.creatingActivity}
+            toggle={this.toggleModal}
+            status={saveStatus}
+            item={this.props.newActivity}
+            validationError={this.state.validationError}
+            itemType={ACTIVITY}
+            actions={({
+              setField:setField,
+              save:() => {
+                if(title !== '' && description !== '') {
                   saveActivity({title, description})
+                } else {
+                  this.setState(() => ({validationError:true}))
                 }
-              }}>Crear</Button>
-          </Modal.Actions>
-        </Modal>
+              }
+            })}
+        />
       </div>  
     )
   }
@@ -171,6 +187,7 @@ function mapDispatchToProps(dispatch) {
       saveActivity,
       setField,
       setLanguage,
+      resetGet,
     }, dispatch)
   }
 }

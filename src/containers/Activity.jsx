@@ -2,15 +2,13 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Button, Form, Divider, Header, Modal} from 'semantic-ui-react'
+import { Button, Form, Divider, Header,Icon, Segment, ButtonGroup } from 'semantic-ui-react'
 
-import { SUCCESS, PENDING, UNSET, OUTDATED } from '../constants/status'
+import { SUCCESS, OUTDATED, PENDING } from '../constants/status'
+import { TASK } from '../constants/helpers'
 import StatusList from '../components/StatusList'
 import ListItem from '../components/ListItem'
-import {
-  MULTIPLE_CHOICE,
-  FREE_ANSWER,
-} from '../constants/taskTypes'
+import CreationModal from '../components/CreationModal'
 import {
   getActivity,
   saveActivity,
@@ -22,13 +20,10 @@ import {
   deleteTask,
   getTask,
   saveTask,
+  resetGet,
   setCurrentTaskField,
   setCurrentTaskType,
 } from '../actions/tasks'
-import TaskTypesHelper from '../helpers/taskTypesHelper'
-import TaskBuilder from '../components/taskSetUpComponents/TaskBuilder.jsx'
-
-import '../styles/ActivitySetUp.css'
 
 class ActivitySetUpContainer extends Component {
 
@@ -36,7 +31,9 @@ class ActivitySetUpContainer extends Component {
     super(props)
     this.toggleModal = this.toggleModal.bind(this)
     this.state = {
-      creatingTask: false
+      creatingTask: false,
+      taskValidationError: false,
+      validationErrors: false,
     }
   }
 
@@ -44,9 +41,11 @@ class ActivitySetUpContainer extends Component {
     const {
       getActivity,
       getTasks,
+      resetGet,
     } = this.props.actions
     getActivity(this.props.match.params.id)
     getTasks(this.props.match.params.id)
+    resetGet()
   }
 
   componentDidUpdate(prevProps) {
@@ -111,6 +110,7 @@ class ActivitySetUpContainer extends Component {
         id,
       },
       activity_status,
+      activity_update_status,
       tasks,
       task,
       tasks_index_status,
@@ -124,57 +124,71 @@ class ActivitySetUpContainer extends Component {
       }
     } = this.props
 
+    const {
+      validationErrors,
+      taskValidationError,
+    } = this.state
+
     return (activity_status === SUCCESS) ? (
       <div id="ActivitySetUp" className="background">
-        <Header textAlign='center' >{(id===UNSET) ? 'Creando' : 'Editando'} actividad {title} : {description}</Header>
-        <div className="ui raised very padded text container segment">
-          <Form>
+        <Header as='h1' textAlign='center'>{title}</Header>
+        <Segment padded='very' className='container'>
+          <Form loading={activity_update_status === PENDING}>
             <Form.Input name='title' label='Título' value={title} placeholder='Título' required
-              onChange={this.handleFieldSet.bind(this)} />
+              onChange={this.handleFieldSet.bind(this)}
+              error={(validationErrors && title === '') ? {content:'Este campo no puede estar vacio'} : undefined}
+              />
             <Form.Input name='description' label='Descripción' value={description} placeholder='Descripción' required
-              onChange={this.handleFieldSet.bind(this)} />
-            <StatusList items={tasks} status={tasks_index_status} render_item={task =>
+              onChange={this.handleFieldSet.bind(this)} 
+              error={(validationErrors && description === '') ? {content:'Este campo no puede estar vacio'} : undefined}
+              />
+          </Form>
+          <Divider/>
+          <StatusList
+            items={tasks}
+            status={tasks_index_status} 
+            render_item={task =>
               (<ListItem
                 name={task.name}
                 key={task.id}
                 load={() => history.push(`/activity/${id}/task/${task.id}`)}
                 del={() => deleteTask(id,task.id)}
-              />)}
-            />
-          </Form>
+              />)
+            }
+          />
           <Divider/>
-          <Button primary onClick={this.toggleModal}>Agregar tarea</Button>
-          <Modal size='small' open={this.state.creatingTask} onClose={this.toggleModal}>
-            <Modal.Header>Crear una nueva tarea</Modal.Header>
-            <Modal.Content>
-              <Form loading={task_save_status === PENDING}>
-                <Form.Input required name='name' label='Nombre' placeholder='Título' onChange={(event, { value, name }) => setCurrentTaskField(name,value)}/>
-                <Form.Input required name='description' label='Descripción' placeholder='Descripción' onChange={(event, { value, name }) => setCurrentTaskField(name,value)}/>
-                <Form.Select
-                  name='type'
-                  placeholder='Elija el tipo de tarea' 
-                  onChange={(event, { value }) => setCurrentTaskType(value,TaskTypesHelper[value].defaultPayload)}
-                  options={[
-                    { text:'Multiple Choice', value:MULTIPLE_CHOICE },
-                    { text:'Respuesta libre', value:FREE_ANSWER },
-                  ]}
-                />
-              </Form>
-              <TaskBuilder type={task.type} payload={task.payload}/>
-            </Modal.Content>
-            <Modal.Actions>
-              <Button onClick={this.toggleModal}>Cancelar</Button>
-              <Button positive onClick={() => {
-                if(task.name !== UNSET && task.description !== UNSET && task.type !== UNSET) {
-                  saveTask(id, task)
+          <Button basic primary onClick={this.toggleModal}><Icon name='add' />Agregar tarea</Button>
+          <Button basic color='grey' onClick={() => history.push(`/activity/${id}/workflow`)}>Workflow</Button>
+          <CreationModal
+            open={this.state.creatingTask}
+            toggle={this.toggleModal}
+            status={task_save_status}
+            item={task}
+            validationError={taskValidationError}
+            itemType={TASK}
+            actions={({
+              setField:setCurrentTaskField,
+              setType:setCurrentTaskType,
+              save:() => {
+                if(task.name !== '' && task.description !== '' && task.type !== '') {
+                  saveTask(id,task)
+                } else {
+                  this.setState(() => ({taskValidationError:true}))
                 }
-              }}>Crear</Button>
-            </Modal.Actions>
-          </Modal>
-          <Button onClick={() => history.push(`/activity/${id}/workflow`)}>Workflow</Button>
-          <Button onClick={() => history.push('/')}>Descartar</Button>
-          <Button primary onClick={() => updateActivity(id,this.props.activity)}>Guardar</Button>
-        </div>
+              }
+            })}
+          />
+          <ButtonGroup floated='right'>
+            <Button basic color='grey' floated='right' onClick={() => history.push('/')}><Icon name='trash' />Descartar</Button>
+            <Button basic primary onClick={() => {
+              if(title !== '' && description !== '') {
+                updateActivity(id,this.props.activity)
+              } else {
+                this.setState(() => ({validationErrors:true}))
+              }
+              }}><Icon name='upload' />Guardar</Button>
+          </ButtonGroup>
+        </Segment>
       </div>
     ) : null
   }
@@ -191,6 +205,7 @@ function mapDispatchToProps(dispatch) {
       getTasks,
       getTask,
       saveTask,
+      resetGet,
       setCurrentTaskField,
       setCurrentTaskType,
     }, dispatch)

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, TextArea } from 'semantic-ui-react'
+import { Form, TextArea} from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -24,7 +24,9 @@ class FreeAnswerComponent extends Component {
 
     return(
       <Form>
-        <Form.Input placeholder='Consigna' onChange={(e,{value}) => setSlogan(value)} value={slogan} />
+        <br/>
+        <Form.Input label='Consigna' placeholder='Consigna' onChange={(e,{value}) => setSlogan(value)} value={slogan} />
+        <h5>Respuesta esperada</h5>
         <TextArea placeholder='Respuesta esperada' onChange={(e,{value}) => setAnswer(value)} value={answer} />
       </Form>
     )

@@ -31,6 +31,7 @@ class MultipleChoiceComponent extends Component {
       <div>
         {options.map((option, index) => (
           <Form.Group key={index}>
+            <br/>
             <Form.Input
               name='value' 
               value={option.value}

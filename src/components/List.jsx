@@ -35,7 +35,7 @@ class ItemsList extends Component {
     return (
       items.length > 0 ? (
         <div>
-          <List divided verticalAlign='middle' >
+          <List verticalAlign='middle' >
             {
               this.itemsForPage(items,activePage).map(render_item)
             }

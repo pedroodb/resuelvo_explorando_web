@@ -5,6 +5,7 @@ import {
   TASK_GET_REQUEST,
   TASK_GET_SUCCESS,
   TASK_GET_FAILURE,
+  TASK_GET_RESET,
   TASK_SAVE_REQUEST,
   TASK_SAVE_SUCCESS,
   TASK_SAVE_FAILURE,
@@ -63,6 +64,10 @@ export const getTask = (id,fk) => dispatch => {
     })
   )
 }
+
+export const resetGet = () => ({
+  type: TASK_GET_RESET,
+})
 
 export const saveTask = (id,task) => dispatch => {
   dispatch({type: TASK_SAVE_REQUEST})
