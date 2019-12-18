@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Button, Form, Divider, Header,Icon, Segment } from 'semantic-ui-react'
+import { Button, Form, Divider, Header,Icon, Segment, ButtonGroup } from 'semantic-ui-react'
 
 import { SUCCESS, OUTDATED, PENDING } from '../constants/status'
 import { TASK } from '../constants/helpers'
@@ -156,7 +156,9 @@ class ActivitySetUpContainer extends Component {
               />)
             }
           />
-          <Button primary onClick={this.toggleModal}><Icon name='add' />Agregar tarea</Button>
+          <Divider/>
+          <Button basic primary onClick={this.toggleModal}><Icon name='add' />Agregar tarea</Button>
+          <Button basic color='grey' onClick={() => history.push(`/activity/${id}/workflow`)}>Workflow</Button>
           <CreationModal
             open={this.state.creatingTask}
             toggle={this.toggleModal}
@@ -176,15 +178,16 @@ class ActivitySetUpContainer extends Component {
               }
             })}
           />
-          <Button onClick={() => history.push(`/activity/${id}/workflow`)}>Workflow</Button>
-          <Button floated='right' primary onClick={() => {
-            if(title !== '' && description !== '') {
-              updateActivity(id,this.props.activity)
-            } else {
-              this.setState(() => ({validationErrors:true}))
-            }
-            }}><Icon name='upload' />Guardar</Button>
-          <Button floated='right' onClick={() => history.push('/')}><Icon name='trash' />Descartar</Button>
+          <ButtonGroup floated='right'>
+            <Button basic color='grey' floated='right' onClick={() => history.push('/')}><Icon name='trash' />Descartar</Button>
+            <Button basic primary onClick={() => {
+              if(title !== '' && description !== '') {
+                updateActivity(id,this.props.activity)
+              } else {
+                this.setState(() => ({validationErrors:true}))
+              }
+              }}><Icon name='upload' />Guardar</Button>
+          </ButtonGroup>
         </Segment>
       </div>
     ) : null

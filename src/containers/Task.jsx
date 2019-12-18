@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Form, Button, Divider, Segment, Header } from 'semantic-ui-react'
+import { Form, Button, Divider, Segment, Header, ButtonGroup } from 'semantic-ui-react'
 
 import {
   MULTIPLE_CHOICE,
@@ -107,14 +107,16 @@ class TaskSetUpContainer extends Component {
           <Divider/>
           <TaskBuilder type={task.type} payload={task.payload}/>
           <Divider/>
-          <Button primary content='Confirmar' onClick={() => {
-            if(task.name !== '' && task.description !== '') {
-              updateTask(activity_id,task.id,task)
-            } else {
-              this.setState(() => ({validationError:true}))
-            }
-          }}/>
-          <Button content='Cancelar' onClick={() => history.push(`/Activity/${activity_id}`)}/>
+          <ButtonGroup floated='right'>
+            <Button basic color='grey' content='Cancelar' onClick={() => history.push(`/Activity/${activity_id}`)}/>
+            <Button basic primary content='Confirmar' onClick={() => {
+              if(task.name !== '' && task.description !== '') {
+                updateTask(activity_id,task.id,task)
+              } else {
+                this.setState(() => ({validationError:true}))
+              }
+            }}/>
+          </ButtonGroup>
         </Segment>
       </div>
     ) : null

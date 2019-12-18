@@ -94,7 +94,7 @@ class HomeContainer extends Component {
       <div id="Home" className="background">
         <header className="header">
           <Header>
-            Bienvenido a la herramienta de configuración de Resuelvo Explorando.
+            Bienvenido a la herramienta MoLE.
           </Header>
         </header>
         <img src={logo} className="logo" alt="logo" />
@@ -108,7 +108,7 @@ class HomeContainer extends Component {
             />
           )
         }/>
-        <Button primary onClick={this.toggleModal}>Crear Nueva Actividad</Button>
+        <Button basic primary onClick={this.toggleModal}>Crear Nueva Actividad</Button>
         <CreationModal
             open={this.state.creatingActivity}
             toggle={this.toggleModal}
