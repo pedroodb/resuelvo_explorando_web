@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Form } from 'semantic-ui-react'
+import { Button, Form, Icon, Segment } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -28,7 +28,8 @@ class MultipleChoiceComponent extends Component {
     } = this.props
 
     return(
-      <div>
+      <Segment>
+        <Form>
         {options.map((option, index) => (
           <Form.Group key={index}>
             <br/>
@@ -43,9 +44,11 @@ class MultipleChoiceComponent extends Component {
               checked={option.isCorrect}
               onChange={(event, { value, name }) => this.handleOptionChange(index,option,name,!option.isCorrect)}
             />
+            <Button color='youtube'><Icon name='trash' /></Button>
           </Form.Group>))}
+          </Form>
         <Button content='Agregar opción' onClick={() => addOption({ value:'', isCorrect:false })}></Button>
-      </div>
+      </Segment>
     )
   }
 }
