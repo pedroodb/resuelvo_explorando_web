@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Form, Button, Divider } from 'semantic-ui-react'
+import { Form, Button, Divider, Segment } from 'semantic-ui-react'
 
 import {
   MULTIPLE_CHOICE,
@@ -51,7 +51,7 @@ class TaskSetUpContainer extends Component {
 
     return (status === SUCCESS || status === OUTDATED) ? (
       <div className="background">
-        <div className="ui raised very padded text container segment">
+        <Segment padded='very'>
           <header>Creando tarea</header>
           <Form>
             <Form.Input required name='name' label='Nombre' value={task.name} placeholder='Título' onChange={(event, { value, name }) => setCurrentTaskField(name,value)}/>
@@ -68,6 +68,7 @@ class TaskSetUpContainer extends Component {
               ]}
             />
           </Form>
+          <Divider/>
           <TaskBuilder type={task.type} payload={task.payload}/>
           <Divider/>
           <Button content='Confirmar' onClick={() => {
@@ -76,7 +77,7 @@ class TaskSetUpContainer extends Component {
           }}/>
           <Button content='Cancelar' onClick={() => history.push(`/Activity/${activity_id}`)}/>
           <Button content='Eliminar' onClick={() => deleteTask(activity_id,task)}/>
-        </div>
+        </Segment>
       </div>
     ) : null
   }
