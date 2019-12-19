@@ -11,7 +11,9 @@ import AppReducer from './reducers'
 const packages = []
 
 packages.push(thunk)
-packages.push(createLogger())
+if (process.env.NODE_ENV === 'development') {
+  packages.push(createLogger())
+}
 
 class App extends Component {
 
