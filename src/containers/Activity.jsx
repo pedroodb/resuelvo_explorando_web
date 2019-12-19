@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { Button, Form, Divider, Header,Icon, Segment, ButtonGroup } from 'semantic-ui-react'
 import intl from 'react-intl-universal'
 
-import { SUCCESS, OUTDATED, PENDING } from '../constants/status'
+import { SUCCESS, OUTDATED, PENDING, UNSET } from '../constants/status'
 import { TASK } from '../constants/helpers'
 import StatusList from '../components/StatusList'
 import ListItem from '../components/ListItem'
@@ -132,8 +132,8 @@ class ActivitySetUpContainer extends Component {
 
     return (activity_status === SUCCESS) ? (
       <div id="ActivitySetUp" className="background">
-        <Header as='h1' textAlign='center'>{title}</Header>
         <Segment padded='very' className='container'>
+          <Header>Editando actividad</Header>
           <Form loading={activity_update_status === PENDING}>
             <Form.Input name='title' label='Título' value={title} placeholder='Título' required
               onChange={this.handleFieldSet.bind(this)}
@@ -145,6 +145,7 @@ class ActivitySetUpContainer extends Component {
               />
           </Form>
           <Divider/>
+          <Header>Tareas</Header>
           <StatusList
             items={tasks}
             status={tasks_index_status} 
@@ -171,7 +172,7 @@ class ActivitySetUpContainer extends Component {
               setField:setCurrentTaskField,
               setType:setCurrentTaskType,
               save:() => {
-                if(task.name !== '' && task.description !== '' && task.type !== '') {
+                if(task.name !== '' && task.description !== '' && task.type !== UNSET) {
                   saveTask(id,task)
                 } else {
                   this.setState(() => ({taskValidationError:true}))

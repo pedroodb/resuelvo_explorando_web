@@ -117,8 +117,10 @@ class Workflow extends Component {
 
     return (
       <div>
-        <GraphView ref='panToNode'
-          zoomDur={600}
+        <GraphView
+          zoomDur={400}
+          zoomDelay={100}
+          nodeSize={100}
           nodeKey={NODE_KEY}
           nodes={nodes}
           edges={edges}

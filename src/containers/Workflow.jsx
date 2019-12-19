@@ -48,7 +48,7 @@ class ActivityWorkflow extends Component {
 		getTasks(id)
 	}
 
-	componentDidUpdate(prevProps, prevState) {
+	componentDidUpdate(prevProps) {
 		const {
 			index,
 			status,
@@ -91,8 +91,6 @@ class ActivityWorkflow extends Component {
 			{ key: 2, value: CUSTOMIZED, text: 'Personalizada' }
 		]
 
-    if(status === OUTDATED || status === UNSET) getTasks(this.props.match.params.id)
-
 		return status === SUCCESS ? (
 			<div className="background">
 				<div className="container">
@@ -110,7 +108,7 @@ class ActivityWorkflow extends Component {
 					<Button onClick={() => {
 						setWorkflow(this.state.edges, index)
 						history.push('/Activity/' + this.props.match.params.id)
-					}}>Finalizar</Button>
+					}}>Guardar</Button>
 					<Button onClick={() => history.push('/Activity/' + this.props.match.params.id)}>Volver</Button>
 				</div>
 			</div>

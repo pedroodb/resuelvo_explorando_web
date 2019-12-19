@@ -17,7 +17,7 @@ import {
   setLanguage,
 } from '../actions/configuration'
 
-import { OUTDATED, SUCCESS, UNSET } from '../constants/status'
+import { OUTDATED, SUCCESS } from '../constants/status'
 import { ACTIVITY } from '../constants/helpers'
 import ListItem from '../components/ListItem'
 import StatusList from '../components/StatusList'
@@ -25,11 +25,6 @@ import CreationModal from '../components/CreationModal'
 import logo from '../assets/resuelvo_explorando_logo.png'
 import '../styles/Home.css'
 import '../styles/General.css'
-
-const locales = {
-  "en-US": require('../locales/en-US.json'),
-  "es-ES": require('../locales/es-ES.json'),
-}
 
 class HomeContainer extends Component {
 
@@ -50,25 +45,11 @@ class HomeContainer extends Component {
     
     getActivities()
     resetGet()
-    this.loadLocales({lang:UNSET})
   }
 
   componentDidUpdate(prevProps) {
     this.checkIndexStatus()
     this.checkActivityJustSaved(prevProps)
-    this.loadLocales(prevProps)
-  }
-
-  loadLocales(prevProps) {
-    if(prevProps.lang !== this.props.lang) {
-      intl.init({
-        currentLocale: this.props.lang , // TODO: determine locale here
-        locales,
-      })
-      .then(() => {
-        this.forceUpdate()
-      })
-    }
   }
 
   checkIndexStatus() {
