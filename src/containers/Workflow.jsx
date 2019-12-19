@@ -7,8 +7,6 @@ import { withRouter } from 'react-router-dom'
 import {
 	PENDING,
 	SUCCESS,
-	OUTDATED,
-	UNSET,
 } from '../constants/status'
 import {
 	FREE,
