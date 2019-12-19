@@ -180,7 +180,7 @@ class ActivitySetUpContainer extends Component {
             })}
           />
           <ButtonGroup floated='right'>
-            <Button basic color='grey' floated='right' onClick={() => history.push('/')}><Icon name='trash' />Descartar</Button>
+            <Button basic color='grey' floated='right' onClick={() => history.push('/')}><Icon name='arrow left' />Descartar</Button>
             <Button basic primary onClick={() => {
               if(title !== '' && description !== '') {
                 updateActivity(id,this.props.activity)
