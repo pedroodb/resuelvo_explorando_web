@@ -1,4 +1,17 @@
 {
     "WELCOME_TITLE": "Bienvenido a la herramienta de configuración MoLE",
-    "ADD_TASK": "Añadir Tarea"
+    "ADD_TASK": "Añadir Tarea",
+
+    "CANCEL": "Cancelar",
+    "SAVE": "Guardar",
+    "EMPTY_FIELD_ERROR": "Este campo no puede estar vacío",
+
+    "TASK_TITLE": "Creando tarea",
+    "TASK_FIELD_TITLE": "Nombre",
+    "TASK_FIELD_DESCRIPTION": "Descripción",
+    "TASK_TYPE_SELECT_LABEL": "Seleccione un tipo de tarea",
+    "TASK_TYPE_MC": "Opción múltiple",
+    "TASK_TYPE_FA": "Respuesta libre",
+    "TASK_TYPE_MT": "Tarea Multimedia"
+    
 }

@@ -1,4 +1,16 @@
 {
     "WELCOME_TITLE": "Welcome to the MoLE configuration tool",
-    "ADD_TASK": "Add Task"
+    "ADD_TASK": "Add Task",
+
+    "CANCEL": "Cancel",
+    "SAVE": "Save",
+    "EMPTY_FIELD_ERROR": "This field cannot be empty",
+
+    "TASK_TITLE": "Creating task",
+    "TASK_FIELD_TITLE": "Name",
+    "TASK_FIELD_DESCRIPTION": "Description",
+    "TASK_TYPE_SELECT_LABEL": "Select task type",
+    "TASK_TYPE_MC": "Multiple choice",
+    "TASK_TYPE_FA": "Free answer",
+    "TASK_TYPE_MT": "Multimedia task"
 }
