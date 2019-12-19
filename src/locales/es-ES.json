@@ -12,6 +12,7 @@
     "CREATE_NEW_ACTIVITY":"Crear Nueva Actividad",
     "TITLE":"Título",
     "DESCRIPTION":"Descripción",
+    "CREATE":"Crear",
 
     "_comment3": "Task",
     "TASK_TITLE": "Creando tarea",
@@ -20,6 +21,9 @@
     "TASK_TYPE_SELECT_LABEL": "Seleccione un tipo de tarea",
     "TASK_TYPE_MC": "Opción múltiple",
     "TASK_TYPE_FA": "Respuesta libre",
-    "TASK_TYPE_MT": "Tarea Multimedia"
+    "TASK_TYPE_MT": "Tarea Multimedia",
+
+    "_comment4":"Task",
+    "EDIT_ACTIVITY":"Editando Actividad"
     
 }
