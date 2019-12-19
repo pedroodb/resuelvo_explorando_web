@@ -3,6 +3,7 @@
     "CANCEL": "Cancelar",
     "SAVE": "Guardar",
     "EDIT": "Editar",
+    "BACK": "Volver",
     "DELETE": "Eliminar",
     "EMPTY_FIELD_ERROR": "Este campo no puede estar vacío",
 
@@ -24,6 +25,11 @@
     "TASK_TYPE_MT": "Tarea Multimedia",
 
     "_comment4":"Task",
-    "EDIT_ACTIVITY":"Editando Actividad"
+    "EDIT_ACTIVITY":"Editando Actividad",
+    "_comment5": "Workflow",
+    "WORKFLOW_TITLE": "Definiendo workflow",
+    "WORKFLOW_FREE": "Libre",
+    "WORKFLOW_SECUENTIAL": "Secuencial",
+    "WORKFLOW_CUSTOMIZED": "Personalizado"
     
 }
