@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import intl from 'react-intl-universal'
 import { connect } from 'react-redux'
+import { UNSET } from '../constants/status.js'
 
 const locales = {
-  "en-US": require('./locales/en-US.json'),
-  "es-ES": require('./locales/es-ES.json'),
+  "en-US": require('../locales/en-US.json'),
+  "es-ES": require('../locales/es-ES.json'),
 }
 
 class Internacionalization extends Component {
@@ -22,7 +23,9 @@ class Internacionalization extends Component {
   }
 
   componentDidMount() {
-    this.loadLocales({lang:"es-ES"})
+    this.loadLocales({
+      lang:UNSET,
+    })
   }
 
   componentDidUpdate(prevProps) {
@@ -30,11 +33,14 @@ class Internacionalization extends Component {
   }
 
   render() {
+
+    const {
+      BaseComponent,
+    } = this.props
+
     return (
-      <Provider store={this.store}>
-        <AppRouter />
-      </Provider>
-    );
+      <BaseComponent {...this.props} />
+    )
   }
   
 }
