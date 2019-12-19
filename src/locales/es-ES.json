@@ -3,5 +3,7 @@
     "ADD_TASK": "Añadir Tarea",
     "CREATE_NEW_ACTIVITY":"Crear Nueva Actividad",
     "EDIT": "Editar",
-    "DELETE": "Eliminar"
+    "DELETE": "Eliminar",
+    "TITLE":"Título",
+    "DESCRIPTION":"Descripción"
 }
