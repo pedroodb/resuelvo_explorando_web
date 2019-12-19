@@ -26,11 +26,6 @@ import logo from '../assets/resuelvo_explorando_logo.png'
 import '../styles/Home.css'
 import '../styles/General.css'
 
-const locales = {
-  "en-US": require('../locales/en-US.json'),
-  "es-ES": require('../locales/es-ES.json'),
-}
-
 class HomeContainer extends Component {
 
   constructor(props) {
@@ -50,25 +45,11 @@ class HomeContainer extends Component {
     
     getActivities()
     resetGet()
-    this.loadLocales({lang:UNSET})
   }
 
   componentDidUpdate(prevProps) {
     this.checkIndexStatus()
     this.checkActivityJustSaved(prevProps)
-    this.loadLocales(prevProps)
-  }
-
-  loadLocales(prevProps) {
-    if(prevProps.lang !== this.props.lang) {
-      intl.init({
-        currentLocale: this.props.lang , // TODO: determine locale here
-        locales,
-      })
-      .then(() => {
-        this.forceUpdate()
-      })
-    }
   }
 
   checkIndexStatus() {

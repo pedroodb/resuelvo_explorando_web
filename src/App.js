@@ -5,6 +5,7 @@ import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 
 import AppRouter from './routers/AppRouter'
+import Internacionalization from './components/Internacionalization'
 import AppReducer from './reducers'
 
 const packages = []
@@ -19,7 +20,7 @@ class App extends Component {
   render() {
     return (
       <Provider store={this.store}>
-        <AppRouter />
+        <Internacionalization BaseComponent={AppRouter} />
       </Provider>
     );
   }
