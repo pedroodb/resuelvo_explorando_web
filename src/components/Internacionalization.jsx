@@ -1,24 +1,13 @@
 import React, { Component } from 'react'
-import { createStore, applyMiddleware } from 'redux'
-import { Provider } from 'react-redux'
-import thunk from 'redux-thunk'
-import { createLogger } from 'redux-logger'
 import intl from 'react-intl-universal'
-
-import AppRouter from './routers/AppRouter'
-import AppReducer from './reducers'
-
-const packages = []
-
-packages.push(thunk)
-packages.push(createLogger())
+import { connect } from 'react-redux'
 
 const locales = {
   "en-US": require('./locales/en-US.json'),
   "es-ES": require('./locales/es-ES.json'),
 }
 
-class App extends Component {
+class Internacionalization extends Component {
 
   loadLocales(prevProps) {
     if(prevProps.lang !== this.props.lang) {
@@ -40,8 +29,6 @@ class App extends Component {
     this.loadLocales(prevProps)
   }
 
-  store = createStore(AppReducer,applyMiddleware(...packages))
-
   render() {
     return (
       <Provider store={this.store}>
@@ -49,6 +36,13 @@ class App extends Component {
       </Provider>
     );
   }
+  
 }
 
-export default App
+function mapStateToProps({configuration}) {
+    return {
+        lang: configuration.language,
+    }
+}
+
+export default connect(mapStateToProps, null)(Internacionalization)
