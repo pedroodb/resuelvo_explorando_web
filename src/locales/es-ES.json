@@ -3,6 +3,7 @@
     "CANCEL": "Cancelar",
     "SAVE": "Guardar",
     "EDIT": "Editar",
+    "BACK": "Volver",
     "DELETE": "Eliminar",
     "EMPTY_FIELD_ERROR": "Este campo no puede estar vacío",
 
@@ -20,6 +21,12 @@
     "TASK_TYPE_SELECT_LABEL": "Seleccione un tipo de tarea",
     "TASK_TYPE_MC": "Opción múltiple",
     "TASK_TYPE_FA": "Respuesta libre",
-    "TASK_TYPE_MT": "Tarea Multimedia"
+    "TASK_TYPE_MT": "Tarea Multimedia",
+
+    "_comment5": "Workflow",
+    "WORKFLOW_TITLE": "Definiendo workflow",
+    "WORKFLOW_FREE": "Libre",
+    "WORKFLOW_SECUENTIAL": "Secuencial",
+    "WORKFLOW_CUSTOMIZED": "Personalizado"
     
 }

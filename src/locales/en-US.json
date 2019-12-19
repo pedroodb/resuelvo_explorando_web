@@ -3,6 +3,7 @@
     "CANCEL": "Cancel",
     "SAVE": "Save",
     "EDIT": "Edit",
+    "BACK": "Back",
     "DELETE": "Delete",
     "EMPTY_FIELD_ERROR": "This field cannot be empty",
 
@@ -20,6 +21,12 @@
     "TASK_TYPE_SELECT_LABEL": "Select task type",
     "TASK_TYPE_MC": "Multiple choice",
     "TASK_TYPE_FA": "Free answer",
-    "TASK_TYPE_MT": "Multimedia task"
+    "TASK_TYPE_MT": "Multimedia task",
+
+    "_comment5": "Workflow",
+    "WORKFLOW_TITLE": "Defining workflow",
+    "WORKFLOW_FREE": "Free",
+    "WORKFLOW_SECUENTIAL": "Secuential",
+    "WORKFLOW_CUSTOMIZED": "Custom"
 
 }
