@@ -24,6 +24,7 @@ class MultipleChoiceComponent extends Component {
       },
       actions:{
         addOption,
+        deleteOption,
       }
     } = this.props
 
@@ -44,7 +45,7 @@ class MultipleChoiceComponent extends Component {
               checked={option.isCorrect}
               onChange={(event, { value, name }) => this.handleOptionChange(index,option,name,!option.isCorrect)}
             />
-            <Button basic color='red'><Icon name='trash'/></Button>
+            <Button basic color='red' onClick={() => deleteOption(index)}><Icon name='trash'/></Button>
           </Form.Group>))}
           </Form>
         <Button basic primary  onClick={() => addOption({ value:'', isCorrect:false })}><Icon name='add'/>Agregar opción</Button>
@@ -59,6 +60,7 @@ function mapDispatchToProps(dispatch) {
     actions : bindActionCreators({
       addOption:mcActions.addOption,
       updateOption:mcActions.updateOption,
+      deleteOption:mcActions.deleteOption,
     }, dispatch)
   }
 }

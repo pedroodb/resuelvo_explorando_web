@@ -20,6 +20,7 @@ import {
   CURRENT_TASK_TYPE_SET,
   MC_TASK_OPTION_ADD,
   MC_TASK_OPTION_UPDATE,
+  MC_TASK_OPTION_DELETE,
   FA_TASK_ANSWER_SET,
   FA_TASK_SLOGAN_SET,
   MT_TASK_MULTIMEDIA_TYPE_SET,
@@ -151,6 +152,10 @@ export const mcActions = {
       index,
       option,
     },
+  }),
+  deleteOption: index => ({
+    type:MC_TASK_OPTION_DELETE,
+    payload:index,
   })
 }
 

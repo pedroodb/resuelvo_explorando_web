@@ -20,6 +20,7 @@ import {
   CURRENT_TASK_TYPE_SET,
   MC_TASK_OPTION_ADD,
   MC_TASK_OPTION_UPDATE,
+  MC_TASK_OPTION_DELETE,
   FA_TASK_ANSWER_SET,
   FA_TASK_SLOGAN_SET,
   MT_TASK_SLOGAN_SET,
@@ -270,8 +271,8 @@ const taskReducer = (state = initialState, action) => {
             payload:{
               ...state.get.task.payload,
               options:[...state.get.task.payload.options, action.payload],
+            }
           }
-        }
         },
       }
     case MC_TASK_OPTION_UPDATE:
@@ -289,6 +290,22 @@ const taskReducer = (state = initialState, action) => {
           }
         }
       }
+    case MC_TASK_OPTION_DELETE:
+      return {
+        ...state,
+        get:{
+          ...state.get,
+          status:OUTDATED,
+          task:{
+            ...state.get.task,
+            payload:{
+              ...state.get.task.payload,
+              options:state.get.task.payload.options.filter((option,index) => (index!==action.payload)),
+            },
+          }
+        }
+      }
+    //Case especificos de tareas Free Answer    
     case FA_TASK_ANSWER_SET:
       return {
         ...state,
@@ -319,36 +336,37 @@ const taskReducer = (state = initialState, action) => {
           }
         }
       }
-      case MT_TASK_SLOGAN_SET:
-        return {
-          ...state,
-          get:{
-            ...state.get,
-            status:OUTDATED,
-            task:{
-              ...state.get.task,
-              payload:{
-                ...state.get.task.payload,
-                slogan:action.payload,
-              }
+    //Case especificos de tareas Multimedia
+    case MT_TASK_SLOGAN_SET:
+      return {
+        ...state,
+        get:{
+          ...state.get,
+          status:OUTDATED,
+          task:{
+            ...state.get.task,
+            payload:{
+              ...state.get.task.payload,
+              slogan:action.payload,
             }
           }
         }
-        case MT_TASK_MULTIMEDIA_TYPE_SET:
-          return {
-            ...state,
-            get:{
-              ...state.get,
-              status:OUTDATED,
-              task:{
-                ...state.get.task,
-                payload:{
-                  ...state.get.task.payload,
-                  multimedia_type:action.payload,
-                }
-              }
+      }
+    case MT_TASK_MULTIMEDIA_TYPE_SET:
+      return {
+        ...state,
+        get:{
+          ...state.get,
+          status:OUTDATED,
+          task:{
+            ...state.get.task,
+            payload:{
+              ...state.get.task.payload,
+              multimedia_type:action.payload,
             }
           }
+        }
+      }
     default:
       return state 
   }
