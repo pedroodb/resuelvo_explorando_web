@@ -1,4 +1,7 @@
-{
-    "WELCOME_TITLE": "Welcome to the MoLE configuration tool",
-    "ADD_TASK": "Add Task"
+{ 
+    "WELCOME_TITLE": "Welcome to MoLE tool",
+    "ADD_TASK": "Add Task",
+    "CREATE_NEW_ACTIVITY":"Create New Activity",
+    "EDIT": "Edit",
+    "DELETE": "Delete"
 }

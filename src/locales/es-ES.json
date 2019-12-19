@@ -1,4 +1,7 @@
 {
-    "WELCOME_TITLE": "Bienvenido a la herramienta de configuración MoLE",
-    "ADD_TASK": "Añadir Tarea"
+    "WELCOME_TITLE": "Bienvenido a la herramienta MoLE",
+    "ADD_TASK": "Añadir Tarea",
+    "CREATE_NEW_ACTIVITY":"Crear Nueva Actividad",
+    "EDIT": "Editar",
+    "DELETE": "Eliminar"
 }
