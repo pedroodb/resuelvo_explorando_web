@@ -133,7 +133,6 @@ class ActivitySetUpContainer extends Component {
     return (activity_status === SUCCESS) ? (
       <div id="ActivitySetUp" className="background">
         <Header as='h1' textAlign='center'>{title}</Header>
-        <p>{intl.get("WELCOME_TITLE") }</p>
         <Segment padded='very' className='container'>
           <Form loading={activity_update_status === PENDING}>
             <Form.Input name='title' label='Título' value={title} placeholder='Título' required
@@ -159,7 +158,7 @@ class ActivitySetUpContainer extends Component {
             }
           />
           <Divider/>
-          <Button basic primary onClick={this.toggleModal}><Icon name='add' />Agregar tarea</Button>
+          <Button basic primary onClick={this.toggleModal}><Icon name='add' />{intl.get("ADD_TASK")}</Button>
           <Button basic color='grey' onClick={() => history.push(`/activity/${id}/workflow`)}>Workflow</Button>
           <CreationModal
             open={this.state.creatingTask}
