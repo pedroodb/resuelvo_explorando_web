@@ -22,6 +22,8 @@ import {
   MC_TASK_OPTION_UPDATE,
   FA_TASK_ANSWER_SET,
   FA_TASK_SLOGAN_SET,
+  MT_TASK_MULTIMEDIA_TYPE_SET,
+  MT_TASK_SLOGAN_SET,
 } from '../constants/tasks'
 
 import {
@@ -152,6 +154,7 @@ export const mcActions = {
   })
 }
 
+//Actions especificas para tarea de tipo Free Answer
 export const faActions = {
   setSlogan: slogan => ({
     type:FA_TASK_SLOGAN_SET,
@@ -160,5 +163,17 @@ export const faActions = {
   setAnswer: answer => ({
     type:FA_TASK_ANSWER_SET,
     payload:answer,
+  })
+}
+
+//Actions especificas para tarea de tipo Multimedia
+export const mtActions = {
+  setSlogan: slogan => ({
+    type:MT_TASK_SLOGAN_SET,
+    payload:slogan,
+  }),
+  setMultimediaType: multimedia_type => ({
+    type:MT_TASK_MULTIMEDIA_TYPE_SET,
+    payload:multimedia_type,
   })
 }

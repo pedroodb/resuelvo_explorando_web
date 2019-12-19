@@ -1,7 +1,7 @@
 import React from 'react'
 import { Form } from 'semantic-ui-react'
 
-import { MULTIPLE_CHOICE, FREE_ANSWER } from '../constants/taskTypes'
+import { MULTIPLE_CHOICE, FREE_ANSWER,MULTIMEDIA_TASK } from '../constants/taskTypes'
 import TaskTypesHelper from '../helpers/taskTypesHelper'
 import { PENDING, UNSET } from '../constants/status'
 
@@ -35,6 +35,7 @@ const TaskCreationForm = ({status, task, setField, setType, validationError}) =>
       options={[
         { text:'Multiple Choice', value:MULTIPLE_CHOICE },
         { text:'Respuesta libre', value:FREE_ANSWER },
+        { text:'Tarea multimedia', value:MULTIMEDIA_TASK },
       ]}
     />
   </Form>

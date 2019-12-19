@@ -26,3 +26,7 @@ export const MC_TASK_OPTION_UPDATE = 'mc-task-option-update'
 //Constantes especificas del tipo de tarea Free Answer
 export const FA_TASK_SLOGAN_SET = 'fa-task-slogan-set'
 export const FA_TASK_ANSWER_SET = 'fa-task-answer-set'
+
+//Constantes especificas del tipo de tarea Task Multimedia
+export const MT_TASK_SLOGAN_SET = 'mt-task-slogan-set'
+export const MT_TASK_MULTIMEDIA_TYPE_SET = 'mt-task-multimedia-type-set'

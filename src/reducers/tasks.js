@@ -22,6 +22,8 @@ import {
   MC_TASK_OPTION_UPDATE,
   FA_TASK_ANSWER_SET,
   FA_TASK_SLOGAN_SET,
+  MT_TASK_SLOGAN_SET,
+  MT_TASK_MULTIMEDIA_TYPE_SET,
 } from '../constants/tasks'
 
 import {
@@ -317,6 +319,36 @@ const taskReducer = (state = initialState, action) => {
           }
         }
       }
+      case MT_TASK_SLOGAN_SET:
+        return {
+          ...state,
+          get:{
+            ...state.get,
+            status:OUTDATED,
+            task:{
+              ...state.get.task,
+              payload:{
+                ...state.get.task.payload,
+                slogan:action.payload,
+              }
+            }
+          }
+        }
+        case MT_TASK_MULTIMEDIA_TYPE_SET:
+          return {
+            ...state,
+            get:{
+              ...state.get,
+              status:OUTDATED,
+              task:{
+                ...state.get.task,
+                payload:{
+                  ...state.get.task.payload,
+                  multimedia_type:action.payload,
+                }
+              }
+            }
+          }
     default:
       return state 
   }
