@@ -99,7 +99,7 @@ class HomeContainer extends Component {
 
     const languageOptions = [
       {key: 'es-ES', text: 'Espanol', value: 'es-ES'},
-      {key: 'en-US', text: 'Ingles', value: 'en-US'},
+      {key: 'en-US', text: 'English', value: 'en-US'},
     ]
 
     return (
@@ -128,7 +128,7 @@ class HomeContainer extends Component {
             />
           )
         }/>
-        <Button basic primary onClick={this.toggleModal}>Crear Nueva Actividad</Button>
+        <Button basic primary onClick={this.toggleModal}>{intl.get('CREATE_NEW_ACTIVITY')}</Button>
         <CreationModal
             open={this.state.creatingActivity}
             toggle={this.toggleModal}

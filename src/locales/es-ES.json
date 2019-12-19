@@ -1,11 +1,19 @@
 {
-    "WELCOME_TITLE": "Bienvenido a la herramienta de configuración MoLE",
-    "ADD_TASK": "Añadir Tarea",
-
+    "_comment": "Generales",
     "CANCEL": "Cancelar",
     "SAVE": "Guardar",
+    "EDIT": "Editar",
+    "DELETE": "Eliminar",
     "EMPTY_FIELD_ERROR": "Este campo no puede estar vacío",
 
+    "_comment2": "Home",
+    "WELCOME_TITLE": "Bienvenido a la herramienta de configuración MoLE",
+    "ADD_TASK": "Añadir Tarea",
+    "CREATE_NEW_ACTIVITY":"Crear Nueva Actividad",
+    "TITLE":"Título",
+    "DESCRIPTION":"Descripción",
+
+    "_comment3": "Task",
     "TASK_TITLE": "Creando tarea",
     "TASK_FIELD_TITLE": "Nombre",
     "TASK_FIELD_DESCRIPTION": "Descripción",
