@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { Button, Form, Divider, Header,Icon, Segment, ButtonGroup } from 'semantic-ui-react'
 import intl from 'react-intl-universal'
 
-import { SUCCESS, OUTDATED, PENDING } from '../constants/status'
+import { SUCCESS, OUTDATED, PENDING, UNSET } from '../constants/status'
 import { TASK } from '../constants/helpers'
 import StatusList from '../components/StatusList'
 import ListItem from '../components/ListItem'
@@ -172,7 +172,7 @@ class ActivitySetUpContainer extends Component {
               setField:setCurrentTaskField,
               setType:setCurrentTaskType,
               save:() => {
-                if(task.name !== '' && task.description !== '' && task.type !== '') {
+                if(task.name !== '' && task.description !== '' && task.type !== UNSET) {
                   saveTask(id,task)
                 } else {
                   this.setState(() => ({taskValidationError:true}))
