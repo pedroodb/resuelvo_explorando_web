@@ -12,7 +12,7 @@ const ActivityCreationForm = ({status, activity:{title,description}, validationE
       placeholder={intl.get('TITLE')}
       required
       value={title}
-      error={(validationError && title === '') ? {content:'Este campo no puede estar vacio'} : undefined}
+      error={(validationError && title === '') ? {content:intl.get('EMPTY_FIELD_ERROR')} : undefined}
       onChange={(event, { value, name }) => setField(name,value)}
     />
     <Form.Input
@@ -20,7 +20,7 @@ const ActivityCreationForm = ({status, activity:{title,description}, validationE
       name='description'
       label={intl.get('DESCRIPTION')}
       placeholder={intl.get('DESCRIPTION')}
-      error={(validationError && description === '') ? {content:'Este campo no puede estar vacio'} : undefined}
+      error={(validationError && description === '') ? {content:intl.get('EMPTY_FIELD_ERROR')} : undefined}
       value={description}
       onChange={(event, { value, name }) => setField(name,value)}
     />

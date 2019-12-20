@@ -4,6 +4,7 @@ import { Form } from 'semantic-ui-react'
 import { MULTIPLE_CHOICE, FREE_ANSWER,MULTIMEDIA_TASK } from '../constants/taskTypes'
 import TaskTypesHelper from '../helpers/taskTypesHelper'
 import { PENDING, UNSET } from '../constants/status'
+import intl from 'react-intl-universal'
 
 const TaskCreationForm = ({status, task, setField, setType, validationError}) => (
   <Form loading={status === PENDING}>
@@ -13,7 +14,7 @@ const TaskCreationForm = ({status, task, setField, setType, validationError}) =>
       label='Nombre'
       placeholder='Nombre'
       value={(task.name === UNSET) ? '' : task.name}
-      error={(validationError && task.name === '') ? {content:'Este campo no puede estar vacio'} : undefined}
+      error={(validationError && task.name === '') ? {content:intl.get('EMPTY_FIELD_ERROR')} : undefined}
       onChange={(event, { value, name }) => setField(name,value)}
     />
     <Form.Input
@@ -21,7 +22,7 @@ const TaskCreationForm = ({status, task, setField, setType, validationError}) =>
       name='description'
       label='Descripción'
       placeholder='Descripción'
-      error={(validationError && task.description === '') ? {content:'Este campo no puede estar vacio'} : undefined}
+      error={(validationError && task.description === '') ? {content:intl.get('EMPTY_FIELD_ERROR')} : undefined}
       value={(task.description === UNSET) ? '' : task.description}
       onChange={(event, { value, name }) => setField(name,value)}
     />
@@ -30,7 +31,7 @@ const TaskCreationForm = ({status, task, setField, setType, validationError}) =>
       required
       label='Elija el tipo de tarea'
       placeholder='Elija el tipo de tarea'
-      error={(validationError && task.type === UNSET) ? {content:'Este campo no puede estar vacio'} : undefined}
+      error={(validationError && task.type === UNSET) ? {content:intl.get('EMPTY_FIELD_ERROR')} : undefined}
       onChange={(event, { value }) => setType(value,TaskTypesHelper[value].defaultPayload)}
       options={[
         { text:'Multiple Choice', value:MULTIPLE_CHOICE },
