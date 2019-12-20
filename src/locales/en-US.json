@@ -26,6 +26,12 @@
 
     "_comment4":"Task",
     "EDIT_ACTIVITY":"Editing Activity",
+    "TITLE_ACTIVITY":"Activity Title",
+    "DESCRIPTION_ACTIVITY":"Activity Description",
+    "TASK_ACTIVITY":"Task",
+    "ADD_TASK_ACTIVITY":"Add Task",
+    "DISCARD_ACTIVITY":"Discard",
+    "SAVE_ACTIVITY":"Save",
     "_comment5": "Workflow",
     "WORKFLOW_TITLE": "Defining workflow",
     "WORKFLOW_FREE": "Free",
