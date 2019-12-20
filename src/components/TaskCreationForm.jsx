@@ -11,8 +11,8 @@ const TaskCreationForm = ({status, task, setField, setType, validationError}) =>
     <Form.Input
       name='name'
       required
-      label='Nombre'
-      placeholder='Nombre'
+      label={intl.get('TASK_FIELD_TITLE')}
+      placeholder={intl.get('TASK_FIELD_TITLE')}
       value={(task.name === UNSET) ? '' : task.name}
       error={(validationError && task.name === '') ? {content:intl.get('EMPTY_FIELD_ERROR')} : undefined}
       onChange={(event, { value, name }) => setField(name,value)}
@@ -20,8 +20,8 @@ const TaskCreationForm = ({status, task, setField, setType, validationError}) =>
     <Form.Input
       required
       name='description'
-      label='Descripción'
-      placeholder='Descripción'
+      label={intl.get('TASK_FIELD_DESCRIPTION')}
+      placeholder={intl.get('TASK_FIELD_DESCRIPTION')}
       error={(validationError && task.description === '') ? {content:intl.get('EMPTY_FIELD_ERROR')} : undefined}
       value={(task.description === UNSET) ? '' : task.description}
       onChange={(event, { value, name }) => setField(name,value)}
@@ -29,14 +29,14 @@ const TaskCreationForm = ({status, task, setField, setType, validationError}) =>
     <Form.Select
       name='type'
       required
-      label='Elija el tipo de tarea'
-      placeholder='Elija el tipo de tarea'
+      label={intl.get('TASK_TYPE_SELECT_LABEL')}
+      placeholder={intl.get('TASK_TYPE_SELECT_LABEL')}
       error={(validationError && task.type === UNSET) ? {content:intl.get('EMPTY_FIELD_ERROR')} : undefined}
       onChange={(event, { value }) => setType(value,TaskTypesHelper[value].defaultPayload)}
       options={[
-        { text:'Multiple Choice', value:MULTIPLE_CHOICE },
-        { text:'Respuesta libre', value:FREE_ANSWER },
-        { text:'Tarea multimedia', value:MULTIMEDIA_TASK },
+        { text:intl.get('TASK_TYPE_MC'), value:MULTIPLE_CHOICE },
+        { text:intl.get('TASK_TYPE_FA'), value:FREE_ANSWER },
+        { text:intl.get('TASK_TYPE_MT'), value:MULTIMEDIA_TASK },
       ]}
     />
   </Form>
