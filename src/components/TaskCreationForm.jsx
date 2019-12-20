@@ -4,6 +4,7 @@ import { Form } from 'semantic-ui-react'
 import { MULTIPLE_CHOICE, FREE_ANSWER,MULTIMEDIA_TASK } from '../constants/taskTypes'
 import TaskTypesHelper from '../helpers/taskTypesHelper'
 import { PENDING, UNSET } from '../constants/status'
+import intl from 'react-intl-universal'
 
 const TaskCreationForm = ({status, task, setField, setType, validationError}) => (
   <Form loading={status === PENDING}>
