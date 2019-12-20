@@ -5,6 +5,8 @@
     "EDIT": "Edit",
     "BACK": "Back",
     "DELETE": "Delete",
+    "EMPTY_LIST":"The list is empty",
+    "EMPTY_LIST_MESSAGE":"Oops the list is empty",
     "EMPTY_FIELD_ERROR": "This field cannot be empty",
 
     "_comment2": "Home",

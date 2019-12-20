@@ -5,6 +5,8 @@
     "EDIT": "Editar",
     "BACK": "Volver",
     "DELETE": "Eliminar",
+    "EMPTY_LIST":"Aún no hay elementos",
+    "EMPTY_LIST_MESSAGE":"Parece que la lista está vacía",
     "EMPTY_FIELD_ERROR": "Este campo no puede estar vacío",
 
     "_comment2": "Home",
