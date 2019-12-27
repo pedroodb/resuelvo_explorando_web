@@ -1,6 +1,7 @@
 import {
   MULTIPLE_CHOICE,
   FREE_ANSWER,
+  MULTIMEDIA_TASK,
 } from '../constants/taskTypes'
 
 export default {
@@ -16,5 +17,13 @@ export default {
       answer:'',
     },
     name:'Free answer'
-  }
+  },
+  [MULTIMEDIA_TASK]:{
+    defaultPayload:{
+      slogan:'',
+      multimedia_type:'',
+    },
+    name:'Multimedia task'
+  },
+
 }

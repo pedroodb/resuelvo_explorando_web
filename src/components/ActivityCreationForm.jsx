@@ -2,24 +2,25 @@ import React from 'react'
 import { Form } from 'semantic-ui-react'
 
 import { PENDING} from '../constants/status'
+import intl from 'react-intl-universal'
 
 const ActivityCreationForm = ({status, activity:{title,description}, validationError, setField}) => (
   <Form loading={status === PENDING}>
     <Form.Input
       name='title'
-      label='Título'
-      placeholder='Título'
+      label={intl.get('TITLE')}
+      placeholder={intl.get('TITLE')}
       required
       value={title}
-      error={(validationError && title === '') ? {content:'Este campo no puede estar vacio'} : undefined}
+      error={(validationError && title === '') ? {content:intl.get('EMPTY_FIELD_ERROR')} : undefined}
       onChange={(event, { value, name }) => setField(name,value)}
     />
     <Form.Input
       required
       name='description'
-      label='Descripción'
-      placeholder='Descripción'
-      error={(validationError && description === '') ? {content:'Este campo no puede estar vacio'} : undefined}
+      label={intl.get('DESCRIPTION')}
+      placeholder={intl.get('DESCRIPTION')}
+      error={(validationError && description === '') ? {content:intl.get('EMPTY_FIELD_ERROR')} : undefined}
       value={description}
       onChange={(event, { value, name }) => setField(name,value)}
     />

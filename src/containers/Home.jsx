@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { Button, Header } from 'semantic-ui-react'
+import { Button, Header, Dropdown } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import intl from 'react-intl-universal'
 
 import {
   getActivities,
@@ -11,6 +12,10 @@ import {
   setField,
   resetGet,
 } from '../actions/activities'
+
+import {
+  setLanguage,
+} from '../actions/configuration'
 
 import { OUTDATED, SUCCESS } from '../constants/status'
 import { ACTIVITY } from '../constants/helpers'
@@ -83,19 +88,34 @@ class HomeContainer extends Component {
         title,
         description,
       },
+      lang,
       actions: {
         deleteActivity,
         saveActivity,
+        setLanguage,
         setField,
       }
     } = this.props
+
+    const languageOptions = [
+      {key: 'es-ES', text: 'Espanol', value: 'es-ES'},
+      {key: 'en-US', text: 'English', value: 'en-US'},
+    ]
 
     return (
       <div id="Home" className="background">
         <header className="header">
           <Header>
-            Bienvenido a la herramienta MoLE.
+            {intl.get('WELCOME_TITLE')}
           </Header>
+          <Dropdown
+            button
+            className='icon'
+            icon='world'
+            options={languageOptions}
+            value={lang}
+            onChange={(event, data) => setLanguage(data.value)}
+          />
         </header>
         <img src={logo} className="logo" alt="logo" />
         <StatusList status={status} items={activities} render_item={
@@ -108,7 +128,7 @@ class HomeContainer extends Component {
             />
           )
         }/>
-        <Button basic primary onClick={this.toggleModal}>Crear Nueva Actividad</Button>
+        <Button basic primary onClick={this.toggleModal}>{intl.get('CREATE_NEW_ACTIVITY')}</Button>
         <CreationModal
             open={this.state.creatingActivity}
             toggle={this.toggleModal}
@@ -139,12 +159,13 @@ function mapDispatchToProps(dispatch) {
       deleteActivity,
       saveActivity,
       setField,
+      setLanguage,
       resetGet,
     }, dispatch)
   }
 }
 
-function mapStateToProps({activities}) {
+function mapStateToProps({activities,configuration}) {
   const {
     index:{
       activities: index,
@@ -164,6 +185,7 @@ function mapStateToProps({activities}) {
     newActivity,
     saveStatus,
     savedActivity,
+    lang: configuration.language,
   }
 }
 

@@ -3,8 +3,9 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Button, Form, Divider, Header,Icon, Segment, ButtonGroup } from 'semantic-ui-react'
+import intl from 'react-intl-universal'
 
-import { SUCCESS, OUTDATED, PENDING } from '../constants/status'
+import { SUCCESS, OUTDATED, PENDING, UNSET } from '../constants/status'
 import { TASK } from '../constants/helpers'
 import StatusList from '../components/StatusList'
 import ListItem from '../components/ListItem'
@@ -131,19 +132,20 @@ class ActivitySetUpContainer extends Component {
 
     return (activity_status === SUCCESS) ? (
       <div id="ActivitySetUp" className="background">
-        <Header as='h1' textAlign='center'>{title}</Header>
         <Segment padded='very' className='container'>
+          <Header>{intl.get("EDITING_ACTIVITY")}</Header>
           <Form loading={activity_update_status === PENDING}>
-            <Form.Input name='title' label='Título' value={title} placeholder='Título' required
+            <Form.Input name='title' label={intl.get("TITLE_ACTIVITY")} value={title} placeholder={intl.get("TITLE_ACTIVITY")} required
               onChange={this.handleFieldSet.bind(this)}
               error={(validationErrors && title === '') ? {content:'Este campo no puede estar vacio'} : undefined}
               />
-            <Form.Input name='description' label='Descripción' value={description} placeholder='Descripción' required
+            <Form.Input name='description' label={intl.get("DESCRIPTION_ACTIVITY")} value={description} placeholder={intl.get("DESCRIPTION_ACTIVITY")} required
               onChange={this.handleFieldSet.bind(this)} 
               error={(validationErrors && description === '') ? {content:'Este campo no puede estar vacio'} : undefined}
               />
           </Form>
           <Divider/>
+          <Header>{intl.get("TASK_ACTIVITY")}</Header>
           <StatusList
             items={tasks}
             status={tasks_index_status} 
@@ -157,7 +159,7 @@ class ActivitySetUpContainer extends Component {
             }
           />
           <Divider/>
-          <Button basic primary onClick={this.toggleModal}><Icon name='add' />Agregar tarea</Button>
+          <Button basic primary onClick={this.toggleModal}><Icon name='add' />{intl.get("ADD_TASK")}</Button>
           <Button basic color='grey' onClick={() => history.push(`/activity/${id}/workflow`)}>Workflow</Button>
           <CreationModal
             open={this.state.creatingTask}
@@ -170,7 +172,7 @@ class ActivitySetUpContainer extends Component {
               setField:setCurrentTaskField,
               setType:setCurrentTaskType,
               save:() => {
-                if(task.name !== '' && task.description !== '' && task.type !== '') {
+                if(task.name !== '' && task.description !== '' && task.type !== UNSET) {
                   saveTask(id,task)
                 } else {
                   this.setState(() => ({taskValidationError:true}))
@@ -179,14 +181,14 @@ class ActivitySetUpContainer extends Component {
             })}
           />
           <ButtonGroup floated='right'>
-            <Button basic color='grey' floated='right' onClick={() => history.push('/')}><Icon name='trash' />Descartar</Button>
+            <Button basic color='grey' floated='right' onClick={() => history.push('/')}><Icon name='arrow left' />{intl.get("DISCARD_ACTIVITY")}</Button>
             <Button basic primary onClick={() => {
               if(title !== '' && description !== '') {
                 updateActivity(id,this.props.activity)
               } else {
                 this.setState(() => ({validationErrors:true}))
               }
-              }}><Icon name='upload' />Guardar</Button>
+              }}><Icon name='upload' />{intl.get("SAVE_ACTIVITY")}</Button>
           </ButtonGroup>
         </Segment>
       </div>

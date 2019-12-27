@@ -4,6 +4,7 @@ import { List, Pagination, Container } from 'semantic-ui-react'
 import {
   InfoMessage,
 } from './Messages'
+import intl from 'react-intl-universal'
 
 class ItemsList extends Component {
 
@@ -52,7 +53,7 @@ class ItemsList extends Component {
             />
           </Container>
         </div>
-      ) : <InfoMessage title='Aun no hay elementos' description='Parece que la lista esta vacia' />
+      ) : <InfoMessage title={intl.get('EMPTY_LIST')} description={intl.get('EMPTY_LIST_MESSAGE')} />
     )
   }
 }

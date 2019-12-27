@@ -1,0 +1,44 @@
+{
+    "_comment": "Generales",
+    "CANCEL": "Cancelar",
+    "SAVE": "Guardar",
+    "EDIT": "Editar",
+    "BACK": "Volver",
+    "DELETE": "Eliminar",
+    "EMPTY_LIST":"Aún no hay elementos",
+    "EMPTY_LIST_MESSAGE":"Parece que la lista está vacía",
+    "EMPTY_FIELD_ERROR": "Este campo no puede estar vacío",
+
+    "_comment2": "Home",
+    "WELCOME_TITLE": "Bienvenido a la herramienta de configuración MoLE",
+    "ADD_TASK": "Añadir Tarea",
+    "CREATE_NEW_ACTIVITY":"Crear Nueva Actividad",
+    "TITLE":"Título",
+    "DESCRIPTION":"Descripción",
+    "CREATE":"Crear",
+
+    "_comment4":"Activity",
+    "TITLE_ACTIVITY":"Título de la Actividad",
+    "EDITING_ACTIVITY":"Editando Actividad",
+    "DESCRIPTION_ACTIVITY":"Descripcion de la Actividad",
+    "TASK_ACTIVITY":"Tareas",
+    "ADD_TASK_ACTIVITY":"Añadir Tarea",
+    "DISCARD_ACTIVITY":"Descartar",
+    "SAVE_ACTIVITY":"Guardar",
+    
+    "_comment3": "Task",
+    "TASK_TITLE": "Creando tarea",
+    "TASK_FIELD_TITLE": "Nombre",
+    "TASK_FIELD_DESCRIPTION": "Descripción",
+    "TASK_TYPE_SELECT_LABEL": "Seleccione un tipo de tarea",
+    "TASK_TYPE_MC": "Opción múltiple",
+    "TASK_TYPE_FA": "Respuesta libre",
+    "TASK_TYPE_MT": "Tarea Multimedia",
+
+    "_comment5": "Workflow",
+    "WORKFLOW_TITLE": "Definiendo workflow",
+    "WORKFLOW_FREE": "Libre",
+    "WORKFLOW_SECUENTIAL": "Secuencial",
+    "WORKFLOW_CUSTOMIZED": "Personalizado"
+    
+}

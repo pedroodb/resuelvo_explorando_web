@@ -20,8 +20,11 @@ import {
   CURRENT_TASK_TYPE_SET,
   MC_TASK_OPTION_ADD,
   MC_TASK_OPTION_UPDATE,
+  MC_TASK_OPTION_DELETE,
   FA_TASK_ANSWER_SET,
   FA_TASK_SLOGAN_SET,
+  MT_TASK_MULTIMEDIA_TYPE_SET,
+  MT_TASK_SLOGAN_SET,
 } from '../constants/tasks'
 
 import {
@@ -149,9 +152,14 @@ export const mcActions = {
       index,
       option,
     },
+  }),
+  deleteOption: index => ({
+    type:MC_TASK_OPTION_DELETE,
+    payload:index,
   })
 }
 
+//Actions especificas para tarea de tipo Free Answer
 export const faActions = {
   setSlogan: slogan => ({
     type:FA_TASK_SLOGAN_SET,
@@ -160,5 +168,17 @@ export const faActions = {
   setAnswer: answer => ({
     type:FA_TASK_ANSWER_SET,
     payload:answer,
+  })
+}
+
+//Actions especificas para tarea de tipo Multimedia
+export const mtActions = {
+  setSlogan: slogan => ({
+    type:MT_TASK_SLOGAN_SET,
+    payload:slogan,
+  }),
+  setMultimediaType: multimedia_type => ({
+    type:MT_TASK_MULTIMEDIA_TYPE_SET,
+    payload:multimedia_type,
   })
 }

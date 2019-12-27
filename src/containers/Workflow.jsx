@@ -3,12 +3,11 @@ import { Button, Dropdown, Header } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withRouter } from 'react-router-dom'
+import intl from 'react-intl-universal'
 
 import {
 	PENDING,
 	SUCCESS,
-	OUTDATED,
-	UNSET,
 } from '../constants/status'
 import {
 	FREE,
@@ -48,7 +47,7 @@ class ActivityWorkflow extends Component {
 		getTasks(id)
 	}
 
-	componentDidUpdate(prevProps, prevState) {
+	componentDidUpdate(prevProps) {
 		const {
 			index,
 			status,
@@ -86,17 +85,15 @@ class ActivityWorkflow extends Component {
 		} = this.props
 
 		const orderOptions = [
-			{ key: 0, value: FREE, text: 'Libre' },
-			{ key: 1, value: SECUENTIAL, text: 'Secuencial' },
-			{ key: 2, value: CUSTOMIZED, text: 'Personalizada' }
+			{ key: 0, value: FREE, text: intl.get('WORKFLOW_FREE') },
+			{ key: 1, value: SECUENTIAL, text: intl.get('WORKFLOW_SECUENTIAL') },
+			{ key: 2, value: CUSTOMIZED, text: intl.get('WORKFLOW_CUSTOMIZED') }
 		]
-
-    if(status === OUTDATED || status === UNSET) getTasks(this.props.match.params.id)
 
 		return status === SUCCESS ? (
 			<div className="background">
 				<div className="container">
-					<Header as='h3'>Configurando Workflow</Header>
+					<Header as='h3'>{intl.get('WORKFLOW_TITLE')}</Header>
 					<Dropdown
 						selection
 						placeholder=''
@@ -110,8 +107,8 @@ class ActivityWorkflow extends Component {
 					<Button onClick={() => {
 						setWorkflow(this.state.edges, index)
 						history.push('/Activity/' + this.props.match.params.id)
-					}}>Finalizar</Button>
-					<Button onClick={() => history.push('/Activity/' + this.props.match.params.id)}>Volver</Button>
+					}}>{intl.get('SAVE')}</Button>
+					<Button onClick={() => history.push('/Activity/' + this.props.match.params.id)}>{intl.get('BACK')}</Button>
 				</div>
 			</div>
 		) : null

@@ -5,12 +5,15 @@ import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 
 import AppRouter from './routers/AppRouter'
+import Internacionalization from './components/Internacionalization'
 import AppReducer from './reducers'
 
 const packages = []
 
 packages.push(thunk)
-packages.push(createLogger())
+if (process.env.NODE_ENV === 'development') {
+  packages.push(createLogger())
+}
 
 class App extends Component {
 
@@ -19,7 +22,7 @@ class App extends Component {
   render() {
     return (
       <Provider store={this.store}>
-        <AppRouter />
+        <Internacionalization BaseComponent={AppRouter} />
       </Provider>
     );
   }

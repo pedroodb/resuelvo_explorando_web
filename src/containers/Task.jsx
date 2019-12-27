@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import intl from 'react-intl-universal'
 import { Form, Button, Divider, Segment, Header, ButtonGroup } from 'semantic-ui-react'
 
 import {
   MULTIPLE_CHOICE,
   FREE_ANSWER,
+  MULTIMEDIA_TASK,
 } from '../constants/taskTypes'
 import {
   getTask,
@@ -82,25 +84,42 @@ class TaskSetUpContainer extends Component {
     return (status === SUCCESS || status === OUTDATED) ? (
       <div className="background">
         <Segment padded='very' className='container'>
-          <Header>Creando tarea</Header>
+          <Header>{intl.get('TASK_TITLE')}</Header>
           <Form loading={updateStatus === PENDING}>
-            <Form.Input required name='name' label='Nombre' value={task.name} placeholder='Título'
+            <Form.Input
+              name='name'
+              value={task.name}
+              label={intl.get('TASK_FIELD_TITLE')}
+              placeholder={intl.get('TASK_FIELD_TITLE')}
               onChange={(event, { value, name }) => setCurrentTaskField(name,value)}
-              error={(validationError && task.name === '') ? {content:'Este campo no puede estar vacio'} : undefined}
+              error={
+                (validationError && task.name === '') ? 
+                  {content:intl.get('EMPTY_FIELD_ERROR')} : 
+                  undefined
+              }
             />
-            <Form.Input required name='description' label='Descripción' value={task.description} placeholder='Descripción'
+            <Form.Input
+              name='description'
+              value={task.description}
+              label={intl.get('TASK_FIELD_DESCRIPTION')}
+              placeholder={intl.get('TASK_FIELD_DESCRIPTION')}
               onChange={(event, { value, name }) => setCurrentTaskField(name,value)}
-              error={(validationError && task.description === '') ? {content:'Este campo no puede estar vacio'} : undefined}
+              error={
+                (validationError && task.description === '') ?
+                  {content:intl.get('EMPTY_FIELD_ERROR')} :
+                  undefined
+              }
             />
             <Form.Select
               name='type'
               value={task.type}
-              label='Seleccione un tipo de tarea'
-              placeholder='Elija el tipo de tarea' 
+              label={intl.get('TASK_TYPE_SELECT_LABEL')}
+              placeholder={intl.get('TASK_TYPE_SELECT_LABEL')}
               onChange={(event, { value }) => setCurrentTaskType(value,TaskTypesHelper[value].defaultPayload)}
               options={[
-                { text:'Multiple Choice', value:MULTIPLE_CHOICE },
-                { text:'Respuesta libre', value:FREE_ANSWER },
+                { text:intl.get('TASK_TYPE_MC'), value:MULTIPLE_CHOICE },
+                { text:intl.get('TASK_TYPE_FA'), value:FREE_ANSWER },
+                { text:intl.get('TASK_TYPE_MT'), value:MULTIMEDIA_TASK },
               ]}
             />
           </Form>
@@ -108,8 +127,8 @@ class TaskSetUpContainer extends Component {
           <TaskBuilder type={task.type} payload={task.payload}/>
           <Divider/>
           <ButtonGroup floated='right'>
-            <Button basic color='grey' content='Cancelar' onClick={() => history.push(`/Activity/${activity_id}`)}/>
-            <Button basic primary content='Confirmar' onClick={() => {
+            <Button basic color='grey' content={intl.get('CANCEL')} onClick={() => history.push(`/Activity/${activity_id}`)}/>
+            <Button basic primary content={intl.get('SAVE')} onClick={() => {
               if(task.name !== '' && task.description !== '') {
                 updateTask(activity_id,task.id,task)
               } else {
